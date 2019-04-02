@@ -31,3 +31,17 @@
     transform: rotate(360deg);
   }
 }
+
+#search-input {
+  text-align: center;
+  color: white;
+}
+
+#search-form {
+  width: 96%;
+  margin: auto;
+}
+
+.content{
+  width: 100%;
+}
