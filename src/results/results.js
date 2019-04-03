@@ -4,13 +4,13 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
-import { fade } from '@material-ui/core/styles/colorManipulator';
-import { withStyles } from '@material-ui/core/styles';
+import {fade} from '@material-ui/core/styles/colorManipulator';
+import {withStyles} from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 
 const styles = theme => ({
-  appBar:{
-   backgroundColor: '#282c34'
+  appBar: {
+    backgroundColor: '#282c34'
   },
   grow: {
     flexGrow: 1,
@@ -51,6 +51,10 @@ const styles = theme => ({
     minHeight: '100vh',
     backgroundColor: 'white'
   },
+  searchResult:{
+    color: 'black',
+    textAlign: 'left'
+  },
   inputInput: {
     paddingTop: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
@@ -65,9 +69,41 @@ const styles = theme => ({
 });
 
 class SearchResults extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchResults: []
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  getSearchResults(searchKey) {
+    if (searchKey.length > 3) {
+      fetch('http://localhost:9000/api/search?for=' + searchKey, {
+        method: 'GET'
+      }).then(results => {
+        return results.json();
+      }).then(data => {
+        this.setState({searchResults: data});
+      });
+    }
+  }
+
+  componentDidMount() {
+    this.getSearchResults(this.props.search);
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    this.getSearchResults(this.props.search)
+  }
+
   render() {
-    const { classes } = this.props;
+    const {classes} = this.props;
+    const {searchResults} = this.state;
     return (
+
       <div className="content">
         <AppBar position="static">
           <Toolbar className={classes.appBar}>
@@ -76,22 +112,36 @@ class SearchResults extends Component {
             </Typography>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
-                <SearchIcon />
+                <SearchIcon/>
               </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-              />
+              <form id="search-form" onSubmit={this.handleSubmit} noValidate autoComplete="off">
+                <InputBase
+                  name="search"
+                  placeholder="Search…"
+                  value={this.props.search}
+                  onChange={this.props.handleChange()}
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput,
+                  }}
+                />
+              </form>
             </div>
-            <div className={classes.grow} />
+            <div className={classes.grow}/>
           </Toolbar>
         </AppBar>
-        <div className={classes.container}></div>
+        <div className={classes.container}>
+          {searchResults
+            ? searchResults.map((otherEntity) => (
+              <div className={classes.searchResult} key={otherEntity.id}>
+                {otherEntity.title}
+              </div>
+            ))
+            : null}
+        </div>
       </div>
-    );
+    )
+      ;
   }
 }
 
