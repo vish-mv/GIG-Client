@@ -7,6 +7,7 @@ import InputBase from '@material-ui/core/InputBase';
 import {fade} from '@material-ui/core/styles/colorManipulator';
 import {withStyles} from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
+import Paper from '@material-ui/core/Paper';
 
 const styles = theme => ({
   appBar: {
@@ -18,6 +19,7 @@ const styles = theme => ({
   menuButton: {
     marginLeft: -12,
     marginRight: 20,
+    cursor: 'pointer'
   },
   search: {
     position: 'relative',
@@ -49,11 +51,8 @@ const styles = theme => ({
   },
   container: {
     minHeight: '100vh',
-    backgroundColor: 'white'
-  },
-  searchResult:{
-    color: 'black',
-    textAlign: 'left'
+    backgroundColor: '#eeeeee',
+    padding: '10px'
   },
   inputInput: {
     paddingTop: theme.spacing.unit,
@@ -66,6 +65,14 @@ const styles = theme => ({
       width: 200,
     },
   },
+  searchResult: {
+    ...theme.mixins.gutters(),
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2,
+    color: 'black',
+    textAlign: 'left',
+    margin: '10px'
+  },
 });
 
 class SearchResults extends Component {
@@ -73,9 +80,12 @@ class SearchResults extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      searchKey: this.props.match.params.searchKey,
       searchResults: []
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.redirectPage = this.redirectPage.bind(this);
   }
 
   getSearchResults(searchKey) {
@@ -91,23 +101,33 @@ class SearchResults extends Component {
   }
 
   componentDidMount() {
-    this.getSearchResults(this.props.search);
+    this.getSearchResults(this.state.searchKey);
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    this.getSearchResults(this.props.search)
+    this.getSearchResults(this.state.searchKey)
+  }
+
+  handleChange(e) {
+    this.setState({
+      searchKey: e.target.value
+    });
+  }
+
+  redirectPage() {
+    this.props.history.push(`/`)
   }
 
   render() {
     const {classes} = this.props;
-    const {searchResults} = this.state;
+    const {searchResults, searchKey} = this.state;
     return (
 
       <div className="content">
         <AppBar position="static">
           <Toolbar className={classes.appBar}>
-            <Typography className={classes.menuButton} variant="h6" color="inherit" noWrap>
+            <Typography onClick={this.redirectPage} className={classes.menuButton} variant="h6" color="inherit" noWrap>
               General Information Graph
             </Typography>
             <div className={classes.search}>
@@ -118,8 +138,8 @@ class SearchResults extends Component {
                 <InputBase
                   name="search"
                   placeholder="Search…"
-                  value={this.props.search}
-                  onChange={this.props.handleChange()}
+                  value={searchKey}
+                  onChange={this.handleChange}
                   classes={{
                     root: classes.inputRoot,
                     input: classes.inputInput,
@@ -132,12 +152,23 @@ class SearchResults extends Component {
         </AppBar>
         <div className={classes.container}>
           {searchResults
-            ? searchResults.map((otherEntity) => (
-              <div className={classes.searchResult} key={otherEntity.id}>
-                {otherEntity.title}
-              </div>
+            ? searchResults.map((entity) => (
+              <Paper className={classes.searchResult} key={entity.id} elevation={1}>
+                <Typography variant="h5" component="h3">
+                  {entity.title}
+                </Typography>
+                <Typography component="p">
+                  {entity.content}
+                </Typography>
+              </Paper>
             ))
-            : null}
+            :
+            <Paper className={classes.searchResult} elevation={1}>
+              <Typography component="p">
+                No Results Found
+              </Typography>
+            </Paper>
+          }
         </div>
       </div>
     )

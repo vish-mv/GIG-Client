@@ -4,6 +4,7 @@ import {
   HashRouter
 } from "react-router-dom";
 import Home from "./home/home";
+import SearchResults from "./results/results";
 
 import './app.css';
 
@@ -13,7 +14,8 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <HashRouter>
-                <Route path="/" component={Home}/>
+            <Route exact path="/" component={Home}/>
+            <Route path="/search/:searchKey" component={SearchResults}/>
           </HashRouter>
         </header>
       </div>
