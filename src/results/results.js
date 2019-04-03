@@ -106,7 +106,8 @@ class SearchResults extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.getSearchResults(this.state.searchKey)
+    this.redirectPage('/search/' + this.state.searchKey);
+    this.getSearchResults(this.state.searchKey);
   }
 
   handleChange(e) {
@@ -115,8 +116,8 @@ class SearchResults extends Component {
     });
   }
 
-  redirectPage() {
-    this.props.history.push(`/`)
+  redirectPage(url) {
+    this.props.history.push(url)
   }
 
   render() {
@@ -127,7 +128,8 @@ class SearchResults extends Component {
       <div className="content">
         <AppBar position="static">
           <Toolbar className={classes.appBar}>
-            <Typography onClick={this.redirectPage} className={classes.menuButton} variant="h6" color="inherit" noWrap>
+            <Typography onClick={() => this.redirectPage('/')} className={classes.menuButton} variant="h6"
+                        color="inherit" noWrap>
               General Information Graph
             </Typography>
             <div className={classes.search}>
