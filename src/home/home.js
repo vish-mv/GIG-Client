@@ -21,7 +21,9 @@ class Home extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.history.push(`/search/` + this.state.searchKey)
+    if (this.state.searchKey.length>3) {
+      this.props.history.push(`/search/` + this.state.searchKey);
+    }
   }
 
   render() {

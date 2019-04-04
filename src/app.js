@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import Home from "./home/home";
 import SearchResults from "./results/results";
+import ViewResult from "./view/view"
 
 import './app.css';
 
@@ -16,6 +17,7 @@ class App extends Component {
           <HashRouter>
             <Route exact path="/" component={Home}/>
             <Route path="/search/:searchKey" component={SearchResults}/>
+            <Route path="/content/:title/:id" component={ViewResult}/>
           </HashRouter>
         </header>
       </div>

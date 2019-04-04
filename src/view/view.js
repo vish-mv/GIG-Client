@@ -76,39 +76,38 @@ const styles = theme => ({
   },
 });
 
-class SearchResults extends Component {
+class ViewResult extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      searchKey: this.props.match.params.searchKey,
-      searchResults: []
+      searchKey:"",
+      resultId: this.props.match.params.id,
+      result: []
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.redirectPage = this.redirectPage.bind(this);
   }
 
-  getSearchResults(searchKey) {
-    if (searchKey.length > 3) {
-      fetch('http://localhost:9000/api/search?for=' + searchKey, {
-        method: 'GET'
-      }).then(results => {
-        return results.json();
-      }).then(data => {
-        this.setState({searchResults: data});
-      });
-    }
+  getResult(id) {
+    fetch('http://localhost:9000/api/get/' + id, {
+      method: 'GET'
+    }).then(results => {
+      return results.json();
+    }).then(data => {
+      this.setState({result: data});
+    });
   }
 
   componentDidMount() {
-    this.getSearchResults(this.state.searchKey);
+    this.getResult(this.state.resultId);
   }
 
   handleSubmit(event) {
     event.preventDefault();
     this.redirectPage('/search/' + this.state.searchKey);
-    this.getSearchResults(this.state.searchKey);
+    this.getResult(this.state.searchKey);
   }
 
   handleChange(e) {
@@ -123,7 +122,7 @@ class SearchResults extends Component {
 
   render() {
     const {classes} = this.props;
-    const {searchResults, searchKey} = this.state;
+    const {result, searchKey} = this.state;
     return (
 
       <div className="content">
@@ -154,25 +153,14 @@ class SearchResults extends Component {
           </Toolbar>
         </AppBar>
         <div className={classes.container}>
-          {searchResults
-            ? searchResults.map((entity) => (
-              <Paper onClick={() => this.redirectPage('/content/' + entity.title + '/' + entity.id)}
-                     className={classes.searchResult} key={entity.id} elevation={1}>
-                <Typography variant="h5" component="h3">
-                  {entity.title}
-                </Typography>
-                <Typography component="p">
-                  {entity.content}
-                </Typography>
-              </Paper>
-            ))
-            :
-            <Paper className={classes.searchResult} elevation={1}>
-              <Typography component="p">
-                No Results Found
-              </Typography>
-            </Paper>
-          }
+          <Paper className={classes.searchResult} elevation={1}>
+            <Typography variant="h5" component="h3">
+              {result.title}
+            </Typography>
+            <Typography component="p">
+              {result.content}
+            </Typography>
+          </Paper>
         </div>
       </div>
     )
@@ -180,8 +168,8 @@ class SearchResults extends Component {
   }
 }
 
-SearchResults.propTypes = {
+ViewResult.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(SearchResults);
+export default withStyles(styles)(ViewResult);
