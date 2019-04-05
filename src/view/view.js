@@ -91,7 +91,7 @@ class ViewResult extends Component {
   }
 
   getResult(id) {
-    fetch('http://localhost:9000/api/get/' + id, {
+    fetch(process.env.REACT_APP_SERVER_URL +'api/get/' + id, {
       method: 'GET'
     }).then(results => {
       return results.json();

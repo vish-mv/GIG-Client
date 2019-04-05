@@ -91,7 +91,7 @@ class SearchResults extends Component {
 
   getSearchResults(searchKey) {
     if (searchKey.length > 3) {
-      fetch('http://localhost:9000/api/search?for=' + searchKey, {
+      fetch(process.env.REACT_APP_SERVER_URL + 'api/search?for=' + searchKey, {
         method: 'GET'
       }).then(results => {
         return results.json();
