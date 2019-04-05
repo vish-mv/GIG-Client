@@ -8,6 +8,7 @@ import {fade} from '@material-ui/core/styles/colorManipulator';
 import {withStyles} from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import Paper from '@material-ui/core/Paper';
+import {Link} from 'react-router-dom'
 
 const styles = theme => ({
   appBar: {
@@ -86,7 +87,6 @@ class SearchResults extends Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.redirectPage = this.redirectPage.bind(this);
   }
 
   getSearchResults(searchKey) {
@@ -107,7 +107,7 @@ class SearchResults extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.redirectPage('/search/' + this.state.searchKey);
+    this.props.history.push('/search/' + this.state.searchKey);
     this.getSearchResults(this.state.searchKey);
   }
 
@@ -115,10 +115,6 @@ class SearchResults extends Component {
     this.setState({
       searchKey: e.target.value
     });
-  }
-
-  redirectPage(url) {
-    this.props.history.push(url)
   }
 
   render() {
@@ -129,7 +125,7 @@ class SearchResults extends Component {
       <div className="content">
         <AppBar position="static">
           <Toolbar className={classes.appBar}>
-            <Typography onClick={() => this.redirectPage('/')} className={classes.menuButton} variant="h6"
+            <Typography component={Link} to="/" style={{ textDecoration: 'none' }} className={classes.menuButton} variant="h6"
                         color="inherit" noWrap>
               General Information Graph
             </Typography>
@@ -156,8 +152,8 @@ class SearchResults extends Component {
         <div className={classes.container}>
           {searchResults
             ? searchResults.map((entity) => (
-              <Paper onClick={() => this.redirectPage('/content/' + entity.title + '/' + entity.id)}
-                     className={classes.searchResult} key={entity.id} elevation={1}>
+              <Link to={'/content/' + entity.title + '/' + entity.id} style={{ textDecoration: 'none' }}>
+              <Paper className={classes.searchResult} key={entity.id} elevation={1}>
                 <Typography variant="h5" component="h3">
                   {entity.title}
                 </Typography>
@@ -165,6 +161,7 @@ class SearchResults extends Component {
                   {entity.content}
                 </Typography>
               </Paper>
+              </Link>
             ))
             :
             <Paper className={classes.searchResult} elevation={1}>

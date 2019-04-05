@@ -8,6 +8,7 @@ import {fade} from '@material-ui/core/styles/colorManipulator';
 import {withStyles} from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import Paper from '@material-ui/core/Paper';
+import {Link} from 'react-router-dom'
 
 const styles = theme => ({
   appBar: {
@@ -87,7 +88,6 @@ class ViewResult extends Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.redirectPage = this.redirectPage.bind(this);
   }
 
   getResult(id) {
@@ -106,7 +106,7 @@ class ViewResult extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.redirectPage('/search/' + this.state.searchKey);
+    this.props.history.push('/search/' + this.state.searchKey);
     this.getResult(this.state.searchKey);
   }
 
@@ -114,10 +114,6 @@ class ViewResult extends Component {
     this.setState({
       searchKey: e.target.value
     });
-  }
-
-  redirectPage(url) {
-    this.props.history.push(url)
   }
 
   render() {
@@ -128,7 +124,7 @@ class ViewResult extends Component {
       <div className="content">
         <AppBar position="static">
           <Toolbar className={classes.appBar}>
-            <Typography onClick={() => this.redirectPage('/')} className={classes.menuButton} variant="h6"
+            <Typography component={Link} to="/" style={{ textDecoration: 'none' }} className={classes.menuButton} variant="h6"
                         color="inherit" noWrap>
               General Information Graph
             </Typography>
