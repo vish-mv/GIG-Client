@@ -1,14 +1,9 @@
 import React, {Component} from "react";
 import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
 import {fade} from '@material-ui/core/styles/colorManipulator';
 import {withStyles} from '@material-ui/core/styles';
-import SearchIcon from '@material-ui/icons/Search';
 import Paper from '@material-ui/core/Paper';
-import {Link} from 'react-router-dom'
 
 const styles = theme => ({
   appBar: {
@@ -82,16 +77,13 @@ class ViewResult extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchKey:"",
       resultId: this.props.match.params.id,
       result: []
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
   }
 
   getResult(id) {
-    fetch(process.env.REACT_APP_SERVER_URL +'api/get/' + id, {
+    fetch(process.env.REACT_APP_SERVER_URL + 'api/get/' + id, {
       method: 'GET'
     }).then(results => {
       return results.json();
@@ -104,50 +96,12 @@ class ViewResult extends Component {
     this.getResult(this.state.resultId);
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    this.props.history.push('/search/' + this.state.searchKey);
-    this.getResult(this.state.searchKey);
-  }
-
-  handleChange(e) {
-    this.setState({
-      searchKey: e.target.value
-    });
-  }
-
   render() {
     const {classes} = this.props;
-    const {result, searchKey} = this.state;
+    const {result} = this.state;
     return (
 
       <div className="content">
-        <AppBar position="static">
-          <Toolbar className={classes.appBar}>
-            <Typography component={Link} to="/" style={{ textDecoration: 'none' }} className={classes.menuButton} variant="h6"
-                        color="inherit" noWrap>
-              General Information Graph
-            </Typography>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon/>
-              </div>
-              <form id="search-form" onSubmit={this.handleSubmit} noValidate autoComplete="off">
-                <InputBase
-                  name="search"
-                  placeholder="Search…"
-                  value={searchKey}
-                  onChange={this.handleChange}
-                  classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput,
-                  }}
-                />
-              </form>
-            </div>
-            <div className={classes.grow}/>
-          </Toolbar>
-        </AppBar>
         <div className={classes.container}>
           <Paper className={classes.searchResult} elevation={1}>
             <Typography variant="h5" component="h3">
@@ -159,8 +113,7 @@ class ViewResult extends Component {
           </Paper>
         </div>
       </div>
-    )
-      ;
+    );
   }
 }
 
