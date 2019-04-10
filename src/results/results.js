@@ -26,6 +26,7 @@ class SearchResults extends Component {
 
   componentDidMount() {
     this.props.handleChange("searchKey", this.props.match.params.searchKey);
+    this.props.getSearchResults(this.props.match.params.searchKey);
   }
 
   render() {

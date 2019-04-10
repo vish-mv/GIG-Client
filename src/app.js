@@ -34,7 +34,6 @@ class App extends Component {
         return results.json();
       }).then(data => {
         this.handleChange("searchResults", data);
-        console.log(this);
       });
     }
   }
@@ -66,6 +65,7 @@ class App extends Component {
                                                      searchKey={this.state.searchKey}
                                                      handleChange={this.handleChange}
                                                      searchResults={this.state.searchResults}
+                                                     getSearchResults={this.getSearchResults}
                    />}
             />
             <Route path="/content/:title/:id"

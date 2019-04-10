@@ -53,11 +53,11 @@ const styles = theme => ({
     paddingTop: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
     paddingBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 10,
+    paddingLeft: theme.spacing.unit,
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
-      width: 200,
+      width: 400,
     },
   },
 });
@@ -73,7 +73,10 @@ class Header extends Component {
     event.preventDefault();
     if (this.props.searchKey.length > 2) {
       this.props.history.push(`/search/` + this.props.searchKey);
-      this.props.getSearchResults(this.props.searchKey);
+
+      if (this.props.location.pathname!=="/") {
+        this.props.getSearchResults(this.props.searchKey);
+      }
     }
   }
 
