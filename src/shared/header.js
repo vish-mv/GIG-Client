@@ -73,6 +73,7 @@ class Header extends Component {
     event.preventDefault();
     if (this.props.searchKey.length > 2) {
       this.props.history.push(`/search/` + this.props.searchKey);
+      this.props.getSearchResults(this.props.searchKey);
     }
   }
 

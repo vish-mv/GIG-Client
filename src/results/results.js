@@ -24,21 +24,8 @@ const styles = theme => ({
 
 class SearchResults extends Component {
 
-  getSearchResults(searchKey) {
-    if (searchKey.length > 2) {
-      fetch(process.env.REACT_APP_SERVER_URL + 'api/search?for=' + searchKey, {
-        method: 'GET'
-      }).then(results => {
-        return results.json();
-      }).then(data => {
-        this.props.handleChange("searchResults", data);
-      });
-    }
-  }
-
   componentDidMount() {
     this.props.handleChange("searchKey", this.props.match.params.searchKey);
-    this.getSearchResults(this.props.searchKey);
   }
 
   render() {
@@ -50,8 +37,8 @@ class SearchResults extends Component {
         <div className={classes.container}>
           {searchResults
             ? searchResults.map((entity) => (
-              <Link to={'/content/' + entity.title + '/' + entity.id} style={{textDecoration: 'none'}}>
-                <Paper className={classes.searchResult} key={entity.id} elevation={1}>
+              <Link key={entity.id}  to={'/content/' + entity.title + '/' + entity.id} style={{textDecoration: 'none'}}>
+                <Paper className={classes.searchResult} elevation={1}>
                   <Typography variant="h5" component="h3">
                     {entity.title}
                   </Typography>

@@ -24,7 +24,29 @@ class App extends Component {
 
   handleChange(key, value) {
     this.setState({[key]: value});
-    console.log(this.state.searchKey);
+  }
+
+  getSearchResults(searchKey) {
+    if (searchKey.length > 2) {
+      fetch(process.env.REACT_APP_SERVER_URL + 'api/search?for=' + searchKey, {
+        method: 'GET'
+      }).then(results => {
+        return results.json();
+      }).then(data => {
+        this.handleChange("searchResults", data);
+        console.log(this);
+      });
+    }
+  }
+
+  getEntity(id) {
+    fetch(process.env.REACT_APP_SERVER_URL + 'api/get/' + id, {
+      method: 'GET'
+    }).then(results => {
+      return results.json();
+    }).then(data => {
+      this.handleChange("loadedEntity", data);
+    });
   }
 
   render() {
@@ -36,15 +58,23 @@ class App extends Component {
                    render={(props) => <Header {...props}
                                               searchKey={this.state.searchKey}
                                               handleChange={this.handleChange}
+                                              getSearchResults={this.getSearchResults}
                    />}
             />
             <Route path="/search/:searchKey"
                    render={(props) => <SearchResults {...props}
                                                      searchKey={this.state.searchKey}
                                                      handleChange={this.handleChange}
+                                                     searchResults={this.state.searchResults}
                    />}
             />
-            <Route path="/content/:title/:id" component={ViewResult}/>
+            <Route path="/content/:title/:id"
+                   render={(props) => <ViewResult {...props}
+                                                  getEntity={this.getEntity}
+                                                  loadedEntity={this.state.loadedEntity}
+                                                  handleChange={this.handleChange}
+                   />}
+            />
           </HashRouter>
         </header>
       </div>
