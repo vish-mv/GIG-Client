@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import {Link} from "react-router-dom";
+import FormattedContent from "./formattedContent";
 
 const styles = theme => ({
   container: {
@@ -18,7 +19,9 @@ const styles = theme => ({
     color: 'black',
     textAlign: 'left',
     margin: '10px',
-    cursor: 'pointer',
+  },
+  paragraph: {
+    margin: '15px 0'
   },
 });
 
@@ -42,17 +45,17 @@ class ViewResult extends Component {
           <Paper className={classes.searchResult} elevation={1}>
             {loadedEntity ?
               <div>
-                <Typography variant="h5" component="h3">
+                <Typography variant="h4" component="h4">
                   {loadedEntity.title}
                 </Typography>
                 <Typography component="p">
-                  {loadedEntity.content}
+               <FormattedContent content={loadedEntity.content}/>
                 </Typography>
                 <br/>
                 <Typography component="p">
                   Links:
                   {loadedEntity.links ? loadedEntity.links.map((title) => (
-                    <Link key={title} to={'/content/' + title} style={{paddingRight: '10px'}}>
+                    <Link className={classes.link} key={title} to={'/content/' + title}>
                       {title}
                     </Link>
                   )) : null}
@@ -61,7 +64,7 @@ class ViewResult extends Component {
                 <Typography component="p">
                   Categories:
                   {loadedEntity.categories ? loadedEntity.categories.map((title) => (
-                    <Link key={title} to={'/content/' + title} style={{paddingRight: '10px'}}>
+                    <Link className={classes.link} key={title} to={'/content/' + title}>
                       {title}
                     </Link>
                   )) : null}
