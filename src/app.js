@@ -38,11 +38,14 @@ class App extends Component {
     }
   }
 
-  getEntity(id) {
-    fetch(process.env.REACT_APP_SERVER_URL + 'api/get/' + id, {
+  getEntity(title) {
+    fetch(process.env.REACT_APP_SERVER_URL + 'api/get/' + title, {
       method: 'GET'
     }).then(results => {
-      return results.json();
+      if (results.status===200) {
+        return results.json();
+      }
+      return null
     }).then(data => {
       this.handleChange("loadedEntity", data);
     });
@@ -68,7 +71,7 @@ class App extends Component {
                                                      getSearchResults={this.getSearchResults}
                    />}
             />
-            <Route path="/content/:title/:id"
+            <Route path="/content/:title"
                    render={(props) => <ViewResult {...props}
                                                   getEntity={this.getEntity}
                                                   loadedEntity={this.state.loadedEntity}
