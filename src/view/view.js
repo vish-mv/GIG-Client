@@ -23,6 +23,9 @@ const styles = theme => ({
   paragraph: {
     margin: '15px 0'
   },
+  link: {
+    paddingRight: '10px'
+  }
 });
 
 class ViewResult extends Component {
@@ -48,9 +51,7 @@ class ViewResult extends Component {
                 <Typography variant="h4" component="h4">
                   {loadedEntity.title}
                 </Typography>
-                <Typography component="p">
                <FormattedContent content={loadedEntity.content}/>
-                </Typography>
                 <br/>
                 <Typography component="p">
                   Links:

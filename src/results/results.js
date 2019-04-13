@@ -38,7 +38,7 @@ class SearchResults extends Component {
         <div className={classes.container}>
           {searchResults
             ? searchResults.map((entity) => (
-              <Link key={entity.id}  to={'/content/' + entity.title} style={{textDecoration: 'none'}}>
+              <Link key={entity.title}  to={'/content/' + entity.title} style={{textDecoration: 'none'}}>
                 <Paper className={classes.searchResult} elevation={1}>
                   <Typography variant="h5" component="h3">
                     {entity.title}

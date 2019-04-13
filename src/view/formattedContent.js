@@ -2,8 +2,6 @@ import React, {Component} from "react";
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import {Link} from "react-router-dom";
 
 const styles = theme => ({
   container: {
