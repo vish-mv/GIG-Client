@@ -28,7 +28,7 @@ class App extends Component {
 
   getSearchResults(searchKey) {
     if (searchKey.length > 2) {
-      fetch(process.env.REACT_APP_SERVER_URL + 'api/search?for=' + searchKey, {
+      fetch(process.env.REACT_APP_SERVER_URL + 'api/search?query=' + searchKey, {
         method: 'GET'
       }).then(results => {
         return results.json();
