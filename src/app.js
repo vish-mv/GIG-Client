@@ -42,7 +42,7 @@ class App extends Component {
     fetch(process.env.REACT_APP_SERVER_URL + 'api/get/' + title, {
       method: 'GET'
     }).then(results => {
-      if (results.status===200) {
+      if (results.status === 200) {
         return results.json();
       }
       return null
