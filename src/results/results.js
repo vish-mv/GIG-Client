@@ -36,7 +36,7 @@ class SearchResults extends Component {
       <div className="content">
 
         <div className={classes.container}>
-          {searchResults.isArrayType ?
+          {Array.isArray(searchResults) ?
               searchResults ? searchResults.map((entity) => (
                   <Link key={entity.title} to={'/content/' + entity.title} style={{textDecoration: 'none'}}>
                     <Paper className={classes.searchResult} elevation={1}>
