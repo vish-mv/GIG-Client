@@ -36,26 +36,33 @@ class SearchResults extends Component {
       <div className="content">
 
         <div className={classes.container}>
-          {searchResults
-            ? searchResults.map((entity) => (
-              <Link key={entity.title}  to={'/content/' + entity.title} style={{textDecoration: 'none'}}>
+          {searchResults.isArrayType ?
+              searchResults ? searchResults.map((entity) => (
+                  <Link key={entity.title} to={'/content/' + entity.title} style={{textDecoration: 'none'}}>
+                    <Paper className={classes.searchResult} elevation={1}>
+                      <Typography variant="h5" component="h3">
+                        {entity.title}
+                      </Typography>
+                      <Typography component="p">
+                        {entity.content}
+                      </Typography>
+                    </Paper>
+                  </Link>
+                ))
+                :
                 <Paper className={classes.searchResult} elevation={1}>
-                  <Typography variant="h5" component="h3">
-                    {entity.title}
-                  </Typography>
                   <Typography component="p">
-                    {entity.content}
+                    No Results Found
                   </Typography>
                 </Paper>
-              </Link>
-            ))
-            :
+             :
             <Paper className={classes.searchResult} elevation={1}>
               <Typography component="p">
-                No Results Found
+                API Error: {searchResults.error_code} {searchResults.error_message}
               </Typography>
             </Paper>
           }
+
         </div>
       </div>
     )
