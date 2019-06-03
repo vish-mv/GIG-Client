@@ -36,29 +36,30 @@ class SearchResults extends Component {
       <div className="content">
 
         <div className={classes.container}>
-          {Array.isArray(searchResults) ?
-              searchResults ? searchResults.map((entity) => (
-                  <Link key={entity.title} to={'/content/' + entity.title} style={{textDecoration: 'none'}}>
-                    <Paper className={classes.searchResult} elevation={1}>
-                      <Typography variant="h5" component="h3">
-                        {entity.title}
-                      </Typography>
-                      <Typography component="p">
-                        {entity.content}
-                      </Typography>
-                    </Paper>
-                  </Link>
-                ))
-                :
-                <Paper className={classes.searchResult} elevation={1}>
-                  <Typography component="p">
-                    No Results Found
-                  </Typography>
-                </Paper>
-             :
+          {Array.isArray(searchResults) || searchResults != null ?
+            searchResults ? searchResults.map((entity) => (
+                <Link key={entity.title} to={'/content/' + entity.title} style={{textDecoration: 'none'}}>
+                  <Paper className={classes.searchResult} elevation={1}>
+                    <Typography variant="h5" component="h3">
+                      {entity.title}
+                    </Typography>
+                    <Typography component="p">
+                      {entity.content}
+                    </Typography>
+                  </Paper>
+                </Link>
+              ))
+              :
+              <Paper className={classes.searchResult} elevation={1}>
+                <Typography component="p">
+                  No Results Found
+                </Typography>
+              </Paper>
+            :
             <Paper className={classes.searchResult} elevation={1}>
               <Typography component="p">
-                API Error: {searchResults.error_code} {searchResults.error_message}
+                API Error: {searchResults == null ? "No response from API" :
+                searchResults.error_code + searchResults.error_message}
               </Typography>
             </Paper>
           }
