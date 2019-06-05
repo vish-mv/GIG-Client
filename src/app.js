@@ -16,10 +16,23 @@ class App extends Component {
     this.state = {
       searchKey: "",
       searchResults: [],
-      loadedEntity: []
+      loadedEntity: [],
+      loading: true
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.startLoading = this.startLoading.bind(this);
+    this.endLoading = this.endLoading.bind(this);
+    this.getSearchResults = this.getSearchResults.bind(this);
+    this.getEntity = this.getEntity.bind(this);
+  }
+
+  startLoading() {
+    this.setState({loading: true});
+  }
+
+  endLoading() {
+    this.setState({loading: false});
   }
 
   handleChange(key, value) {
@@ -27,6 +40,7 @@ class App extends Component {
   }
 
   getSearchResults(searchKey) {
+    this.startLoading();
     if (searchKey.length > 2) {
       let searchUrl = process.env.REACT_APP_SERVER_URL + 'api/search?query=';
       if (searchKey.includes(":")) {
@@ -41,11 +55,15 @@ class App extends Component {
         return results.json();
       }).then(data => {
         this.handleChange("searchResults", data);
-      });
+      }).then(
+        end => this.endLoading()
+      );
     }
+
   }
 
   getEntity(title) {
+    this.startLoading();
     fetch(process.env.REACT_APP_SERVER_URL + 'api/get/' + title, {
       method: 'GET'
     }).then(results => {
@@ -55,7 +73,9 @@ class App extends Component {
       return null
     }).then(data => {
       this.handleChange("loadedEntity", data);
-    });
+    }).then(
+      end => this.endLoading()
+    );
   }
 
   render() {
@@ -68,6 +88,7 @@ class App extends Component {
                                               searchKey={this.state.searchKey}
                                               handleChange={this.handleChange}
                                               getSearchResults={this.getSearchResults}
+                                              loading={this.state.loading}
                    />}
             />
             <Route path="/search/:searchKey"

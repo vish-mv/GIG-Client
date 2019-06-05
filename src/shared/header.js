@@ -8,6 +8,14 @@ import InputBase from "@material-ui/core/InputBase/InputBase";
 import AppBar from "@material-ui/core/AppBar/AppBar";
 import {fade} from "@material-ui/core/styles/colorManipulator";
 import {withStyles} from "@material-ui/core";
+import { css } from '@emotion/core';
+import BeatLoader from 'react-spinners/BeatLoader';
+
+const override = css`
+    display: block;
+    margin: 0 auto;
+    border-color: red;
+`;
 
 const styles = theme => ({
   appBar: {
@@ -82,7 +90,7 @@ class Header extends Component {
 
   render() {
     const {classes, searchKey, location} = this.props;
-    if (location.pathname === "/") {
+    if (location.pathname === "/") { //if home page
       return (
         <div className="content">
           <h1>GIG</h1>
@@ -106,7 +114,7 @@ class Header extends Component {
         </div>
       );
     }
-    else {
+    else {    // if not homepage
       return (
         <AppBar position="static" style={{marginTop: 0}}>
           <Toolbar className={classes.appBar}>
@@ -129,6 +137,13 @@ class Header extends Component {
                 />
               </form>
             </div>
+            <BeatLoader
+              css={override}
+              sizeUnit={"px"}
+              size={20}
+              color={'#36D7B7'}
+              loading={this.props.loading}
+            />
             <div className={classes.grow}/>
           </Toolbar>
         </AppBar>
