@@ -140,7 +140,7 @@ class Header extends Component {
             <BeatLoader
               css={override}
               sizeUnit={"px"}
-              size={20}
+              size={14}
               color={'#36D7B7'}
               loading={this.props.loading}
             />

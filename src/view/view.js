@@ -50,8 +50,14 @@ class ViewResult extends Component {
               <div>
                 <Typography variant="h4" component="h4">
                   {loadedEntity.title}
-                </Typography>
-               <FormattedContent content={loadedEntity.content}/>
+                </Typography><br/>
+                  <table>
+                    <tbody>
+                    {loadedEntity.attributes ? loadedEntity.attributes.map((attribute) => (
+                      <FormattedContent key={attribute.name} content={attribute}/>
+                    )) : null}
+                    </tbody>
+                  </table>
                 <br/>
                 <Typography component="p">
                   Links:
