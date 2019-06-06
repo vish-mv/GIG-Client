@@ -41,14 +41,15 @@ class SearchResults extends Component {
         <div className={classes.container}>
           {Array.isArray(searchResults) ?
             searchResults.map((entity) => (
-              <Link key={entity.title} to={'/content/' + entity.title} style={{textDecoration: 'none'}}>
-                <Paper className={classes.searchResult} elevation={1}>
+                <Paper key={entity.title} className={classes.searchResult} elevation={1}>
+                  <Link to={'/content/' + entity.title} style={{textDecoration: 'none'}}>
                   <Typography variant="h5" component="h3">
                     {entity.title}
                   </Typography>
                   <Typography component="p">
                     {entity.snippet}
                   </Typography>
+                  </Link>
                   <Typography component="p">
                     {entity.categories ? entity.categories.map((title) => (
                       <Link className={classes.link} key={entity.title+title} to={'/content/' + title}>
@@ -57,7 +58,6 @@ class SearchResults extends Component {
                     )) : null}
                   </Typography>
                 </Paper>
-              </Link>
             ))
             :
             <Paper className={classes.searchResult} elevation={1}>
