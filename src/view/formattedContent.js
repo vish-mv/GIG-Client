@@ -41,7 +41,9 @@ class FormattedContent extends Component {
       case "wikiText":
         return this.formatWikiText(value.raw_value);
       default:
-        return <Typography>{value.raw_value}</Typography>;
+        return <Typography>{value.raw_value.split('\n').map(item => {
+          return <p>{item}</p>
+        })}</Typography>;
     }
   }
 
