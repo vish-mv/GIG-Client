@@ -27,29 +27,39 @@ const styles = theme => ({
 
 class FormattedContent extends Component {
 
-  formatValue(values) {
-    let defaultValue = values.length > 0 ? values[values.length - 1] : null;
-    if (defaultValue === null) {
-      return null;
-    }
-    switch (defaultValue.type) {
+  formatValues(values) {
+    return values.map(value => {
+      return this.formatValue(value);
+    })
+
+  }
+
+  formatValue(value) {
+    switch (value.type) {
       case "date":
-        return <Typography>{new Date(defaultValue.raw_value).toDateString()}</Typography>;
+        return this.formatDate(value.raw_value);
       case "wikiText":
-        defaultValue.raw_value.split('\n').map((item, i) => {
-          if ((item.match(/=/g) || []).length === 4) {
-            return <Typography variant="h5" component="h5" key={i}>{item.replace(/=/g, '')}</Typography>;
-          } else if ((item.match(/=/g) || []).length === 6) {
-            return <Typography variant="h6" component="h6" key={i}>{item.replace(/=/g, '')}</Typography>;
-          } else {
-            return <Typography component="p" className={this.props.classes.paragraph}
-                               key={i}>{item.replace(/=/g, '')}</Typography>
-          }
-        });
-        break;
+        return this.formatWikiText(value.raw_value);
       default:
-        return <Typography>{defaultValue.raw_value}</Typography>;
+        return <Typography>{value.raw_value}</Typography>;
     }
+  }
+
+  formatDate(dateString) {
+    return <Typography>{new Date(dateString).toDateString()}</Typography>;
+  }
+
+  formatWikiText(textString) {
+    return textString.split('\n').map((item, i) => {
+      if ((item.match(/=/g) || []).length === 4) {
+        return <Typography variant="h5" component="h5" key={i}>{item.replace(/=/g, '')}</Typography>;
+      } else if ((item.match(/=/g) || []).length === 6) {
+        return <Typography variant="h6" component="h6" key={i}>{item.replace(/=/g, '')}</Typography>;
+      } else {
+        return <Typography component="p" className={this.props.classes.paragraph}
+                           key={i}>{item.replace(/=/g, '')}</Typography>
+      }
+    });
   }
 
   render() {
@@ -57,7 +67,7 @@ class FormattedContent extends Component {
     return (
       <tr key={content.name}>
         <td><Typography>{content.name !== "" ? content.name + ": " : ""}</Typography></td>
-        <td>{this.formatValue(content.values)}</td>
+        <td>{this.formatValues(content.values)}</td>
       </tr>
     );
   }
