@@ -41,14 +41,14 @@ class FormattedContent extends Component {
       case "wikiText":
         return this.formatWikiText(value.raw_value);
       default:
-        return <Typography>{value.raw_value.split('\n').map(item => {
-          return <p>{item}</p>
+        return <Typography key={value.raw_value}>{value.raw_value.split('\n').map(item => {
+          return <span key={item}>{item}</span>
         })}</Typography>;
     }
   }
 
   formatDate(dateString) {
-    return <Typography>{new Date(dateString).toDateString()}</Typography>;
+    return <Typography key={dateString}>{new Date(dateString).toDateString()}</Typography>;
   }
 
   formatWikiText(textString) {
