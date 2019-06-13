@@ -52,7 +52,7 @@ class SearchResults extends Component {
                   </Link>
                   <Typography component="p">
                     {entity.categories ? entity.categories.map((title) => (
-                      <Link className={classes.link} key={entity.title+title} to={'/content/' + title}>
+                      <Link className={classes.link} key={entity.title+title} to={'/search/' + title+':'}>
                         {title}
                       </Link>
                     )) : null}
