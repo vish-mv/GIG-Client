@@ -32,6 +32,12 @@ class SearchResults extends Component {
     this.props.getSearchResults(this.props.match.params.searchKey);
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.match.params.searchKey !== this.props.match.params.searchKey) {
+      this.props.getSearchResults(this.props.match.params.searchKey);
+    }
+  }
+
   render() {
     const {classes, searchResults} = this.props;
     return (
@@ -41,23 +47,23 @@ class SearchResults extends Component {
         <div className={classes.container}>
           {Array.isArray(searchResults) ?
             searchResults.map((entity) => (
-                <Paper key={entity.title} className={classes.searchResult} elevation={1}>
-                  <Link to={'/content/' + entity.title} style={{textDecoration: 'none'}}>
+              <Paper key={entity.title} className={classes.searchResult} elevation={1}>
+                <Link to={'/content/' + entity.title} style={{textDecoration: 'none'}}>
                   <Typography variant="h5" component="h3">
                     {entity.title}
                   </Typography>
                   <Typography component="p">
                     {entity.snippet}
                   </Typography>
-                  </Link>
-                  <Typography component="p">
-                    {entity.categories ? entity.categories.map((title) => (
-                      <Link className={classes.link} key={entity.title+title} to={'/search/' + title+':'}>
-                        {title}
-                      </Link>
-                    )) : null}
-                  </Typography>
-                </Paper>
+                </Link>
+                <Typography component="p">
+                  {entity.categories ? entity.categories.map((title) => (
+                    <Link className={classes.link} key={entity.title + title} to={'/search/' + title + ':'}>
+                      {title}
+                    </Link>
+                  )) : null}
+                </Typography>
+              </Paper>
             ))
             :
             <Paper className={classes.searchResult} elevation={1}>
