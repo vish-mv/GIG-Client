@@ -42,7 +42,7 @@ class FormattedContent extends Component {
         return this.formatWikiText(value.raw_value);
       default:
         return <Typography key={value.raw_value}>{value.raw_value.split('\n').map(item => {
-          return <span key={item}>{item}</span>
+          return <span key={item}>{item}<br/></span>
         })}</Typography>;
     }
   }

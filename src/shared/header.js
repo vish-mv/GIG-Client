@@ -79,7 +79,7 @@ class Header extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    if (this.props.searchKey.length > 2) {
+    if (this.props.searchKey.length > 1) {
       this.props.history.push(`/search/` + this.props.searchKey);
 
       if (this.props.location.pathname!=="/") {

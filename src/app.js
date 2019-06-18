@@ -41,7 +41,7 @@ class App extends Component {
 
   getSearchResults(searchKey) {
     this.startLoading();
-    if (searchKey.length > 2) {
+    if (searchKey.length > 1) {
       let searchUrl = process.env.REACT_APP_SERVER_URL + 'api/search?query=';
       if (searchKey.includes(":")) {
         let searchArray = searchKey.split(":", 2);
