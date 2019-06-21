@@ -61,9 +61,9 @@ class ViewResult extends Component {
                 <br/>
                 <Typography component="p">
                   Links:
-                  {loadedEntity.links ? loadedEntity.links.map((title) => (
-                    <Link className={classes.link} key={title} to={'/content/' + title}>
-                      {title}
+                  {loadedEntity.loaded_links ? loadedEntity.loaded_links.map((entity) => (
+                    <Link className={classes.link} key={entity.title} to={'/content/' + entity.title}>
+                      {entity.title}
                     </Link>
                   )) : null}
                 </Typography>
