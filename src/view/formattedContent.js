@@ -40,6 +40,8 @@ class FormattedContent extends Component {
         return this.formatDate(value.raw_value);
       case "wikiText":
         return this.formatWikiText(value.raw_value);
+      case "html":
+        return this.viewAsHTML(value.raw_value);
       default:
         return <Typography key={value.raw_value}>{value.raw_value.split('\n').map(item => {
           return <span key={item}>{item}<br/></span>
@@ -62,6 +64,10 @@ class FormattedContent extends Component {
                            key={i}>{item.replace(/=/g, '')}</Typography>
       }
     });
+  }
+
+  viewAsHTML(htmlString) {
+    return <Typography dangerouslySetInnerHTML={{ __html: htmlString }} />
   }
 
   render() {
