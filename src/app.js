@@ -6,7 +6,6 @@ import {
 import Header from "./shared/header";
 import SearchResults from "./results/results";
 import ViewResult from "./view/view"
-
 import './app.css';
 
 class App extends Component {
