@@ -67,7 +67,7 @@ class FormattedContent extends Component {
   }
 
   viewAsHTML(htmlString) {
-    return <Typography dangerouslySetInnerHTML={{ __html: htmlString }} />
+    return <Typography key={"html"} dangerouslySetInnerHTML={{ __html: htmlString }} />
   }
 
   render() {
