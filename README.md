@@ -2,6 +2,16 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
+### Install Dependencies
+
+To setup for the first run
+  
+Configure the REACT_APP_SERVER_URL in .env file to direct to GIG Server. 
+  
+Then run:
+
+### `npm install`
+
 In the project directory, you can run:
 
 ### `npm start`
