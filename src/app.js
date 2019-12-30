@@ -7,6 +7,7 @@ import Header from "./shared/header";
 import SearchResults from "./results/results";
 import ViewResult from "./view/view"
 import './app.css';
+import TreeView from "./tree/tree";
 
 class App extends Component {
 
@@ -103,6 +104,10 @@ class App extends Component {
                                                   getEntity={this.getEntity}
                                                   loadedEntity={this.state.loadedEntity}
                                                   handleChange={this.handleChange}
+                   />}
+            />
+            <Route path="/orgchart"
+                   render={(props) => <TreeView {...props}
                    />}
             />
           </HashRouter>
