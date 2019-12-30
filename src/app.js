@@ -108,6 +108,10 @@ class App extends Component {
             />
             <Route path="/orgchart"
                    render={(props) => <TreeView {...props}
+                                                searchKey={this.state.searchKey}
+                                                handleChange={this.handleChange}
+                                                searchResults={this.state.searchResults}
+                                                getSearchResults={this.getSearchResults}
                    />}
             />
           </HashRouter>

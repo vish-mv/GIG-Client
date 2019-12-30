@@ -29,19 +29,32 @@ const styles = theme => ({
   }
 });
 
-let data = {
-  name: 'Organization Chart',
-  children: [{
-    name: 'Child One'
-  }, {
-    name: 'Child Two'
-  }]
-};
-
 class TreeView extends Component {
 
+  componentDidMount() {
+    this.props.handleChange("searchKey", this.props.match.params.searchKey);
+    this.props.getSearchResults("OrgChart:");
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.match.params.searchKey !== this.props.match.params.searchKey) {
+      this.props.getSearchResults("OrgChart:");
+    }
+  }
+
   render() {
-    const {classes, loadedEntity} = this.props;
+    const {classes, searchResults} = this.props;
+
+    let data={
+      name: 'Organization Chart',
+      children: searchResults.map((entity)=>{return {
+        name:entity.title,
+        children: entity.links.map((link)=>{return{
+          name:link
+        }})
+      }})
+    };
+
     return (
       <div className="content">
         <div className="custom-container">
@@ -57,6 +70,7 @@ class TreeView extends Component {
                 svgProps={{
                   className: 'custom'
                 }}
+
               />
             </div>
           </Paper>
