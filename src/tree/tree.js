@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import {Link} from "react-router-dom";
 import Tree from 'react-tree-graph';
 import './tree.css'
 
@@ -66,11 +65,12 @@ class TreeView extends Component {
               <Tree
                 data={data}
                 height={800}
-                width={1000}
+                width={1500}
                 svgProps={{
                   className: 'custom'
                 }}
-
+                margins={{ bottom : 10, left : 20, right : 350, top : 10}}
+                animated
               />
             </div>
           </Paper>
