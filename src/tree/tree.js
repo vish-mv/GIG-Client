@@ -76,7 +76,6 @@ class TreeView extends Component {
                   className: 'custom'
                 }}
                 margins={{bottom: 10, left: 20, right: 350, top: 10}}
-                animated
               />
             </div>
           </Paper>
