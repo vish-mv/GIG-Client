@@ -44,14 +44,20 @@ class TreeView extends Component {
   render() {
     const {classes, searchResults} = this.props;
 
-    let data={
+    let numberOfNodes = 0;
+    let data = {
       name: 'Organization Chart',
-      children: searchResults.map((entity)=>{return {
-        name:entity.title,
-        children: entity.links.map((link)=>{return{
-          name:link
-        }})
-      }})
+      children: searchResults.map((entity) => {
+        return {
+          name: entity.title,
+          children: entity.links.map((link) => {
+            numberOfNodes++;
+            return {
+              name: link
+            }
+          })
+        }
+      })
     };
 
     return (
@@ -61,15 +67,15 @@ class TreeView extends Component {
             <Typography variant="h4" component="h4">
               Organization Chart
             </Typography>
-            <div className="custom-container">
+            <div className="custom-container" style={{overflow: "auto"}}>
               <Tree
                 data={data}
-                height={800}
+                height={numberOfNodes * 15}
                 width={1500}
                 svgProps={{
                   className: 'custom'
                 }}
-                margins={{ bottom : 10, left : 20, right : 350, top : 10}}
+                margins={{bottom: 10, left: 20, right: 350, top: 10}}
                 animated
               />
             </div>
