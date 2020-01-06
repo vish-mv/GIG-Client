@@ -7,7 +7,6 @@ import Header from "./shared/header";
 import SearchResults from "./results/results";
 import ViewResult from "./view/view"
 import './app.css';
-import TreeView from "./tree/tree";
 
 class App extends Component {
 
