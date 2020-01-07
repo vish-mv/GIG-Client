@@ -48,6 +48,7 @@ class App extends Component {
       } else {
         searchUrl += searchKey;
       }
+      searchUrl += '&limit=15';
       fetch(searchUrl, {
         method: 'GET'
       }).then(results => {
