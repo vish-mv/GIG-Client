@@ -37,13 +37,13 @@ class FormattedContent extends Component {
   formatValue(value) {
     switch (value.type) {
       case "date":
-        return this.formatDate(value.raw_value);
+        return this.formatDate(value.value_string);
       case "wikiText":
-        return this.formatWikiText(value.raw_value);
+        return this.formatWikiText(value.value_string);
       case "html":
-        return this.viewAsHTML(value.raw_value);
+        return this.viewAsHTML(value.value_string);
       default:
-        return <Typography key={value.raw_value}>{value.raw_value.split('\n').map(item => {
+        return <Typography key={value.value_string}>{value.value_string.split('\n').map(item => {
           return <span key={item}>{item}<br/></span>
         })}</Typography>;
     }
