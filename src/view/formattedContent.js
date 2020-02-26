@@ -35,7 +35,7 @@ class FormattedContent extends Component {
   }
 
   formatValue(value) {
-    switch (value.type) {
+    switch (value.value_type) {
       case "date":
         return this.formatDate(value.value_string);
       case "wikiText":
