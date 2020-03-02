@@ -43,7 +43,7 @@ class FormattedContent extends Component {
       case "html":
         return this.viewAsHTML(value.value_string);
       default:
-        return <Typography key={value.value_string}>{value.value_string.split('\n').map(item => {
+        return <Typography key={value.value_string + value.date}>{value.value_string.split('\n').map(item => {
           return <span key={item}>{item}<br/></span>
         })}</Typography>;
     }
@@ -67,7 +67,7 @@ class FormattedContent extends Component {
   }
 
   viewAsHTML(htmlString) {
-    return <Typography key={"html"} dangerouslySetInnerHTML={{ __html: htmlString }} />
+    return <Typography key={"html"} dangerouslySetInnerHTML={{__html: htmlString}}/>
   }
 
   render() {
