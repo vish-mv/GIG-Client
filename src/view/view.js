@@ -31,12 +31,12 @@ const styles = theme => ({
 class ViewResult extends Component {
 
   componentDidMount() {
-    this.props.getEntity(this.props.match.params.title);
+    this.props.getEntity(this.props.match.params.title+this.props.location.search);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.match.params.title !== this.props.match.params.title) {
-      this.props.getEntity(this.props.match.params.title);
+      this.props.getEntity(this.props.match.params.title+this.props.location.search);
     }
   }
 
