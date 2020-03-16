@@ -31,12 +31,12 @@ const styles = theme => ({
 class ViewResult extends Component {
 
   componentDidMount() {
-    this.props.getEntity(this.props.match.params.title+this.props.location.search);
+    this.props.getEntity(this.props.match.params.title + this.props.location.search);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.match.params.title !== this.props.match.params.title) {
-      this.props.getEntity(this.props.match.params.title+this.props.location.search);
+      this.props.getEntity(this.props.match.params.title + this.props.location.search);
     }
   }
 
@@ -51,13 +51,13 @@ class ViewResult extends Component {
                 <Typography variant="h4" component="h4">
                   {loadedEntity.title}
                 </Typography><br/>
-                  <table>
-                    <tbody>
-                    {loadedEntity.attributes ? loadedEntity.attributes.map((attribute) => (
-                      <FormattedContent key={attribute.name} content={attribute}/>
-                    )) : null}
-                    </tbody>
-                  </table>
+                <table>
+                  <tbody>
+                  {loadedEntity.attributes ? Object.entries(loadedEntity.attributes).map((attribute) => (
+                    <FormattedContent key={attribute[1].name} content={attribute[1]}/>
+                  )) : null}
+                  </tbody>
+                </table>
                 <br/>
                 <Typography component="p">
                   Links:
@@ -71,7 +71,7 @@ class ViewResult extends Component {
                 <Typography component="p">
                   Categories:
                   {loadedEntity.categories ? loadedEntity.categories.map((title) => (
-                    <Link className={classes.link} key={loadedEntity.title+title} to={'/search/' + title+':'}>
+                    <Link className={classes.link} key={loadedEntity.title + title} to={'/search/' + title + ':'}>
                       {title}
                     </Link>
                   )) : null}
