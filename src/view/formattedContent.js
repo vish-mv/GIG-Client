@@ -45,7 +45,7 @@ class FormattedContent extends Component {
       default:
         return <Typography key={value.value_string + value.date}>{value.value_string.split('\n').map(item => {
           return <span key={item}>{item}<br/></span>
-        })}</Typography>;
+        })} {value.date}</Typography>;
     }
   }
 
