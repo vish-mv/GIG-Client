@@ -32,7 +32,7 @@
   }
 }
 
-#search-input {
+#search-input, #username, #password {
   text-align: center;
   color: white;
 }
@@ -42,6 +42,6 @@
   margin: auto;
 }
 
-.content{
+.content {
   width: 100%;
 }

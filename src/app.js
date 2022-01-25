@@ -6,6 +6,7 @@ import {
 import Header from "./shared/header";
 import SearchResults from "./results/results";
 import ViewResult from "./view/view"
+import Login from "./login/login"
 import './app.css';
 
 class App extends Component {
@@ -53,6 +54,8 @@ class App extends Component {
         method: 'GET'
       }).then(results => {
         return results.json();
+      }, error => {
+        console.log("error connecting to server")
       }).then(data => {
         this.handleChange("searchResults", data);
       }).then(
@@ -81,6 +84,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+
         <header className="App-header">
           <HashRouter>
             <Route path="/"
@@ -105,6 +109,9 @@ class App extends Component {
                                                   loadedEntity={this.state.loadedEntity}
                                                   handleChange={this.handleChange}
                    />}
+            />
+            <Route path="/login"
+                   render={(props) => <Login {...props}/>}
             />
           </HashRouter>
         </header>

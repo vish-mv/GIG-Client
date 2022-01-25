@@ -8,7 +8,7 @@ import InputBase from "@material-ui/core/InputBase/InputBase";
 import AppBar from "@material-ui/core/AppBar/AppBar";
 import {fade} from "@material-ui/core/styles/colorManipulator";
 import {withStyles} from "@material-ui/core";
-import { css } from '@emotion/core';
+import {css} from '@emotion/core';
 import BeatLoader from 'react-spinners/BeatLoader';
 
 const override = css`
@@ -23,6 +23,15 @@ const styles = theme => ({
   },
   grow: {
     flexGrow: 1,
+  },
+  loginButton: {
+    fontSize: 14,
+    textAlign: "right",
+    margin: 10,
+    position: "absolute",
+    right: 0,
+    top: 12,
+    color: 'white'
   },
   menuButton: {
     marginLeft: -12,
@@ -82,7 +91,7 @@ class Header extends Component {
     if (this.props.searchKey.length > 1) {
       this.props.history.push(`/search/` + this.props.searchKey);
 
-      if (this.props.location.pathname!=="/") {
+      if (this.props.location.pathname !== "/") {
         this.props.getSearchResults(this.props.searchKey);
       }
     }
@@ -90,9 +99,12 @@ class Header extends Component {
 
   render() {
     const {classes, searchKey, location} = this.props;
+    if (location.pathname === "/login") {return null}
     if (location.pathname === "/") { //if home page
       return (
+
         <div className="content">
+          <Link to={'/login'} className={classes.loginButton}>Login</Link>
           <h1>GIG</h1>
           <p>
             General Information Graph
@@ -146,6 +158,7 @@ class Header extends Component {
             />
             <div className={classes.grow}/>
           </Toolbar>
+          <Link to={'/login'} className={classes.loginButton}>Login</Link>
         </AppBar>
       )
     }
