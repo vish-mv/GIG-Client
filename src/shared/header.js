@@ -104,7 +104,10 @@ class Header extends Component {
       return (
 
         <div className="content">
-          <Link to={'/login'} className={classes.loginButton}>Login</Link>
+          {this.props.user ?
+            <Link to={'#'} onClick={this.props.logout} className={classes.loginButton}>{this.props.user} - Logout</Link>:
+            <Link to={'/login'} className={classes.loginButton}>Login</Link>
+          }
           <h1>GIG</h1>
           <p>
             General Information Graph
@@ -158,7 +161,10 @@ class Header extends Component {
             />
             <div className={classes.grow}/>
           </Toolbar>
-          <Link to={'/login'} className={classes.loginButton}>Login</Link>
+          {this.props.user ?
+            <Link to={'#'} onClick={this.props.logout} className={classes.loginButton}>{this.props.user} - Logout</Link>:
+            <Link to={'/login'} className={classes.loginButton}>Login</Link>
+          }
         </AppBar>
       )
     }

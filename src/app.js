@@ -19,7 +19,7 @@ class App extends Component {
       searchResults: [],
       loadedEntity: [],
       loading: true,
-      user: null
+      user: localStorage.getItem('user'),
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -27,6 +27,7 @@ class App extends Component {
     this.endLoading = this.endLoading.bind(this);
     this.getSearchResults = this.getSearchResults.bind(this);
     this.getEntity = this.getEntity.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   startLoading() {
@@ -39,6 +40,12 @@ class App extends Component {
 
   handleChange(key, value) {
     this.setState({[key]: value});
+  }
+
+  logout(){
+    this.setState({user: null});
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
   }
 
   getSearchResults(searchKey) {
@@ -95,6 +102,8 @@ class App extends Component {
                                               handleChange={this.handleChange}
                                               getSearchResults={this.getSearchResults}
                                               loading={this.state.loading}
+                                              user = {this.state.user}
+                                              logout={this.logout}
                    />}
             />
             <Route path="/search/:searchKey"
@@ -121,7 +130,10 @@ class App extends Component {
                    />}
             />
             <Route path="/login"
-                   render={(props) => <Login {...props} user = {this.state.user}/>}
+                   render={(props) => <Login {...props}
+                                             handleChange={this.handleChange}
+                                             user = {this.state.user}
+                   />}
             />
           </HashRouter>
         </header>
