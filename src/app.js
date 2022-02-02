@@ -5,7 +5,8 @@ import {
 } from "react-router-dom";
 import Header from "./shared/header";
 import SearchResults from "./results/results";
-import ViewResult from "./view/view"
+import ViewEntity from "./view/view"
+import EditEntity from "./view/edit"
 import Login from "./login/login"
 import './app.css';
 
@@ -17,7 +18,8 @@ class App extends Component {
       searchKey: "",
       searchResults: [],
       loadedEntity: [],
-      loading: true
+      loading: true,
+      user: null
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -104,14 +106,22 @@ class App extends Component {
                    />}
             />
             <Route path="/content/:title"
-                   render={(props) => <ViewResult {...props}
+                   render={(props) => <ViewEntity {...props}
                                                   getEntity={this.getEntity}
                                                   loadedEntity={this.state.loadedEntity}
                                                   handleChange={this.handleChange}
                    />}
             />
+            <Route path="/edit/:title"
+                   render={(props) => <EditEntity {...props}
+                                                  getEntity={this.getEntity}
+                                                  loadedEntity={this.state.loadedEntity}
+                                                  handleChange={this.handleChange}
+                                                  user = {this.state.user}
+                   />}
+            />
             <Route path="/login"
-                   render={(props) => <Login {...props}/>}
+                   render={(props) => <Login {...props} user = {this.state.user}/>}
             />
           </HashRouter>
         </header>

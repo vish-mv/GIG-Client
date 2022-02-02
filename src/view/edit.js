@@ -5,17 +5,13 @@ import {withStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import {Link} from "react-router-dom";
 import FormattedContent from "./formattedContent";
+import { Redirect } from 'react-router-dom';
 
 const styles = theme => ({
   container: {
     minHeight: '100vh',
     backgroundColor: '#eeeeee',
     padding: '10px'
-  },
-  editButton: {
-    fontSize: 14,
-    textAlign: "right",
-    margin: 10,
   },
   searchResult: {
     ...theme.mixins.gutters(),
@@ -33,7 +29,7 @@ const styles = theme => ({
   }
 });
 
-class ViewEntity extends Component {
+class EditEntity extends Component {
 
   componentDidMount() {
     this.props.getEntity(this.props.match.params.title + this.props.location.search);
@@ -46,7 +42,11 @@ class ViewEntity extends Component {
   }
 
   render() {
-    const {classes, loadedEntity} = this.props;
+    const {classes, loadedEntity, user} = this.props;
+    if (!user) {
+      // not logged in so redirect to login page with the return url
+      return <Redirect to={{ pathname: '/login?redirect='+loadedEntity.title, state: { from: this.props.location } }} />
+    }
     return (
       <div className="content">
         <div className={classes.container}>
@@ -55,7 +55,7 @@ class ViewEntity extends Component {
               <div>
                 <Typography variant="h4" component="h4">
                   {loadedEntity.title}
-                </Typography><Link to={'/edit/'+loadedEntity.title} className={classes.editButton}>Edit</Link><br/>
+                </Typography><br/>
                 <table>
                   <tbody>
                   {loadedEntity.attributes ? Object.entries(loadedEntity.attributes).map((attribute) => (
@@ -95,8 +95,8 @@ class ViewEntity extends Component {
   }
 }
 
-ViewEntity.propTypes = {
+EditEntity.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(ViewEntity);
+export default withStyles(styles)(EditEntity);

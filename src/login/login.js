@@ -24,6 +24,10 @@ const styles = theme => ({
   grow: {
     flexGrow: 1,
   },
+  errorText: {
+    fontSize: 14,
+    color: "red"
+  },
   linkButton: {
     fontSize: 14,
     textAlign: "right",
@@ -80,12 +84,42 @@ class Login extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      username: "",
+      password: "",
+      error: ""
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(key, value) {
+    this.setState({[key]: value, error: ""});
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(event);
+    if (this.state.username === "" || this.state.password === "") {
+      this.setState({error: "username/password required!"})
+    }
+    else {
+
+      let loginUrl = process.env.REACT_APP_SERVER_URL + 'api/user/login';
+      const requestOptions = {
+        headers: { 'Content-Type': 'application/json' },
+        method: 'POST',
+        body: JSON.stringify({username: this.state.username, password: this.state.password})
+      };
+      fetch(loginUrl, requestOptions).then(results => {
+        return results.json();
+      }, error => {
+        console.log("error connecting to server");
+        this.setState({error: "server error!"})
+      }).then(data => {
+        this.handleChange("loginResult", data);
+        console.log(data);
+      });
+    }
   }
 
   render() {
@@ -99,6 +133,7 @@ class Login extends Component {
         <p>
           Login
         </p>
+        <p className={classes.errorText}>{this.state.error}</p>
         <form id="login-form" onSubmit={this.handleSubmit} noValidate>
           <TextField
             id="username"
@@ -106,6 +141,7 @@ class Login extends Component {
             className="search-text"
             margin="normal"
             placeholder="username"
+            onChange={(e) => this.handleChange("username", e.target.value)}
           /><br/>
           <TextField
             id="password"
@@ -114,6 +150,7 @@ class Login extends Component {
             margin="normal"
             type="password"
             placeholder="password"
+            onChange={(e) => this.handleChange("password", e.target.value)}
           /><br/>
           <Button variant="contained" color="primary" type="submit">
             Login
