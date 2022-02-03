@@ -10,6 +10,7 @@ import {fade} from "@material-ui/core/styles/colorManipulator";
 import {withStyles} from "@material-ui/core";
 import {css} from '@emotion/core';
 import BeatLoader from 'react-spinners/BeatLoader';
+
 const queryString = require('query-string');
 
 const override = css`
@@ -107,7 +108,7 @@ class Login extends Component {
 
       let loginUrl = process.env.REACT_APP_SERVER_URL + 'api/user/login';
       const requestOptions = {
-        headers: { 'Content-Type': 'application/json' },
+        headers: {'Content-Type': 'application/json'},
         method: 'POST',
         body: JSON.stringify({username: this.state.username, password: this.state.password})
       };
@@ -118,16 +119,21 @@ class Login extends Component {
         this.setState({error: "server error!"})
       }).then(data => {
         this.handleChange("loginResult", data);
-        if (data.status===403){
+        if (data.status === 403) {
           this.setState({error: data.message});
         }
-        else if(data.status===200){
+        else if (data.status === 200) {
           this.props.handleChange("user", this.state.username);
           localStorage.setItem('token', data.message);
           localStorage.setItem('username', this.state.username);
-          this.props.history.push('/edit/'+queryString.parse(this.props.location.search).redirect)
+          let redirect_path = queryString.parse(this.props.location.search).redirect;
+          if (redirect_path === undefined) {
+            this.props.history.push('/');
+          } else {
+            this.props.history.push('/edit/' + redirect_path);
+          }
         }
-        else{
+        else {
           this.setState({error: "login error!"});
         }
       });
