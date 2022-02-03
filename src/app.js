@@ -19,9 +19,8 @@ class App extends Component {
       searchResults: [],
       loadedEntity: [],
       loading: true,
-      user: localStorage.getItem('user'),
+      user: localStorage.getItem('username'),
     };
-
     this.handleChange = this.handleChange.bind(this);
     this.startLoading = this.startLoading.bind(this);
     this.endLoading = this.endLoading.bind(this);
