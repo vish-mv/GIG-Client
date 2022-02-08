@@ -27,6 +27,28 @@ class App extends Component {
     this.getSearchResults = this.getSearchResults.bind(this);
     this.getEntity = this.getEntity.bind(this);
     this.logout = this.logout.bind(this);
+
+    let loginUrl = process.env.REACT_APP_SERVER_URL + 'api/token/validate';
+    const token = localStorage.getItem('token');
+    const requestOptions = {
+      headers: {'Authorization': 'Bearer ' + (token ? token : '')},
+      method: 'GET',
+    };
+    fetch(loginUrl, requestOptions).then(results => {
+      return results.json();
+    }, error => {
+      console.log("error connecting to server");
+      this.setState({error: "server error!"})
+    }).then(data => {
+      this.handleChange("loginResult", data);
+      if (data.status === 200) {
+        console.log("token is valid.")
+      }
+      else {
+        this.logout();
+        console.log("token validation error!");
+      }
+    });
   }
 
   startLoading() {
@@ -41,7 +63,7 @@ class App extends Component {
     this.setState({[key]: value});
   }
 
-  logout(){
+  logout() {
     this.setState({user: null});
     localStorage.removeItem('token');
     localStorage.removeItem('username');
@@ -101,7 +123,7 @@ class App extends Component {
                                               handleChange={this.handleChange}
                                               getSearchResults={this.getSearchResults}
                                               loading={this.state.loading}
-                                              user = {this.state.user}
+                                              user={this.state.user}
                                               logout={this.logout}
                    />}
             />
@@ -125,13 +147,13 @@ class App extends Component {
                                                   getEntity={this.getEntity}
                                                   loadedEntity={this.state.loadedEntity}
                                                   handleChange={this.handleChange}
-                                                  user = {this.state.user}
+                                                  user={this.state.user}
                    />}
             />
             <Route path="/login"
                    render={(props) => <Login {...props}
                                              handleChange={this.handleChange}
-                                             user = {this.state.user}
+                                             user={this.state.user}
                    />}
             />
           </HashRouter>
