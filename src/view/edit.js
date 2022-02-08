@@ -5,7 +5,10 @@ import {withStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import {Link} from "react-router-dom";
 import FormattedContent from "./formattedContent";
-import { Redirect } from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
+import JSONInput from 'react-json-editor-ajrm';
+import locale from 'react-json-editor-ajrm/locale/en';
+import Button from "@material-ui/core/Button/Button";
 
 const styles = theme => ({
   container: {
@@ -31,6 +34,25 @@ const styles = theme => ({
 
 class EditEntity extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      modifiedEntity: {},
+      originalTitle: ""
+    };
+    this.handleSave = this.handleSave.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleSave() {
+    console.log(this.state.originalTitle);
+    console.log(this.state.modifiedEntity);
+  }
+
+  handleChange(key, value) {
+    this.setState({[key]: value.jsObject});
+  }
+
   componentDidMount() {
     this.props.getEntity(this.props.match.params.title + this.props.location.search);
   }
@@ -39,13 +61,16 @@ class EditEntity extends Component {
     if (prevProps.match.params.title !== this.props.match.params.title) {
       this.props.getEntity(this.props.match.params.title + this.props.location.search);
     }
+    if (this.props.loadedEntity.title && this.state.originalTitle === "") {
+      this.setState({originalTitle: this.props.loadedEntity.title, modifiedEntity: this.props.loadedEntity})
+    }
   }
 
   render() {
     const {classes, loadedEntity, user} = this.props;
     if (!user) {
       // not logged in so redirect to login page with the return url
-      return <Redirect to={{ pathname: '/login?redirect='+loadedEntity.title, state: { from: this.props.location } }} />
+      return <Redirect to={{pathname: '/login?redirect=' + loadedEntity.title, state: {from: this.props.location}}}/>
     }
     return (
       <div className="content">
@@ -53,35 +78,18 @@ class EditEntity extends Component {
           <Paper className={classes.searchResult} elevation={1}>
             {loadedEntity ?
               <div>
-                <Typography variant="h4" component="h4">
-                  {loadedEntity.title}
-                </Typography><br/>
-                <table>
-                  <tbody>
-                  {loadedEntity.attributes ? Object.entries(loadedEntity.attributes).map((attribute) => (
-                    <FormattedContent key={attribute[1].name} content={attribute[1]}/>
-                  )) : null}
-                  </tbody>
-                </table>
-                <br/>
-                <Typography component="p">
-                  Links:
-                  {loadedEntity.links ? loadedEntity.links.map((link) => (
-                    <Link className={classes.link} key={link.title}
-                          to={'/content/' + link.title + "?date=" + link.dates[0]}>
-                      {link.title}
-                    </Link>
-                  )) : null}
-                </Typography>
-                <br/>
-                <Typography component="p">
-                  Categories:
-                  {loadedEntity.categories ? loadedEntity.categories.map((title) => (
-                    <Link className={classes.link} key={loadedEntity.title + title} to={'/search/' + title + ':'}>
-                      {title}
-                    </Link>
-                  )) : null}
-                </Typography>
+                <JSONInput
+                  id='entity_editor'
+                  placeholder={this.state.modifiedEntity}
+                  // colors      = { darktheme }
+                  locale={locale}
+                  height
+                  width
+                  onChange={(e) => this.handleChange("modifiedEntity", e)}
+                />
+                <Button variant="contained" color="primary" type="button" onClick={this.handleSave}>
+                  Save
+                </Button>
               </div>
               :
               <Typography component="p">
