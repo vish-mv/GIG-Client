@@ -27,11 +27,12 @@ class App extends Component {
     this.getSearchResults = this.getSearchResults.bind(this);
     this.getEntity = this.getEntity.bind(this);
     this.logout = this.logout.bind(this);
+    this.getAuthHeaders = this.getAuthHeaders.bind(this);
 
     let loginUrl = process.env.REACT_APP_SERVER_URL + 'api/token/validate';
-    const token = localStorage.getItem('token');
+
     const requestOptions = {
-      headers: {'Authorization': 'Bearer ' + (token ? token : '')},
+      headers: this.getAuthHeaders(),
       method: 'GET',
     };
     fetch(loginUrl, requestOptions).then(results => {
@@ -57,6 +58,11 @@ class App extends Component {
 
   endLoading() {
     this.setState({loading: false});
+  }
+
+  getAuthHeaders(){
+    const token = localStorage.getItem('token');
+    return {'Authorization': 'Bearer ' + (token ? token : ''),'Content-Type': 'application/json'};
   }
 
   handleChange(key, value) {
@@ -148,6 +154,7 @@ class App extends Component {
                                                   loadedEntity={this.state.loadedEntity}
                                                   handleChange={this.handleChange}
                                                   user={this.state.user}
+                                                  getHeaders={this.getAuthHeaders}
                    />}
             />
             <Route path="/login"

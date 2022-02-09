@@ -118,23 +118,25 @@ class Login extends Component {
         console.log("error connecting to server");
         this.setState({error: "server error!"})
       }).then(data => {
-        this.handleChange("loginResult", data);
-        if (data.status === 403) {
-          this.setState({error: data.message});
-        }
-        else if (data.status === 200) {
-          this.props.handleChange("user", this.state.username);
-          localStorage.setItem('token', data.message);
-          localStorage.setItem('username', this.state.username);
-          let redirect_path = queryString.parse(this.props.location.search).redirect;
-          if (redirect_path === undefined) {
-            this.props.history.push('/');
-          } else {
-            this.props.history.push('/edit/' + redirect_path);
+        if (data) {
+          this.handleChange("loginResult", data);
+          if (data.status === 403) {
+            this.setState({error: data.payload});
           }
-        }
-        else {
-          this.setState({error: "login error!"});
+          else if (data.status === 200) {
+            this.props.handleChange("user", this.state.username);
+            localStorage.setItem('token', data.payload);
+            localStorage.setItem('username', this.state.username);
+            let redirect_path = queryString.parse(this.props.location.search).redirect;
+            if (redirect_path === undefined) {
+              this.props.history.push('/');
+            } else {
+              this.props.history.push('/edit/' + redirect_path);
+            }
+          }
+          else {
+            this.setState({error: "login error!"});
+          }
         }
       });
     }

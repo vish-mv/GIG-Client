@@ -38,9 +38,11 @@ class EditEntity extends Component {
     super(props);
     this.state = {
       modifiedEntity: {},
-      originalTitle: ""
+      originalTitle: "",
+      changesMade: false,
     };
     this.handleSave = this.handleSave.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -49,8 +51,34 @@ class EditEntity extends Component {
     console.log(this.state.modifiedEntity);
   }
 
+  handleDelete() {
+    let isConfirmed= window.confirm("Are you sure you want to delete this entity?");
+    if (isConfirmed) {
+      let deleteUrl = process.env.REACT_APP_SERVER_URL + 'api/delete';
+      const requestOptions = {
+        headers: this.props.getHeaders(),
+        method: 'POST',
+        body: JSON.stringify({title: this.state.originalTitle})
+      };
+      fetch(deleteUrl, requestOptions).then(results => {
+        return results.json();
+      }, error => {
+        alert("error connecting to server");
+      }).then(data => {
+        if (data) {
+          if (data.status === 200) {
+            this.props.history.push('/');
+          }
+          else {
+            alert("login error! " + data.status);
+          }
+        }
+      });
+    }
+  }
+
   handleChange(key, value) {
-    this.setState({[key]: value.jsObject});
+    this.setState({[key]: value.jsObject, changesMade: true});
   }
 
   componentDidMount() {
@@ -87,8 +115,13 @@ class EditEntity extends Component {
                   width
                   onChange={(e) => this.handleChange("modifiedEntity", e)}
                 />
-                <Button variant="contained" color="primary" type="button" onClick={this.handleSave}>
+                <Button disabled={!this.state.changesMade} variant="contained" color="primary" type="button"
+                        onClick={this.handleSave}>
                   Save
+                </Button>
+                <Button variant="contained" color="error" type="button"
+                        onClick={this.handleDelete}>
+                  Delete
                 </Button>
               </div>
               :
