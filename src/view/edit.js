@@ -49,10 +49,30 @@ class EditEntity extends Component {
   handleSave() {
     console.log(this.state.originalTitle);
     console.log(this.state.modifiedEntity);
+    let updateUrl = process.env.REACT_APP_SERVER_URL + 'api/update';
+    const requestOptions = {
+      headers: this.props.getHeaders(),
+      method: 'POST',
+      body: JSON.stringify({title: this.state.originalTitle, entity: this.state.modifiedEntity})
+    };
+    fetch(updateUrl, requestOptions).then(results => {
+      return results.json();
+    }, error => {
+      alert("error connecting to server");
+    }).then(data => {
+      if (data) {
+        if (data.status === 200) {
+          alert("updated successfully!")
+        }
+        else {
+          alert("login error!");
+        }
+      }
+    });
   }
 
   handleDelete() {
-    let isConfirmed= window.confirm("Are you sure you want to delete this entity?");
+    let isConfirmed = window.confirm("Are you sure you want to delete this entity?");
     if (isConfirmed) {
       let deleteUrl = process.env.REACT_APP_SERVER_URL + 'api/delete';
       const requestOptions = {
