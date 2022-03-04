@@ -11,7 +11,7 @@ import {withStyles} from "@material-ui/core";
 import {css} from '@emotion/core';
 import BeatLoader from 'react-spinners/BeatLoader';
 import CountUp from 'react-countup';
-import Chip from '@mui/material/Chip';
+import Chip from '@material-ui/core/Chip';
 
 const override = css`
     display: block;
@@ -89,6 +89,19 @@ const styles = theme => ({
       width: 400,
     },
   },
+  customChipPrimary: {
+    margin: theme.spacing.unit,
+  },
+  customChip: {
+    margin: theme.spacing.unit,
+    color: "#a42e7f",
+    border: "1px solid #a42e7f"
+  },
+  customChip2: {
+    margin: theme.spacing.unit,
+    color: "#ef6564",
+    border: "1px solid #ef6564"
+  }
 });
 
 class Header extends Component {
@@ -164,16 +177,38 @@ class Header extends Component {
             </Button>
           </form>
           {stat ?
-            <div style={{paddingTop: 20, fontSize: 20}}>
-              <CountUp {...counterProps} prefix={"Total Entities: "} end={stat.entity_count}/>
-              <CountUp {...counterProps} prefix={"Total Relations: "} end={stat.relation_count}/>
-              <CountUp {...counterProps} prefix={"Total Categories: "} end={stat.category_wise_count.length}/>
+            <div style={{paddingTop: 20}}>
+              <Chip color="primary" className={classes.customChipPrimary} clickable
+                    label={<CountUp {...counterProps} prefix={"Total Entities: "}
+                                    end={stat.entity_count}/>}/>
+              <Chip color="primary" className={classes.customChipPrimary} clickable
+                    label={<CountUp {...counterProps} prefix={"Total Relations: "}
+                                    end={stat.relation_count}/>}/>
+              <Chip color="primary" className={classes.customChipPrimary} clickable
+                    label={<CountUp {...counterProps} prefix={"Total Categories: "}
+                                    end={stat.category_wise_count.length}/>}/>
+
+
               <div>
                 {Array.isArray(stat.category_wise_count) ?
                   stat.category_wise_count.map((category) => (
-                    <CountUp {...counterProps} prefix={category._id+ ": "} end={category.category_count}/>
+                    <Chip className={classes.customChip} color="primary" variant="outlined"
+                          component="a" href={"/#/search/"+category._id+":"} clickable
+                          label={<CountUp {...counterProps} prefix={category._id + ": "}
+                                          end={category.category_count}/>}/>
                   )) : null}
               </div>
+
+              <div>
+                {Array.isArray(stat.category_group_wise_count) ?
+                  stat.category_group_wise_count.map((category_group) => (
+                    <Chip className={classes.customChip2} color="primary" variant="outlined"
+                          component="a" href={"/#/search/"+category_group._id.join()+":"} clickable
+                          label={<CountUp {...counterProps} prefix={category_group._id.join() + ": "}
+                                          end={category_group.category_count}/>}/>
+                  )) : null}
+              </div>
+
             </div>
             : null}
         </div>
