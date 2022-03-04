@@ -60,7 +60,7 @@ class SearchResults extends Component {
                         {entity.title}
                       </Typography>
                       <Typography component="p">
-                        {entity.snippet}
+                        {entity.snippet.substring(0,500)+"..."}
                       </Typography>
                     </Grid>
                   </Grid>
