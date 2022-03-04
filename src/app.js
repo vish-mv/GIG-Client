@@ -163,6 +163,14 @@ class App extends Component {
                                              user={this.state.user}
                    />}
             />
+            <Route
+              path="*"
+              element={
+                <main style={{ padding: "1rem" }}>
+                  <p>There's nothing here!</p>
+                </main>
+              }
+            />
           </HashRouter>
         </header>
       </div>

@@ -1,15 +1,10 @@
 import React, {Component} from "react";
-import TextField from "@material-ui/core/TextField/TextField";
-import Button from "@material-ui/core/Button/Button";
-import Toolbar from "@material-ui/core/Toolbar/Toolbar";
-import Typography from "@material-ui/core/Typography/Typography";
+import TextField from "@mui/material/TextField/TextField";
+import Button from "@mui/material/Button/Button";
 import {Link} from "react-router-dom";
-import InputBase from "@material-ui/core/InputBase/InputBase";
-import AppBar from "@material-ui/core/AppBar/AppBar";
-import {fade} from "@material-ui/core/styles/colorManipulator";
-import {withStyles} from "@material-ui/core";
+import {withStyles} from "@mui/material";
 import {css} from '@emotion/core';
-import BeatLoader from 'react-spinners/BeatLoader';
+import Color from 'color';
 
 const queryString = require('query-string');
 
@@ -44,9 +39,9 @@ const styles = theme => ({
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
+    backgroundColor: Color(theme.palette.common.white).alpha(0.15).string(),
     '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+      backgroundColor: Color(theme.palette.common.white).alpha(0.25).string(),
     },
     marginRight: theme.spacing.unit * 2,
     marginLeft: 0,

@@ -1,14 +1,17 @@
 import React, {Component} from "react";
 import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
-import {withStyles} from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import {Link} from "react-router-dom";
-import FormattedContent from "./formattedContent";
-import {Redirect} from 'react-router-dom';
+import Typography from '@mui/material/Typography';
+import {withStyles} from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
+import {useNavigate} from 'react-router-dom';
 import JSONInput from 'react-json-editor-ajrm';
 import locale from 'react-json-editor-ajrm/locale/en';
-import Button from "@material-ui/core/Button/Button";
+import Button from "@mui/material/Button/Button";
+
+function RedirectUser(url){
+  const navigate = useNavigate();
+  return navigate(url);
+}
 
 const styles = theme => ({
   container: {
@@ -118,7 +121,7 @@ class EditEntity extends Component {
     const {classes, loadedEntity, user} = this.props;
     if (!user) {
       // not logged in so redirect to login page with the return url
-      return <Redirect to={{pathname: '/login?redirect=' + loadedEntity.title, state: {from: this.props.location}}}/>
+      return RedirectUser('/login?redirect=' + loadedEntity.title + "&redirect=" + this.props.location);
     }
     return (
       <div className="content">
