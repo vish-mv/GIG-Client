@@ -10,12 +10,24 @@ import {fade} from "@material-ui/core/styles/colorManipulator";
 import {withStyles} from "@material-ui/core";
 import {css} from '@emotion/core';
 import BeatLoader from 'react-spinners/BeatLoader';
+import CountUp from 'react-countup';
+import Chip from '@mui/material/Chip';
 
 const override = css`
     display: block;
     margin: 0 auto;
     border-color: red;
 `;
+
+const counterProps = {
+  start: 0,
+  duration: 1,
+  separator: ",",
+  decimals: 0,
+  decimal: ",",
+  suffix: " ",
+  delay: 0,
+};
 
 const styles = theme => ({
   appBar: {
@@ -84,6 +96,14 @@ class Header extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.getStats = this.getStats.bind(this);
+    this.state = {
+      stats: []
+    }
+  }
+
+  componentDidMount() {
+    this.getStats();
   }
 
   handleSubmit(event) {
@@ -97,15 +117,32 @@ class Header extends Component {
     }
   }
 
+  getStats() {
+    fetch(process.env.REACT_APP_SERVER_URL + 'api/status/', {
+      method: 'GET'
+    }).then(results => {
+      if (results.status === 200) {
+        return results.json();
+      }
+      return null
+    }).then(data => {
+      this.setState({"stat": data.payload})
+    });
+  }
+
   render() {
     const {classes, searchKey, location} = this.props;
-    if (location.pathname === "/login") {return null}
+    const {stat} = this.state;
+    if (location.pathname === "/login") {
+      return null
+    }
     if (location.pathname === "/") { //if home page
       return (
 
         <div className="content">
           {this.props.user ?
-            <Link to={'#'} onClick={this.props.logout} className={classes.loginButton}>{this.props.user} - Logout</Link>:
+            <Link to={'#'} onClick={this.props.logout} className={classes.loginButton}>{this.props.user} -
+              Logout</Link> :
             <Link to={'/login'} className={classes.loginButton}>Login</Link>
           }
           <h1>GIG</h1>
@@ -126,6 +163,19 @@ class Header extends Component {
               Search
             </Button>
           </form>
+          {stat ?
+            <div style={{paddingTop: 20, fontSize: 20}}>
+              <CountUp {...counterProps} prefix={"Total Entities: "} end={stat.entity_count}/>
+              <CountUp {...counterProps} prefix={"Total Relations: "} end={stat.relation_count}/>
+              <CountUp {...counterProps} prefix={"Total Categories: "} end={stat.category_wise_count.length}/>
+              <div>
+                {Array.isArray(stat.category_wise_count) ?
+                  stat.category_wise_count.map((category) => (
+                    <CountUp {...counterProps} prefix={category._id+ ": "} end={category.category_count}/>
+                  )) : null}
+              </div>
+            </div>
+            : null}
         </div>
       );
     }
@@ -162,7 +212,8 @@ class Header extends Component {
             <div className={classes.grow}/>
           </Toolbar>
           {this.props.user ?
-            <Link to={'#'} onClick={this.props.logout} className={classes.loginButton}>{this.props.user} - Logout</Link>:
+            <Link to={'#'} onClick={this.props.logout} className={classes.loginButton}>{this.props.user} -
+              Logout</Link> :
             <Link to={'/login'} className={classes.loginButton}>Login</Link>
           }
         </AppBar>
