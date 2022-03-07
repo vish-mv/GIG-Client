@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import {withStyles} from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import {Link} from "react-router-dom";
-import FormattedContent from "./formattedContent";
+import FormattedContent from "./FormattedContent";
 
 const styles = theme => ({
   container: {
