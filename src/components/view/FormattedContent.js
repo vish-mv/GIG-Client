@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
-import {withStyles} from '@mui/material/styles';
+import {withStyles} from '@mui/styles';
 
 const styles = theme => ({
   container: {

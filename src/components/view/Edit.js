@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
-import {withStyles} from '@mui/material/styles';
+import {withStyles} from '@mui/styles';
 import Paper from '@mui/material/Paper';
 import {useNavigate} from 'react-router-dom';
 import JSONInput from 'react-json-editor-ajrm';

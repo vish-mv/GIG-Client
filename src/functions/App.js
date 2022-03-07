@@ -60,12 +60,7 @@ handleChange(key, value)
   this.setState({[key]: value});
 }
 
-logout()
-{
-  this.setState({user: null});
-  localStorage.removeItem('token');
-  localStorage.removeItem('username');
-}
+
 
 getSearchResults(searchKey)
 {

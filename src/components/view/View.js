@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
-import {withStyles} from '@mui/material/styles';
+import {withStyles} from '@mui/styles';
 import Paper from '@mui/material/Paper';
 import {Link} from "react-router-dom";
 import FormattedContent from "./FormattedContent";
