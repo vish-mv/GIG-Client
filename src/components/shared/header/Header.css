@@ -1,0 +1,36 @@
+/*search: {*/
+/*position: 'relative',*/
+/*borderRadius: theme.shape.borderRadius,*/
+/*backgroundColor: Color(theme.palette.common.white).alpha(0.15).string(),*/
+/*'&:hover': {*/
+/*backgroundColor: Color(theme.palette.common.white).alpha(0.25).string(),*/
+/*},*/
+/*marginRight: theme.spacing.unit * 2,*/
+/*marginLeft: 0,*/
+/*width: '100%',*/
+/*[theme.breakpoints.up('sm')]: {*/
+/*marginLeft: theme.spacing.unit * 3,*/
+/*width: 'auto',*/
+/*},*/
+/*},*/
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+#search-input, #username, #password {
+  text-align: center;
+  color: white;
+}
+
+#search-form {
+  width: 96%;
+  margin: auto;
+}

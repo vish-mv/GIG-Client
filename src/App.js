@@ -16,6 +16,7 @@ const appTheme = createTheme({
     mode: 'light',
   },
 });
+appTheme.spacing(2);
 
 function App() {
 
@@ -28,7 +29,7 @@ function App() {
   const [searchKey, setSearchKey] = useState("");
   const [user, setUser] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const app_props = {searchKey, setSearchKey, user, setUser, logout,isLoading, setIsLoading};
+  const app_props = {searchKey, setSearchKey, user, setUser, logout, isLoading, setIsLoading};
   return (
     <ThemeProvider theme={appTheme}>
       <div className="App">

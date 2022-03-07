@@ -17,7 +17,7 @@ export const counterProps = {
   delay: 0,
 };
 
-export const Styles = theme => ({
+const Styles = theme => ({
   appBar: {
     backgroundColor: '#282c34'
   },
@@ -78,16 +78,19 @@ export const Styles = theme => ({
     },
   },
   customChipPrimary: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(2),
+    paddingTop: theme.spacing(2),
   },
   customChip: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(2),
     color: "#a42e7f",
     border: "1px solid #a42e7f"
   },
   customChip2: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(2),
     color: "#ef6564",
     border: "1px solid #ef6564"
   }
 });
+
+export default Styles;
