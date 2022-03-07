@@ -1,11 +1,11 @@
 import React, {Component} from "react";
 import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
-import {withStyles} from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
+import Typography from '@mui/material/Typography';
+import {withStyles} from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
 import {Link} from 'react-router-dom'
-import Avatar from "@material-ui/core/Avatar/Avatar";
-import Grid from "@material-ui/core/Grid/Grid";
+import Avatar from "@mui/material/Avatar/Avatar";
+import Grid from "@mui/material/Grid/Grid";
 
 const styles = theme => ({
   searchResult: {
