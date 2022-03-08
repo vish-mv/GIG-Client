@@ -9,7 +9,7 @@ import {withStyles} from "@mui/styles";
 import BeatLoader from 'react-spinners/BeatLoader';
 import CountUp from 'react-countup';
 import Chip from '@mui/material/Chip';
-import Styles, {counterProps, override} from "./Styles";
+import Styles, {counterProps, override} from "../../../styles/Styles";
 import {Link, useNavigate, useLocation} from "react-router-dom";
 import './Header.css'
 
@@ -49,6 +49,9 @@ function Header(props) {
   }, [stat]);
 
 
+  if (location.pathname === "/login") {
+    return <div></div>
+  } //if login page
   if (location.pathname === "/") { //if home page
     return (
       <header className="App-header">
@@ -127,7 +130,7 @@ function Header(props) {
             General Information Graph
           </Typography>
           <div className={classes.search}>
-            <form id="search-form" onSubmit={this.handleSubmit} noValidate autoComplete="off">
+            <form id="search-form" onSubmit={handleSubmit} noValidate autoComplete="off">
               <InputBase
                 name="search"
                 placeholder="Search…"

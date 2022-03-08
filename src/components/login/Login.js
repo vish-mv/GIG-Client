@@ -1,102 +1,25 @@
-import React, {Component} from "react";
+import React, {Component, useState} from "react";
 import TextField from "@mui/material/TextField/TextField";
 import Button from "@mui/material/Button/Button";
-import {Link} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {withStyles} from "@mui/styles";
 import {css} from '@emotion/react';
 import Color from 'color';
+import Styles from "../../styles/Styles";
 
 const queryString = require('query-string');
 
-const override = css`
-    display: block;
-    margin: 0 auto;
-    border-color: red;
-`;
+function Login(props) {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const {classes, searchKey, setSearchKey, user, setUser, logout, isLoading, setIsLoading} = props;
 
-const styles = theme => ({
-  appBar: {
-    backgroundColor: '#282c34'
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  errorText: {
-    fontSize: 14,
-    color: "red"
-  },
-  linkButton: {
-    fontSize: 14,
-    textAlign: "right",
-    margin: 10,
-    color: 'white'
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-    cursor: 'pointer'
-  },
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: Color(theme.palette.common.white).alpha(0.15).string(),
-    '&:hover': {
-      backgroundColor: Color(theme.palette.common.white).alpha(0.25).string(),
-    },
-    marginRight: theme.spacing.unit * 2,
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing.unit * 3,
-      width: 'auto',
-    },
-  },
-  searchIcon: {
-    width: theme.spacing.unit * 9,
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  inputRoot: {
-    color: 'inherit',
-    width: '100%',
-  },
-  inputInput: {
-    paddingTop: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: 400,
-    },
-  },
-});
-
-class Login extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      password: "",
-      error: ""
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(key, value) {
-    this.setState({[key]: value, error: ""});
-  }
-
-  handleSubmit(event) {
+  function handleSubmit(event) {
     event.preventDefault();
-    if (this.state.username === "" || this.state.password === "") {
+    if (username === "" || password === "") {
       this.setState({error: "username/password required!"})
     }
     else {
@@ -105,41 +28,40 @@ class Login extends Component {
       const requestOptions = {
         headers: {'Content-Type': 'application/json'},
         method: 'POST',
-        body: JSON.stringify({username: this.state.username, password: this.state.password})
+        body: JSON.stringify({username: username, password: password})
       };
       fetch(loginUrl, requestOptions).then(results => {
         return results.json();
       }, error => {
         console.log("error connecting to server");
-        this.setState({error: "server error!"})
+        setError("server error!");
       }).then(data => {
         if (data) {
-          this.handleChange("loginResult", data);
+          // this.handleChange("loginResult", data);
           if (data.status === 403) {
-            this.setState({error: data.payload});
+            setError(data.payload);
           }
           else if (data.status === 200) {
-            this.props.handleChange("user", this.state.username);
+            setUser(username);
             localStorage.setItem('token', data.payload);
-            localStorage.setItem('username', this.state.username);
-            let redirect_path = queryString.parse(this.props.location.search).redirect;
+            localStorage.setItem('username', username);
+            let redirect_path = queryString.parse(location.search).redirect;
             if (redirect_path === undefined) {
-              this.props.history.push('/');
+              navigate('/');
             } else {
-              this.props.history.push('/edit/' + redirect_path);
+              navigate('/edit/' + redirect_path);
             }
           }
           else {
-            this.setState({error: "login error!"});
+            setError("login error!");
           }
         }
       });
     }
   }
 
-  render() {
-    const {classes, searchKey, location} = this.props;
-    return (
+  return (
+    <header className="App-header">
       <div className="content">
         <h1>GIG</h1>
         <p>
@@ -148,24 +70,26 @@ class Login extends Component {
         <p>
           Login
         </p>
-        <p className={classes.errorText}>{this.state.error}</p>
-        <form id="login-form" onSubmit={this.handleSubmit} noValidate>
+        <p className={classes.errorText}>{error}</p>
+        <form id="login-form" onSubmit={handleSubmit} noValidate>
           <TextField
             id="username"
             name="username"
             className="search-text"
             margin="normal"
+            variant='standard'
             placeholder="username"
-            onChange={(e) => this.handleChange("username", e.target.value)}
+            onChange={(e) => setUsername(e.target.value)}
           /><br/>
           <TextField
             id="password"
             name="password"
             className="search-text"
+            variant='standard'
             margin="normal"
             type="password"
             placeholder="password"
-            onChange={(e) => this.handleChange("password", e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
           /><br/>
           <Button variant="contained" color="primary" type="submit">
             Login
@@ -173,8 +97,8 @@ class Login extends Component {
           <Link to={'/'} className={classes.linkButton}>go back Home</Link>
         </form>
       </div>
-    );
-  }
+    </header>
+  );
 }
 
-export default withStyles(styles)(Login);
+export default withStyles(Styles)(Login);

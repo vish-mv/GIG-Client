@@ -24,6 +24,16 @@ const Styles = theme => ({
   grow: {
     flexGrow: 1,
   },
+  errorText:{
+    fontSize: 14,
+    textAlign: "centre",
+    color: 'red'
+  },
+  linkButton: {
+    fontSize: 14,
+    textAlign: "centre",
+    color: 'white'
+  },
   loginButton: {
     fontSize: 14,
     textAlign: "right",
