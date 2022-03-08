@@ -18,10 +18,10 @@ const appTheme = createTheme({
 });
 
 function App() {
-  const [searchKey, setSearchKey] = useState("");
+
   const [user, setUser] = useState(localStorage.getItem('username'));
   const [isLoading, setIsLoading] = useState(false);
-  const app_props = {user, searchKey, setSearchKey, setUser, logout, isLoading, setIsLoading};
+  const app_props = {user, setUser, logout, isLoading, setIsLoading};
 
   function logout() {
     setUser(null);
@@ -53,7 +53,7 @@ function App() {
       }
       else {
         logout();
-        console.log("token validation error!");
+        console.log("token validation error! logging out.");
       }
     });
   }

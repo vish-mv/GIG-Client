@@ -50,17 +50,21 @@ const Styles = theme => ({
   },
   search: {
     position: 'relative',
-    borderRadius: theme.shape.borderRadius,
+    borderRadius: '20px',
+    backgroundColor: theme.palette.common.white,
+    '&:hover': {
+      backgroundColor: theme.palette.common.white,
+    },
     marginRight: theme.spacing(2),
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
+      marginLeft: theme.spacing(2),
       width: 'auto',
     },
   },
   searchIcon: {
-    width: theme.spacing.unit * 9,
+    width: theme.spacing(9),
     height: '100%',
     position: 'absolute',
     pointerEvents: 'none',
@@ -69,14 +73,17 @@ const Styles = theme => ({
     justifyContent: 'center',
   },
   inputRoot: {
-    color: 'inherit',
+    color: '#0000008F',
     width: '100%',
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
   },
   inputInput: {
     paddingTop: theme.spacing(1),
     paddingRight: theme.spacing(1),
     paddingBottom: theme.spacing(1),
     paddingLeft: theme.spacing(1),
+    marginLeft: theme.spacing(1),
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {

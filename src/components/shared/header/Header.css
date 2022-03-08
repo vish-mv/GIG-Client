@@ -9,7 +9,11 @@
   color: white;
 }
 
-#search-input, #username, #password {
+#search-input {
+  text-align: center;
+}
+
+#username, #password {
   text-align: center;
   color: white;
 }

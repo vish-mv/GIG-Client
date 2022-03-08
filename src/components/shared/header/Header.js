@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import TextField from "@mui/material/TextField/TextField";
+import InputBase from "@mui/material/InputBase/InputBase";
 import Button from "@mui/material/Button/Button";
 import Toolbar from "@mui/material/Toolbar/Toolbar";
 import Typography from "@mui/material/Typography/Typography";
@@ -16,7 +17,8 @@ function Header(props) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const {classes, user, logout, searchKey, setSearchKey, isLoading, setIsLoading} = props;
+  const [searchKey, setSearchKey] = useState("");
+  const {classes, user, logout, isLoading, setIsLoading} = props;
   const [stat, setStat] = useState(null);
 
   function handleSubmit(event) {
@@ -66,16 +68,19 @@ function Header(props) {
             General Information Graph
           </p>
           <form id="search-form" onSubmit={handleSubmit} noValidate autoComplete="off">
-            <TextField
-              fullWidth={true}
-              variant='standard'
-              id="search-input"
-              name="search"
-              value={searchKey}
-              onChange={(e) => setSearchKey(e.target.value)}
-              margin="normal"
-              placeholder="Search"
-            />
+            <div className={classes.search} style={{margin:'20px' }}>
+                <InputBase
+                  id="search-input"
+                  name="search"
+                  placeholder="Search…"
+                  value={searchKey}
+                  onChange={(e) => setSearchKey(e.target.value)}
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput,
+                  }}
+                />
+            </div>
             <Button variant="contained" color="primary" type="submit">
               Search
             </Button>
@@ -131,17 +136,17 @@ function Header(props) {
                       color="inherit" noWrap>
             General Information Graph
           </Typography>
-          <div className={classes.search} style={{width:'70%'}}>
+          <div className={classes.search} style={{width:'50%'}}>
             <form id="search-form" onSubmit={handleSubmit} noValidate autoComplete="off">
-              <TextField
-                id="search-header"
+              <InputBase
                 name="search"
                 placeholder="Search…"
                 value={searchKey}
-                size='small'
-                variant="outlined"
                 onChange={(e) => setSearchKey(e.target.value)}
-                sx={{width:'100%',border:'2px solid white', borderRadius:'4px'}}
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
               />
             </form>
           </div>
