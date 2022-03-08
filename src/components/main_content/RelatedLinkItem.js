@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import Avatar from "@mui/material/Avatar/Avatar";
 import Grid from "@mui/material/Grid/Grid";
 import Tooltip from '@mui/material/Tooltip';
+import {Routes} from "../../routes";
 
 class RelatedLinkItem extends Component {
 
@@ -42,7 +43,7 @@ class RelatedLinkItem extends Component {
     return (
       <Grid item>
         <Tooltip title={title} aria-label="add">
-          <Link className={classes.link} to={"/profile/" + url}>
+          <Link className={classes.link} to={Routes.entity + url}>
             <Avatar alt={title} src={imageUrl}/>
           </Link>
         </Tooltip>

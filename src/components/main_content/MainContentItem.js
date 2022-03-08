@@ -9,6 +9,7 @@ import Paper from '@mui/material/Paper';
 import Chip from '@mui/material/Chip';
 import Avatar from "@mui/material/Avatar/Avatar";
 import moment from 'moment';
+import {Routes} from "../../routes";
 
 class MainContentItem extends Component {
 
@@ -20,13 +21,13 @@ class MainContentItem extends Component {
         <ListItem alignItems="flex-start">
           <Grid container width={1}>
             <Grid item lg={5}>
-              <Link className={classes.itemLink} to={"/profile/" + title}>
+              <Link className={classes.itemLink} to={Routes.entity + title}>
                 <img alt={title} src={imageUrl === "" ? "avatar.png" : imageUrl} className={classes.searchAvatar}/>
               </Link>
             </Grid>
             <Grid item lg={7}>
               <div style={{padding: '20px'}}>
-                <Link className={classes.itemLink} to={"/profile/" + title}>
+                <Link className={classes.itemLink} to={Routes.entity + title}>
                   <Typography className={classes.mainContentItemTitle} variant='h4'><span
                     className={"news-title"}>{title}</span></Typography>
                   <Typography

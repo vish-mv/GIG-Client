@@ -1,62 +1,48 @@
-import React, {Component} from "react";
+import React, {Component, useEffect, useState} from "react";
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import {withStyles} from '@mui/styles';
 import Paper from '@mui/material/Paper';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import JSONInput from 'react-json-editor-ajrm';
 import locale from 'react-json-editor-ajrm/locale/en';
 import Button from "@mui/material/Button/Button";
+import {getEntity} from "../../functions/api/GetQueries";
+import {Styles} from "./Styles";
+import {getAuthHeaders} from "../../auth/authentication";
 
 function RedirectUser(url){
   const navigate = useNavigate();
   return navigate(url);
 }
 
-const styles = theme => ({
-  container: {
-    minHeight: '100vh',
-    backgroundColor: '#eeeeee',
-    padding: '10px'
-  },
-  searchResult: {
-    ...theme.mixins.gutters(),
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
-    color: 'black',
-    textAlign: 'left',
-    margin: '10px',
-  },
-  paragraph: {
-    margin: '15px 0'
-  },
-  link: {
-    paddingRight: '10px'
-  }
-});
+function EditEntity (props) {
+  const navigate = useNavigate();
+  const {titleParam} = useParams();
+  const {classes, user} = props;
+  const [loadedEntity, setLoadedEntity] = useState(null);
+  const [modifiedEntity, setModifiedEntity] = useState(null);
+  const [isChanged, setIsChanged] = useState(false);
 
-class EditEntity extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      modifiedEntity: {},
-      originalTitle: "",
-      changesMade: false,
-    };
-    this.handleSave = this.handleSave.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+  async function updateEntityState(data) {
+    setLoadedEntity(data);
+    setModifiedEntity(data);
   }
 
-  handleSave() {
-    console.log(this.state.originalTitle);
-    console.log(this.state.modifiedEntity);
+  useEffect(() => {
+    if (!loadedEntity || loadedEntity.title !== titleParam) {
+      console.log("get profile entity:", titleParam);
+      getEntity(titleParam, updateEntityState);
+    }
+
+  });
+
+  function handleSave() {
     let updateUrl = process.env.REACT_APP_SERVER_URL + 'api/update';
     const requestOptions = {
-      headers: this.props.getHeaders(),
+      headers: getAuthHeaders(),
       method: 'POST',
-      body: JSON.stringify({title: this.state.originalTitle, entity: this.state.modifiedEntity})
+      body: JSON.stringify({title: loadedEntity.title, entity: modifiedEntity['jsObject']})
     };
     fetch(updateUrl, requestOptions).then(results => {
       return results.json();
@@ -68,20 +54,20 @@ class EditEntity extends Component {
           alert("updated successfully!")
         }
         else {
-          alert("login error!");
+          alert("Server error: error saving entity!");
         }
       }
     });
   }
 
-  handleDelete() {
+  function handleDelete() {
     let isConfirmed = window.confirm("Are you sure you want to delete this entity?");
     if (isConfirmed) {
       let deleteUrl = process.env.REACT_APP_SERVER_URL + 'api/delete';
       const requestOptions = {
         headers: this.props.getHeaders(),
         method: 'POST',
-        body: JSON.stringify({title: this.state.originalTitle})
+        body: JSON.stringify({title: loadedEntity.title})
       };
       fetch(deleteUrl, requestOptions).then(results => {
         return results.json();
@@ -90,7 +76,7 @@ class EditEntity extends Component {
       }).then(data => {
         if (data) {
           if (data.status === 200) {
-            this.props.history.push('/');
+            navigate('/');
           }
           else {
             alert("login error! " + data.status);
@@ -100,50 +86,30 @@ class EditEntity extends Component {
     }
   }
 
-  handleChange(key, value) {
-    this.setState({[key]: value.jsObject, changesMade: true});
-  }
-
-  componentDidMount() {
-    this.props.getEntity(this.props.match.params.title + this.props.location.search);
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.match.params.title !== this.props.match.params.title) {
-      this.props.getEntity(this.props.match.params.title + this.props.location.search);
-    }
-    if (this.props.loadedEntity.title && this.state.originalTitle === "") {
-      this.setState({originalTitle: this.props.loadedEntity.title, modifiedEntity: this.props.loadedEntity})
-    }
-  }
-
-  render() {
-    const {classes, loadedEntity, user} = this.props;
-    if (!user) {
-      // not logged in so redirect to login page with the return url
-      return RedirectUser('/login?redirect=' + loadedEntity.title + "&redirect=" + this.props.location);
-    }
+    // if (!user) {
+    //   // not logged in so redirect to login page with the return url
+    //   return RedirectUser('/login?redirect=' + titleParam);
+    // }
     return (
       <div className="content">
         <div className={classes.container}>
           <Paper className={classes.searchResult} elevation={1}>
-            {loadedEntity ?
+            {modifiedEntity ?
               <div>
                 <JSONInput
                   id='entity_editor'
-                  placeholder={this.state.modifiedEntity}
-                  // colors      = { darktheme }
+                  placeholder={modifiedEntity}
                   locale={locale}
                   height
                   width
-                  onChange={(e) => this.handleChange("modifiedEntity", e)}
+                  onChange={(e) => {setModifiedEntity(e);setIsChanged(true)}}
                 />
-                <Button disabled={!this.state.changesMade} variant="contained" color="primary" type="button"
-                        onClick={this.handleSave}>
+                <Button disabled={!isChanged} variant="contained" color="primary" type="button"
+                        onClick={handleSave}>
                   Save
                 </Button>
                 <Button variant="contained" color="error" type="button"
-                        onClick={this.handleDelete}>
+                        onClick={handleDelete}>
                   Delete
                 </Button>
               </div>
@@ -156,11 +122,6 @@ class EditEntity extends Component {
         </div>
       </div>
     );
-  }
 }
 
-EditEntity.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-export default withStyles(styles)(EditEntity);
+export default withStyles(Styles)(EditEntity);

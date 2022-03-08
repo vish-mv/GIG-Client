@@ -10,6 +10,7 @@ import EditEntity from "./components/view/Edit"
 import Login from "./components/login/Login"
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import './App.css';
+import {getAuthHeaders} from "./auth/authentication";
 
 const appTheme = createTheme({
   palette: {
@@ -27,11 +28,6 @@ function App() {
     setUser(null);
     localStorage.removeItem('token');
     localStorage.removeItem('username');
-  }
-
-  function getAuthHeaders() {
-    const token = localStorage.getItem('token');
-    return {'Authorization': 'Bearer ' + (token ? token : ''), 'Content-Type': 'application/json'};
   }
 
   function validateToken(){
@@ -70,8 +66,8 @@ function App() {
         <Header {...app_props}/>
         <Routes>
           <Route path="/search/:searchParam" element={<SearchResults {...app_props}/>}/>
-          <Route path="/content/:title" element={<ViewEntity/>}/>
-          <Route path="/edit/:title" element={<EditEntity/>}/>
+          <Route path="/content/:titleParam" element={<ViewEntity {...app_props}/>}/>
+          <Route path="/edit/:titleParam" element={<EditEntity {...app_props}/>}/>
           <Route path="/login" element={<Login {...app_props}/>}/>
           <Route path="*" element={<div>invalid url!</div>}/>
         </Routes>
