@@ -43,8 +43,8 @@ function SearchResults(props) {
 
   return (
     <Grid className={classes.container} container width={1}>
-      <Grid item xs={3} className={classes.leftContentColumn}></Grid>
-      <Grid item xs={6} className={classes.mainContentColumn}>
+      <Grid item lg={3} className={classes.leftContentColumn}/>
+      <Grid item  lg={6} className={classes.mainContentColumn}>
         <InfiniteList listItems={searchResults}
                       getResultItems={getSearchResults}
                       list={<MainContentList listItems={searchResults}/>}

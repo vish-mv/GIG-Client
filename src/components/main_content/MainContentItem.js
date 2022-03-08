@@ -19,12 +19,12 @@ class MainContentItem extends Component {
       <Paper className={classes.paper}>
         <ListItem alignItems="flex-start">
           <Grid container width={1}>
-            <Grid item md={5}>
+            <Grid item lg={5}>
               <Link className={classes.itemLink} to={"/profile/" + title}>
                 <img alt={title} src={imageUrl === "" ? "avatar.png" : imageUrl} className={classes.searchAvatar}/>
               </Link>
             </Grid>
-            <Grid item md={7}>
+            <Grid item lg={7}>
               <div style={{padding: '20px'}}>
                 <Link className={classes.itemLink} to={"/profile/" + title}>
                   <Typography className={classes.mainContentItemTitle} variant='h4'><span
