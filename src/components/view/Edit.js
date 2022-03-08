@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import {withStyles} from '@mui/styles';
 import Paper from '@mui/material/Paper';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useNavigate, useParams, useLocation, Navigate} from 'react-router-dom';
 import JSONInput from 'react-json-editor-ajrm';
 import locale from 'react-json-editor-ajrm/locale/en';
 import Button from "@mui/material/Button/Button";
@@ -11,31 +11,40 @@ import {getEntity} from "../../functions/api/GetQueries";
 import {Styles} from "./Styles";
 import {getAuthHeaders} from "../../auth/authentication";
 
-function RedirectUser(url){
+function RedirectUser(url) {
   const navigate = useNavigate();
   return navigate(url);
 }
 
-function EditEntity (props) {
+function EditEntity(props) {
+
   const navigate = useNavigate();
+  const location = useLocation();
   const {titleParam} = useParams();
   const {classes, user} = props;
   const [loadedEntity, setLoadedEntity] = useState(null);
   const [modifiedEntity, setModifiedEntity] = useState(null);
   const [isChanged, setIsChanged] = useState(false);
 
+  useEffect(() => {
+    if (user) {
+      if (!loadedEntity || loadedEntity.title !== titleParam) {
+        console.log("get profile entity:", titleParam);
+        getEntity(titleParam, updateEntityState);
+      }
+    }
+  });
+
+  if (!user) {
+    // not logged in so redirect to login page with the return url
+    // return RedirectUser('/login?redirect=' + titleParam);
+    return <Navigate to="/login" state={{from: location}} replace/>;
+  }
+
   async function updateEntityState(data) {
     setLoadedEntity(data);
     setModifiedEntity(data);
   }
-
-  useEffect(() => {
-    if (!loadedEntity || loadedEntity.title !== titleParam) {
-      console.log("get profile entity:", titleParam);
-      getEntity(titleParam, updateEntityState);
-    }
-
-  });
 
   function handleSave() {
     let updateUrl = process.env.REACT_APP_SERVER_URL + 'api/update';
@@ -86,42 +95,41 @@ function EditEntity (props) {
     }
   }
 
-    // if (!user) {
-    //   // not logged in so redirect to login page with the return url
-    //   return RedirectUser('/login?redirect=' + titleParam);
-    // }
-    return (
-      <div className="content">
-        <div className={classes.container}>
-          <Paper className={classes.searchResult} elevation={1}>
-            {modifiedEntity ?
-              <div>
-                <JSONInput
-                  id='entity_editor'
-                  placeholder={modifiedEntity}
-                  locale={locale}
-                  height
-                  width
-                  onChange={(e) => {setModifiedEntity(e);setIsChanged(true)}}
-                />
-                <Button disabled={!isChanged} variant="contained" color="primary" type="button"
-                        onClick={handleSave}>
-                  Save
-                </Button>
-                <Button variant="contained" color="error" type="button"
-                        onClick={handleDelete}>
-                  Delete
-                </Button>
-              </div>
-              :
-              <Typography component="p">
-                Document not found
-              </Typography>
-            }
-          </Paper>
-        </div>
+  return (
+    <div className="content">
+      <div className={classes.container}>
+        <Paper className={classes.searchResult} elevation={1}>
+          {modifiedEntity ?
+            <div>
+              <JSONInput
+                id='entity_editor'
+                placeholder={modifiedEntity}
+                locale={locale}
+                height
+                width
+                onChange={(e) => {
+                  setModifiedEntity(e);
+                  setIsChanged(true)
+                }}
+              />
+              <Button disabled={!isChanged} variant="contained" color="primary" type="button"
+                      onClick={handleSave}>
+                Save
+              </Button>
+              <Button variant="contained" color="error" type="button"
+                      onClick={handleDelete}>
+                Delete
+              </Button>
+            </div>
+            :
+            <Typography component="p">
+              Document not found
+            </Typography>
+          }
+        </Paper>
       </div>
-    );
+    </div>
+  );
 }
 
 export default withStyles(Styles)(EditEntity);

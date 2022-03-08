@@ -17,6 +17,8 @@ function Login(props) {
   const [error, setError] = useState("");
   const {classes, searchKey, setSearchKey, user, setUser, logout, isLoading, setIsLoading} = props;
 
+  let redirectUrl = location.state?.from?.pathname || "/";
+
   function handleSubmit(event) {
     event.preventDefault();
     if (username === "" || password === "") {
@@ -45,12 +47,7 @@ function Login(props) {
             setUser(username);
             localStorage.setItem('token', data.payload);
             localStorage.setItem('username', username);
-            let redirect_path = queryString.parse(location.search).redirect;
-            if (redirect_path === undefined) {
-              navigate('/');
-            } else {
-              navigate('/edit/' + redirect_path);
-            }
+            navigate(redirectUrl)
           }
           else {
             setError("login error!");
