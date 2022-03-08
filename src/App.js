@@ -4,7 +4,7 @@ import {
   Routes
 } from "react-router-dom";
 import Header from "./components/shared/header/Header";
-import SearchResults from "./components/results/Results";
+import SearchResults from "./components/results/SearchResults";
 import ViewEntity from "./components/view/View"
 import EditEntity from "./components/view/Edit"
 import Login from "./components/login/Login"
@@ -18,11 +18,10 @@ const appTheme = createTheme({
 });
 
 function App() {
-
   const [searchKey, setSearchKey] = useState("");
   const [user, setUser] = useState(localStorage.getItem('username'));
   const [isLoading, setIsLoading] = useState(false);
-  const app_props = {searchKey, setSearchKey, user, setUser, logout, isLoading, setIsLoading};
+  const app_props = {user, searchKey, setSearchKey, setUser, logout, isLoading, setIsLoading};
 
   function logout() {
     setUser(null);
@@ -53,7 +52,7 @@ function App() {
         console.log("token is valid.")
       }
       else {
-        this.logout();
+        logout();
         console.log("token validation error!");
       }
     });
@@ -70,7 +69,7 @@ function App() {
       <div className="App">
         <Header {...app_props}/>
         <Routes>
-          <Route path="/search/:searchKey" element={<SearchResults/>}/>
+          <Route path="/search/:searchParam" element={<SearchResults {...app_props}/>}/>
           <Route path="/content/:title" element={<ViewEntity/>}/>
           <Route path="/edit/:title" element={<EditEntity/>}/>
           <Route path="/login" element={<Login {...app_props}/>}/>

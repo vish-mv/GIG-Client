@@ -3,20 +3,20 @@ import TextField from "@mui/material/TextField/TextField";
 import Button from "@mui/material/Button/Button";
 import Toolbar from "@mui/material/Toolbar/Toolbar";
 import Typography from "@mui/material/Typography/Typography";
-import InputBase from "@mui/material/InputBase/InputBase";
 import AppBar from "@mui/material/AppBar/AppBar";
 import {withStyles} from "@mui/styles";
 import BeatLoader from 'react-spinners/BeatLoader';
 import CountUp from 'react-countup';
 import Chip from '@mui/material/Chip';
 import Styles, {counterProps, override} from "../../../styles/Styles";
-import {Link, useNavigate, useLocation} from "react-router-dom";
+import {Link, useNavigate, useLocation, useParams} from "react-router-dom";
 import './Header.css'
 
 function Header(props) {
   const navigate = useNavigate();
   const location = useLocation();
-  const {classes, searchKey, setSearchKey, user, logout, isLoading, setIsLoading} = props;
+
+  const {classes, user, logout, searchKey, setSearchKey, isLoading, setIsLoading} = props;
   const [stat, setStat] = useState(null);
 
   function handleSubmit(event) {
@@ -94,21 +94,23 @@ function Header(props) {
 
 
               <div>
+                <Typography>Categories:</Typography>
                 {Array.isArray(stat.category_wise_count) ?
                   stat.category_wise_count.map((category) => (
                     <Chip key={"chip_" + category._id} className={classes.customChip} color="primary" variant="outlined"
-                          component="a" href={"/#/search/" + category._id + ":"} clickable
+                          component="a" href={"/search/" + category._id + ":"} clickable
                           label={<CountUp {...counterProps} prefix={category._id + ": "}
                                           end={category.category_count}/>}/>
                   )) : null}
               </div>
 
               <div>
+                <Typography>Exclusive Category Groupings:</Typography>
                 {Array.isArray(stat.category_group_wise_count) ?
                   stat.category_group_wise_count.map((category_group) => (
                     <Chip key={"chip_" + category_group._id} className={classes.customChip2} color="secondary"
                           variant="outlined"
-                          component="a" href={"/#/search/" + category_group._id.join() + ":"} clickable
+                          component="a" href={"/search/" + category_group._id.join() + ":"} clickable
                           label={<CountUp {...counterProps} prefix={category_group._id.join() + ": "}
                                           end={category_group.category_count}/>}/>
                   )) : null}
@@ -129,17 +131,17 @@ function Header(props) {
                       color="inherit" noWrap>
             General Information Graph
           </Typography>
-          <div className={classes.search}>
+          <div className={classes.search} style={{width:'70%'}}>
             <form id="search-form" onSubmit={handleSubmit} noValidate autoComplete="off">
-              <InputBase
+              <TextField
+                id="search-header"
                 name="search"
                 placeholder="Search…"
                 value={searchKey}
+                size='small'
+                variant="outlined"
                 onChange={(e) => setSearchKey(e.target.value)}
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
+                sx={{width:'100%',border:'2px solid white', borderRadius:'4px'}}
               />
             </form>
           </div>
