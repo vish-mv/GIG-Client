@@ -28,7 +28,7 @@ function ViewEntity(props) {
   return (
     <div className="content">
       <div className={classes.container}>
-        <Paper className={classes.searchResult} elevation={1}>
+        <Paper className={classes.searchResult} elevation={6}>
           {loadedEntity ?
             <div>
               <Typography variant="h4" component="h4">

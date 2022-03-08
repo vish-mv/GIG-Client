@@ -10,8 +10,7 @@ export const Styles = theme => ({
     margin: 10,
   },
   searchResult: {
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     color: 'black',
     textAlign: 'left',
     margin: '10px',
