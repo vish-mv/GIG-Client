@@ -65,12 +65,13 @@ function Header(props) {
           <form id="search-form" onSubmit={handleSubmit} noValidate autoComplete="off">
             <TextField
               fullWidth={true}
+              variant='standard'
               id="search-input"
               name="search"
               value={searchKey}
               onChange={(e) => setSearchKey(e.target.value)}
-              className="search-text"
               margin="normal"
+              placeholder="Search"
             />
             <Button variant="contained" color="primary" type="submit">
               Search
@@ -102,7 +103,7 @@ function Header(props) {
               <div>
                 {Array.isArray(stat.category_group_wise_count) ?
                   stat.category_group_wise_count.map((category_group) => (
-                    <Chip key={"chip_" + category_group._id} className={classes.customChip2} color="primary"
+                    <Chip key={"chip_" + category_group._id} className={classes.customChip2} color="secondary"
                           variant="outlined"
                           component="a" href={"/#/search/" + category_group._id.join() + ":"} clickable
                           label={<CountUp {...counterProps} prefix={category_group._id.join() + ": "}

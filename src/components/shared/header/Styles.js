@@ -41,10 +41,6 @@ const Styles = theme => ({
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: Color(theme.palette.common.white).alpha(0.15).string(),
-    '&:hover': {
-      backgroundColor: Color(theme.palette.common.white).alpha(0.25).string(),
-    },
     marginRight: theme.spacing(2),
     marginLeft: 0,
     width: '100%',
@@ -77,20 +73,6 @@ const Styles = theme => ({
       width: 400,
     },
   },
-  customChipPrimary: {
-    margin: theme.spacing(2),
-    paddingTop: theme.spacing(2),
-  },
-  customChip: {
-    margin: theme.spacing(2),
-    color: "#a42e7f",
-    border: "1px solid #a42e7f"
-  },
-  customChip2: {
-    margin: theme.spacing(2),
-    color: "#ef6564",
-    border: "1px solid #ef6564"
-  }
 });
 
 export default Styles;
