@@ -1,9 +1,8 @@
-import React, {Component, useEffect, useState} from "react";
-import PropTypes from 'prop-types';
+import React, {useEffect, useState} from "react";
 import Typography from '@mui/material/Typography';
 import {withStyles} from '@mui/styles';
 import Paper from '@mui/material/Paper';
-import {useNavigate, useParams, useLocation, Navigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import JSONInput from 'react-json-editor-ajrm';
 import locale from 'react-json-editor-ajrm/locale/en';
 import Button from "@mui/material/Button/Button";
@@ -11,15 +10,9 @@ import {getEntity} from "../../functions/api/GetQueries";
 import {Styles} from "./Styles";
 import {getAuthHeaders} from "../../auth/authentication";
 
-function RedirectUser(url) {
-  const navigate = useNavigate();
-  return navigate(url);
-}
-
 function EditEntity(props) {
 
   const navigate = useNavigate();
-  const location = useLocation();
   const {titleParam} = useParams();
   const {classes, user} = props;
   const [loadedEntity, setLoadedEntity] = useState(null);
@@ -35,11 +28,10 @@ function EditEntity(props) {
     }
   });
 
-  if (!user) {
-    // not logged in so redirect to login page with the return url
-    // return RedirectUser('/login?redirect=' + titleParam);
-    return <Navigate to="/login" state={{from: location}} replace/>;
-  }
+  // if (!user) {
+  //   // not logged in so redirect to login page with the return url
+  //   return <Navigate to="/login" state={{from: location}} replace/>;
+  // }
 
   async function updateEntityState(data) {
     setLoadedEntity(data);

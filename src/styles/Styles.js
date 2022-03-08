@@ -1,5 +1,4 @@
 import {css} from "@emotion/react";
-import Color from "color";
 
 export const override = css`
     display: block;

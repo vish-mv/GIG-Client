@@ -7,7 +7,6 @@ import ListItem from "@mui/material/ListItem/ListItem";
 import {Link} from "react-router-dom";
 import Paper from '@mui/material/Paper';
 import Chip from '@mui/material/Chip';
-import Avatar from "@mui/material/Avatar/Avatar";
 import moment from 'moment';
 import {Routes} from "../../routes";
 
@@ -15,7 +14,7 @@ class MainContentItem extends Component {
 
   render() {
     const ignoreCategories = ["News", "PERSON", "ORGANIZATION", "LOCATION", "arbitrary-entities", "OrgChart-Level1"];
-    const {classes, imageUrl, title, subtitle, description, categories, vertical} = this.props;
+    const {classes, imageUrl, title, subtitle, description, categories} = this.props;
     return (
       <Paper className={classes.paper}>
         <ListItem alignItems="flex-start">

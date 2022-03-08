@@ -1,5 +1,4 @@
-import React, {Component, useState, useEffect} from "react";
-import PropTypes from 'prop-types';
+import React, {useEffect, useState} from "react";
 import Typography from '@mui/material/Typography';
 import {withStyles} from '@mui/styles';
 import Paper from '@mui/material/Paper';

@@ -1,5 +1,4 @@
-import React, {useState, useEffect} from 'react';
-import TextField from "@mui/material/TextField/TextField";
+import React, {useEffect, useState} from 'react';
 import InputBase from "@mui/material/InputBase/InputBase";
 import Button from "@mui/material/Button/Button";
 import Toolbar from "@mui/material/Toolbar/Toolbar";
@@ -10,7 +9,7 @@ import BeatLoader from 'react-spinners/BeatLoader';
 import CountUp from 'react-countup';
 import Chip from '@mui/material/Chip';
 import Styles, {counterProps, override} from "../../../styles/Styles";
-import {Link, useNavigate, useLocation, useParams} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import './Header.css'
 
 function Header(props) {

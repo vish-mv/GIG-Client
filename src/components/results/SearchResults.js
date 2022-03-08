@@ -1,10 +1,6 @@
-import React, {Component, useState} from "react";
-import PropTypes from 'prop-types';
-import Typography from '@mui/material/Typography';
+import React, {useState} from "react";
 import {withStyles} from '@mui/styles';
-import Paper from '@mui/material/Paper';
-import {Link, useParams} from 'react-router-dom'
-import Avatar from "@mui/material/Avatar/Avatar";
+import {useParams} from 'react-router-dom'
 import Grid from "@mui/material/Grid/Grid";
 import {Styles} from "./Styles";
 import {getResults} from "../../functions/api/GetQueries";

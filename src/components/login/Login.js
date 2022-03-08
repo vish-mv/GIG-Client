@@ -1,13 +1,9 @@
-import React, {Component, useState} from "react";
+import React, {useState} from "react";
 import TextField from "@mui/material/TextField/TextField";
 import Button from "@mui/material/Button/Button";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {withStyles} from "@mui/styles";
-import {css} from '@emotion/react';
-import Color from 'color';
 import Styles from "../../styles/Styles";
-
-const queryString = require('query-string');
 
 function Login(props) {
   const location = useLocation();
@@ -15,14 +11,14 @@ function Login(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const {classes, searchKey, setSearchKey, user, setUser, logout, isLoading, setIsLoading} = props;
+  const {classes, setUser} = props;
 
   let redirectUrl = location.state?.from?.pathname || "/";
 
   function handleSubmit(event) {
     event.preventDefault();
     if (username === "" || password === "") {
-      this.setState({error: "username/password required!"})
+      setError("username/password required!");
     }
     else {
 
