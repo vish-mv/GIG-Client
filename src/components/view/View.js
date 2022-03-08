@@ -6,11 +6,13 @@ import {Link, useParams} from "react-router-dom";
 import FormattedContent from "./FormattedContent";
 import {Styles} from "./Styles";
 import {getEntity} from "../../functions/api/GetQueries";
+import {userIsAuthorized} from "../../auth/Authentication";
 
 function ViewEntity(props) {
   const {titleParam} = useParams();
   const {classes} = props;
   const [loadedEntity, setLoadedEntity] = useState(null);
+  const isAuthorized = userIsAuthorized();
 
   async function updateEntityState(data) {
     setLoadedEntity(data);
@@ -32,7 +34,10 @@ function ViewEntity(props) {
             <div>
               <Typography variant="h4" component="h4">
                 {loadedEntity.title}
-              </Typography><Link to={'/edit/' + loadedEntity.title} className={classes.editButton}>Edit</Link><br/>
+              </Typography>
+              {isAuthorized ?
+                <Link to={'/edit/' + loadedEntity.title} className={classes.editButton}>Edit</Link> : null}
+              <br/>
               <table>
                 <tbody>
                 {loadedEntity.attributes ? Object.entries(loadedEntity.attributes).map((attribute) => (

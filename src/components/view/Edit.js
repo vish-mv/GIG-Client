@@ -21,7 +21,7 @@ function EditEntity(props) {
 
   useEffect(() => {
     if (user) {
-      if (!loadedEntity || loadedEntity.title !== titleParam) {
+      if (!loadedEntity || (loadedEntity.title !== titleParam)) {
         console.log("get profile entity:", titleParam);
         getEntity(titleParam, updateEntityState);
       }
