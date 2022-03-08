@@ -4,6 +4,7 @@ import Button from "@mui/material/Button/Button";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {withStyles} from "@mui/styles";
 import Styles from "../../styles/Styles";
+import {setAuthUser, setAuthToken} from "../../auth/User";
 
 function Login(props) {
   const location = useLocation();
@@ -41,8 +42,8 @@ function Login(props) {
           }
           else if (data.status === 200) {
             setUser(username);
-            localStorage.setItem('token', data.payload);
-            localStorage.setItem('username', username);
+            setAuthUser(username);
+            setAuthToken(data.payload);
             navigate(redirectUrl)
           }
           else {

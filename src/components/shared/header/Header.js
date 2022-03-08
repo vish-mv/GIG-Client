@@ -58,7 +58,7 @@ function Header(props) {
       <header className="App-header">
         <div className="content">
           {user ?
-            <Link to={'#'} onClick={logout} className={classes.loginButton}>{user} -
+            <Link to={'#'} onClick={() => logout()} className={classes.loginButton}>{user} -
               Logout</Link> :
             <Link to={'/login'} className={classes.loginButton}>Login</Link>
           }
@@ -67,18 +67,18 @@ function Header(props) {
             General Information Graph
           </p>
           <form id="search-form" onSubmit={handleSubmit} noValidate autoComplete="off">
-            <div className={classes.search} style={{margin:'20px' }}>
-                <InputBase
-                  id="search-input"
-                  name="search"
-                  placeholder="Search…"
-                  value={searchKey}
-                  onChange={(e) => setSearchKey(e.target.value)}
-                  classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput,
-                  }}
-                />
+            <div className={classes.search} style={{margin: '20px'}}>
+              <InputBase
+                id="search-input"
+                name="search"
+                placeholder="Search…"
+                value={searchKey}
+                onChange={(e) => setSearchKey(e.target.value)}
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+              />
             </div>
             <Button variant="contained" color="primary" type="submit">
               Search
@@ -135,7 +135,7 @@ function Header(props) {
                       color="inherit" noWrap>
             General Information Graph
           </Typography>
-          <div className={classes.search} style={{width:'50%'}}>
+          <div className={classes.search} style={{width: '50%'}}>
             <form id="search-form" onSubmit={handleSubmit} noValidate autoComplete="off">
               <InputBase
                 name="search"
@@ -159,7 +159,7 @@ function Header(props) {
           <div className={classes.grow}/>
         </Toolbar>
         {user ?
-          <Link to={'#'} onClick={logout} className={classes.loginButton}>{user} -
+          <Link to={'#'} onClick={() => logout()} className={classes.loginButton}>{user} -
             Logout</Link> :
           <Link to={'/login'} className={classes.loginButton}>Login</Link>
         }

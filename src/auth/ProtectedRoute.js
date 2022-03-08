@@ -1,8 +1,9 @@
 import React from "react";
 import {Navigate, useLocation} from 'react-router-dom';
+import {getAuthUser} from "./User";
 
 export function ProtectedRoute({children}) {
-  const user=localStorage.getItem('username');
+  const user=getAuthUser();
   let location = useLocation();
 
   if (!user) {

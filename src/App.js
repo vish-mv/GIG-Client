@@ -7,8 +7,9 @@ import EditEntity from "./components/view/Edit"
 import Login from "./components/login/Login"
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import './App.css';
-import {getAuthHeaders} from "./auth/authentication";
+import {validateToken} from "./auth/Authentication";
 import {ProtectedRoute} from "./auth/ProtectedRoute";
+import {getAuthUser, logout} from "./auth/User";
 
 const appTheme = createTheme({
   palette: {
@@ -18,43 +19,12 @@ const appTheme = createTheme({
 
 function App() {
 
-  const [user, setUser] = useState(localStorage.getItem('username'));
+  const [user, setUser] = useState(getAuthUser());
   const [isLoading, setIsLoading] = useState(false);
-  const app_props = {user, setUser, logout, isLoading, setIsLoading};
-
-  function logout() {
-    setUser(null);
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-  }
-
-  function validateToken() {
-    console.log("validating token");
-    let loginUrl = process.env.REACT_APP_SERVER_URL + 'api/token/validate';
-
-    const requestOptions = {
-      headers: getAuthHeaders(),
-      method: 'GET',
-    };
-    fetch(loginUrl, requestOptions).then(results => {
-      return results.json();
-    }, error => {
-      console.log("error connecting to server");
-      this.setState({error: "server error!"})
-    }).then(data => {
-      if (data.status === 200) {
-        console.log("token is valid.")
-      }
-      else {
-        logout();
-        console.log("token validation error! logging out.");
-      }
-    });
-  }
+  const app_props = {user, setUser, isLoading, setIsLoading,logout};
 
   useEffect(() => {
     if (user) {
-      console.log("vallidate token");
       validateToken();
     }
   });

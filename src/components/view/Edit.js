@@ -8,7 +8,7 @@ import locale from 'react-json-editor-ajrm/locale/en';
 import Button from "@mui/material/Button/Button";
 import {getEntity} from "../../functions/api/GetQueries";
 import {Styles} from "./Styles";
-import {getAuthHeaders} from "../../auth/authentication";
+import {getAuthHeaders} from "../../auth/Authentication";
 
 function EditEntity(props) {
 
