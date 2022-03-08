@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Route,
   Routes
@@ -16,20 +16,55 @@ const appTheme = createTheme({
     mode: 'light',
   },
 });
-appTheme.spacing(2);
 
 function App() {
 
+  const [searchKey, setSearchKey] = useState("");
+  const [user, setUser] = useState(localStorage.getItem('username'));
+  const [isLoading, setIsLoading] = useState(false);
+  const app_props = {searchKey, setSearchKey, user, setUser, logout, isLoading, setIsLoading};
+
   function logout() {
-    this.setState({user: null});
+    setUser(null);
     localStorage.removeItem('token');
     localStorage.removeItem('username');
   }
 
-  const [searchKey, setSearchKey] = useState("");
-  const [user, setUser] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const app_props = {searchKey, setSearchKey, user, setUser, logout, isLoading, setIsLoading};
+  function getAuthHeaders() {
+    const token = localStorage.getItem('token');
+    return {'Authorization': 'Bearer ' + (token ? token : ''), 'Content-Type': 'application/json'};
+  }
+
+  function validateToken(){
+    console.log("validating token");
+    let loginUrl = process.env.REACT_APP_SERVER_URL + 'api/token/validate';
+
+    const requestOptions = {
+      headers: getAuthHeaders(),
+      method: 'GET',
+    };
+    fetch(loginUrl, requestOptions).then(results => {
+      return results.json();
+    }, error => {
+      console.log("error connecting to server");
+      this.setState({error: "server error!"})
+    }).then(data => {
+      if (data.status === 200) {
+        console.log("token is valid.")
+      }
+      else {
+        this.logout();
+        console.log("token validation error!");
+      }
+    });
+  }
+
+  useEffect(()=>{
+    if (user) {
+      validateToken();
+    }
+  },[user]);
+
   return (
     <ThemeProvider theme={appTheme}>
       <div className="App">

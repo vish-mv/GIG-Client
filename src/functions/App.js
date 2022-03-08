@@ -1,69 +1,4 @@
-constructor(props)
-{
-  super(props);
-  this.state = {
-    searchKey: "",
-    searchResults: [],
-    loadedEntity: [],
-    loading: true,
-    user: localStorage.getItem('username'),
-  };
-  this.handleChange = this.handleChange.bind(this);
-  this.startLoading = this.startLoading.bind(this);
-  this.endLoading = this.endLoading.bind(this);
-  this.getSearchResults = this.getSearchResults.bind(this);
-  this.getEntity = this.getEntity.bind(this);
-  this.logout = this.logout.bind(this);
-  this.getAuthHeaders = this.getAuthHeaders.bind(this);
-
-  let loginUrl = process.env.REACT_APP_SERVER_URL + 'api/token/validate';
-
-  const requestOptions = {
-    headers: this.getAuthHeaders(),
-    method: 'GET',
-  };
-  fetch(loginUrl, requestOptions).then(results => {
-    return results.json();
-  }, error => {
-    console.log("error connecting to server");
-    this.setState({error: "server error!"})
-  }).then(data => {
-    this.handleChange("loginResult", data);
-    if (data.status === 200) {
-      console.log("token is valid.")
-    }
-    else {
-      this.logout();
-      console.log("token validation error!");
-    }
-  });
-}
-
-startLoading()
-{
-  this.setState({loading: true});
-}
-
-endLoading()
-{
-  this.setState({loading: false});
-}
-
-getAuthHeaders()
-{
-  const token = localStorage.getItem('token');
-  return {'Authorization': 'Bearer ' + (token ? token : ''), 'Content-Type': 'application/json'};
-}
-
-handleChange(key, value)
-{
-  this.setState({[key]: value});
-}
-
-
-
-getSearchResults(searchKey)
-{
+export async function getSearchResults(searchKey, setStateFunc) {
   this.startLoading();
   if (searchKey.length > 1) {
     let searchUrl = process.env.REACT_APP_SERVER_URL + 'api/search?query=';
@@ -79,9 +14,9 @@ getSearchResults(searchKey)
     }).then(results => {
       return results.json();
     }, error => {
-      console.log("error connecting to server")
+      console.log("error connecting to server:", error)
     }).then(data => {
-      this.handleChange("searchResults", data);
+      setStateFunc(data);
     }).then(
       end => this.endLoading()
     );
@@ -89,8 +24,7 @@ getSearchResults(searchKey)
 
 }
 
-getEntity(title)
-{
+export async function getEntity(title, setStateFunc) {
   this.startLoading();
   fetch(process.env.REACT_APP_SERVER_URL + 'api/get/' + title, {
     method: 'GET'
@@ -100,7 +34,7 @@ getEntity(title)
     }
     return null
   }).then(data => {
-    this.handleChange("loadedEntity", data);
+    setStateFunc(data);
   }).then(
     end => this.endLoading()
   );
