@@ -1,3 +1,4 @@
+import React from "react";
 import {AuthStore} from "./AuthStore";
 
 const authStorage= localStorage;
@@ -18,7 +19,8 @@ export function setAuthToken(token) {
   authStorage.setItem(AuthStore.token,token)
 }
 
-export function logout() {
+export function logout(setUserState) {
+  setUserState("");
   for (const [key,value] of Object.entries(AuthStore)) {
     authStorage.removeItem(value);
   }

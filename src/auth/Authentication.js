@@ -10,7 +10,7 @@ export function userIsAuthorized() {
 
 }
 
-export function validateToken() {
+export function validateToken(setUserState) {
   console.log("validating token");
   let loginUrl = process.env.REACT_APP_SERVER_URL + 'api/token/validate';
 
@@ -29,7 +29,7 @@ export function validateToken() {
       return {error: null, result:true}
     }
     else {
-      logout();
+      logout(setUserState);
       console.log("token validation error! logging out.");
       return {error: "token validation error! logging out.", result:false}
     }

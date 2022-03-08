@@ -25,7 +25,7 @@ function App() {
 
   useEffect(() => {
     if (user) {
-      validateToken();
+      validateToken(setUser);
     }
   });
 

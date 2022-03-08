@@ -11,13 +11,14 @@ import Chip from '@mui/material/Chip';
 import Styles, {counterProps, override} from "../../../styles/Styles";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import './Header.css'
+import {logout} from "../../../auth/User";
 
 function Header(props) {
   const navigate = useNavigate();
   const location = useLocation();
 
   const [searchKey, setSearchKey] = useState("");
-  const {classes, user, logout, isLoading, setIsLoading} = props;
+  const {classes, user, isLoading, setIsLoading, setUser} = props;
   const [stat, setStat] = useState(null);
 
   function handleSubmit(event) {
@@ -58,7 +59,7 @@ function Header(props) {
       <header className="App-header">
         <div className="content">
           {user ?
-            <Link to={'#'} onClick={() => logout()} className={classes.loginButton}>{user} -
+            <Link to={'#'} onClick={() => logout(setUser)} className={classes.loginButton}>{user} -
               Logout</Link> :
             <Link to={'/login'} className={classes.loginButton}>Login</Link>
           }
@@ -159,7 +160,7 @@ function Header(props) {
           <div className={classes.grow}/>
         </Toolbar>
         {user ?
-          <Link to={'#'} onClick={() => logout()} className={classes.loginButton}>{user} -
+          <Link to={'#'} onClick={() => logout(setUser)} className={classes.loginButton}>{user} -
             Logout</Link> :
           <Link to={'/login'} className={classes.loginButton}>Login</Link>
         }
