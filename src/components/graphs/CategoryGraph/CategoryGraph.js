@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react"
 import {ForceGraph3D} from 'react-force-graph';
+import SpriteText from 'three-spritetext';
 
 function CategoryGraph(props) {
 
@@ -54,7 +55,15 @@ function CategoryGraph(props) {
   return (
     <div>
       <ForceGraph3D
-        graphData={gData}
+        graphData={gData} nodeAutoColorBy="name"
+        linkAutoColorBy="group"
+        linkWidth={2}
+        nodeThreeObject={node => {
+          const sprite = new SpriteText(node.id);
+          sprite.color = node.color;
+          sprite.textHeight = 8;
+          return sprite;
+        }}
       />
     </div>
 
