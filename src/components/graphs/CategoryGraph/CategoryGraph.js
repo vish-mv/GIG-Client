@@ -1,15 +1,14 @@
-import React, {useEffect, useState} from "react"
+import React, {useEffect, useState, useRef, useCallback} from "react"
 import {ForceGraph3D} from 'react-force-graph';
 import SpriteText from 'three-spritetext';
+import {getResults} from "../../../functions/api/GetQueries";
 
 function CategoryGraph(props) {
 
   const [stat, setStat] = useState(null);
-  let gData = {
-    "nodes": [],
-    "links": []
-  };
-  let links = [];
+  const [graphData, setGraphData] = useState(null);
+  const [searchResults, setSearchResults] = useState(null);
+  const [searchPage, setSearchPage] = useState(0);
 
   function getStats() {
     fetch(process.env.REACT_APP_SERVER_URL + 'api/status/', {
@@ -20,51 +19,116 @@ function CategoryGraph(props) {
       }
       return null
     }).then(data => {
-      setStat(data.payload)
+      setStat(data.payload);
+      //format category data to graph data structure
+      let links = [];
+
+      function createLinks(item) {
+        if (item._id.length > 1) {
+          let result = item._id.flatMap(
+            (v, i) => item._id.slice(i + 1).map(w => [v, w])
+          );
+          result.forEach((item) => {
+            links.push({source: item[0], target: item[1]})
+          })
+        }
+      }
+
+      let gCategories = data.payload?.category_wise_count?.map((i) => ({
+        id: i._id,
+        name: i._id,
+        value: i.category_count,
+        type: "category"
+      }));
+
+      data.payload?.category_group_wise_count?.forEach(createLinks);
+      setGraphData({nodes: gCategories, links: links});
+
     });
   }
 
-  function createLinks(item) {
-    if (item._id.length > 1) {
-      let result = item._id.flatMap(
-        (v, i) => item._id.slice(i + 1).map(w => [v, w])
-      );
-      result.forEach((item) => {
-        links.push({source: item[0], target: item[1]})
-      })
-    }
+  if (!stat) {
+    console.log("get stats");
+    getStats();
   }
 
-  useEffect(() => {
-    if (!stat) {
-      getStats();
+
+  const handleClick = useCallback(node => {
+    if (node.type === "category") {
+      getSearchResults(node.id + ":")
     }
-  }, [stat]);
+    else if (node.type === "entity") {
+      const {nodes, links} = graphData;
+      node.links?.forEach((link)=>{
+        nodes.push({
+          id: link,
+          name: link,
+          value: link,
+          type: "entity",
 
-  if (stat) {
+        });
+        links.push({
+          source: link,
+          target: node.id
+        });
+      });
+      setGraphData({nodes: nodes, links: links})
+    }
+  });
 
-    let gCategories = stat?.category_wise_count?.map((i) => ({id: i._id, name: i._id, value: i.category_count}));
+  async function getSearchResults(searchParam, initialSearch) {
+    if (searchParam.length > 1) {
+      let searchUrl = process.env.REACT_APP_SERVER_URL + 'api/search?query=';
+      if (searchParam.includes(":")) {
+        let searchArray = searchParam.split(":", 2);
+        searchUrl += searchArray[1] + '&categories=' + searchArray[0];
+      } else {
+        searchUrl += searchParam;
+      }
+      let result = await getResults(searchUrl, initialSearch, searchResults, searchPage, setSearchResults, setSearchPage, 15);
+      if (result) {
+        const {nodes, links} = graphData;
+        result.forEach((entity) => {
+          const linksArray=entity.links.map(linkObj=>linkObj.title);
+          nodes.push({
+            id: entity.title,
+            name: entity.title,
+            value: entity.title,
+            type: "entity",
+            links: linksArray
 
-    stat?.category_group_wise_count?.forEach(createLinks);
-    gData = {
-      "nodes": gCategories,
-      "links": links
-    };
+          });
+          entity.categories.forEach((category) => {
+            links.push({
+              source: category,
+              target: entity.title
+            });
+          });
+
+        });
+        setGraphData({nodes: nodes, links: links})
+      }
+      return result
+    }
+    return false
   }
+
 
   return (
     <div>
-      <ForceGraph3D
-        graphData={gData} nodeAutoColorBy="name"
-        linkAutoColorBy="group"
-        linkWidth={2}
-        nodeThreeObject={node => {
-          const sprite = new SpriteText(node.id);
-          sprite.color = node.color;
-          sprite.textHeight = 8;
-          return sprite;
-        }}
-      />
+      {graphData ?
+        <ForceGraph3D
+          graphData={graphData} nodeAutoColorBy="name"
+          linkAutoColorBy="source"
+          linkWidth={1}
+          onNodeClick={handleClick}
+          // nodeThreeObject={node => {
+          //   const sprite = new SpriteText(node.id);
+          //   sprite.color = node.color;
+          //   sprite.textHeight = 8;
+          //   return sprite;
+          // }}
+        /> : null}
     </div>
 
   )

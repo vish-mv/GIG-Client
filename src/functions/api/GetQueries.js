@@ -7,12 +7,12 @@ export async function getResults(searchUrl, newSearch, result, page, setResults,
       if (newSearch || result == null) {
         setResults(json);
         setPage(1);
-        return true
+        return json
       } else {
         if (json) {
           setResults(result.concat(json));
           setPage(page + 1);
-          return true
+          return json
         } else {
           setResults([]);
           setPage(0);
