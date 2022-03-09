@@ -2,13 +2,15 @@ import React, {useEffect, useState, useRef, useCallback} from "react"
 import {ForceGraph3D} from 'react-force-graph';
 import SpriteText from 'three-spritetext';
 import {getResults} from "../../../functions/api/GetQueries";
+import {validateToken} from "../../../auth/Authentication";
 
 function CategoryGraph(props) {
 
   const [stat, setStat] = useState(null);
   const [graphData, setGraphData] = useState(null);
-  const [searchResults, setSearchResults] = useState(null);
-  const [searchPage, setSearchPage] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  function dummy(){}
 
   function getStats() {
     fetch(process.env.REACT_APP_SERVER_URL + 'api/status/', {
@@ -43,7 +45,6 @@ function CategoryGraph(props) {
 
       data.payload?.category_group_wise_count?.forEach(createLinks);
       setGraphData({nodes: gCategories, links: links});
-
     });
   }
 
@@ -52,6 +53,16 @@ function CategoryGraph(props) {
     getStats();
   }
 
+  useEffect(() => {
+    if (graphData && !isLoaded){
+      setIsLoaded(true);
+      console.log("load entities");
+
+      stat?.category_wise_count.forEach((category)=>getSearchResults(category._id,true))
+      console.log(graphData)
+    }
+
+  }, [stat,isLoaded, getSearchResults, graphData]);
 
   const handleClick = useCallback(node => {
     if (node.type === "category") {
@@ -85,8 +96,9 @@ function CategoryGraph(props) {
       } else {
         searchUrl += searchParam;
       }
-      let result = await getResults(searchUrl, initialSearch, searchResults, searchPage, setSearchResults, setSearchPage, 15);
+      let result = await getResults(searchUrl, initialSearch, [], 0, dummy, dummy, 15);
       if (result) {
+        console.log(result);
         const {nodes, links} = graphData;
         result.forEach((entity) => {
           const linksArray=entity.links.map(linkObj=>linkObj.title);
@@ -128,6 +140,11 @@ function CategoryGraph(props) {
           //   sprite.textHeight = 8;
           //   return sprite;
           // }}
+          onNodeDragEnd={node => {
+            node.fx = node.x;
+            node.fy = node.y;
+            node.fz = node.z;
+          }}
         /> : null}
     </div>
 
