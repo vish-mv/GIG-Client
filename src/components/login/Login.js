@@ -4,7 +4,6 @@ import Button from "@mui/material/Button/Button";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {withStyles} from "@mui/styles";
 import Styles from "../../styles/Styles";
-import {setAuthUser, setAuthToken} from "../../auth/User";
 import {userLogin} from "../../auth/Login";
 
 function Login(props) {

@@ -8,7 +8,8 @@ import locale from 'react-json-editor-ajrm/locale/en';
 import Button from "@mui/material/Button/Button";
 import {getEntity} from "../../functions/api/GetQueries";
 import {Styles} from "./Styles";
-import {getAuthHeaders} from "../../auth/Authentication";
+import {saveEntity} from "./functions/SaveEntity";
+import {deleteEntity} from "./functions/DeleteEntity";
 
 function EditEntity(props) {
 
@@ -28,63 +29,9 @@ function EditEntity(props) {
     }
   });
 
-  // if (!user) {
-  //   // not logged in so redirect to login page with the return url
-  //   return <Navigate to="/login" state={{from: location}} replace/>;
-  // }
-
   async function updateEntityState(data) {
     setLoadedEntity(data);
     setModifiedEntity(data);
-  }
-
-  function handleSave() {
-    let updateUrl = process.env.REACT_APP_SERVER_URL + 'api/update';
-    const requestOptions = {
-      headers: getAuthHeaders(),
-      method: 'POST',
-      body: JSON.stringify({title: loadedEntity.title, entity: modifiedEntity['jsObject']})
-    };
-    fetch(updateUrl, requestOptions).then(results => {
-      return results.json();
-    }, error => {
-      alert("error connecting to server");
-    }).then(data => {
-      if (data) {
-        if (data.status === 200) {
-          alert("updated successfully!")
-        }
-        else {
-          alert("Server error: error saving entity!");
-        }
-      }
-    });
-  }
-
-  function handleDelete() {
-    let isConfirmed = window.confirm("Are you sure you want to delete this entity?");
-    if (isConfirmed) {
-      let deleteUrl = process.env.REACT_APP_SERVER_URL + 'api/delete';
-      const requestOptions = {
-        headers: this.props.getHeaders(),
-        method: 'POST',
-        body: JSON.stringify({title: loadedEntity.title})
-      };
-      fetch(deleteUrl, requestOptions).then(results => {
-        return results.json();
-      }, error => {
-        alert("error connecting to server");
-      }).then(data => {
-        if (data) {
-          if (data.status === 200) {
-            navigate('/');
-          }
-          else {
-            alert("login error! " + data.status);
-          }
-        }
-      });
-    }
   }
 
   return (
@@ -105,11 +52,11 @@ function EditEntity(props) {
                 }}
               />
               <Button disabled={!isChanged} variant="contained" color="primary" type="button"
-                      onClick={handleSave}>
+                      onClick={() => saveEntity(loadedEntity, modifiedEntity, navigate)}>
                 Save
               </Button>
               <Button variant="contained" color="error" type="button"
-                      onClick={handleDelete}>
+                      onClick={()=>deleteEntity(loadedEntity, navigate)}>
                 Delete
               </Button>
             </div>
