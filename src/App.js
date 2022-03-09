@@ -10,6 +10,7 @@ import './App.css';
 import {validateToken} from "./auth/Authentication";
 import {ProtectedRoute} from "./auth/ProtectedRoute";
 import {getAuthUser, logout} from "./auth/User";
+import Home from "./components/home/Home";
 
 const appTheme = createTheme({
   palette: {
@@ -19,25 +20,29 @@ const appTheme = createTheme({
 
 function App() {
 
+  const [searchKey, setSearchKey] = useState("");
   const [user, setUser] = useState(getAuthUser());
   const [isLoading, setIsLoading] = useState(false);
-  const app_props = {user, setUser, isLoading, setIsLoading,logout};
+  const app_props = {user, setUser, isLoading, setIsLoading, logout, searchKey, setSearchKey};
 
   useEffect(() => {
     if (user) {
       validateToken(setUser);
     }
-  },[user]);
+  }, [user]);
 
   return (
     <ThemeProvider theme={appTheme}>
       <div className="App">
-        <Header {...app_props}/>
         <Routes>
-          <Route path="/search/:searchParam" element={<SearchResults {...app_props}/>}/>
-          <Route path="/content/:titleParam" element={<ViewEntity {...app_props}/>}/>
-          <Route path="/edit/:titleParam" element={<ProtectedRoute><EditEntity {...app_props}/></ProtectedRoute>}/>
+          <Route index element={<Home {...app_props}/>}/>
           <Route path="/login" element={<Login {...app_props}/>}/>
+          <Route element={<Header {...app_props}/>}>
+            <Route path="search/:searchParam" element={<SearchResults {...app_props}/>}/>
+            <Route path="/content/:titleParam" element={<ViewEntity {...app_props}/>}/>
+            <Route path="/edit/:titleParam" element={<ProtectedRoute><EditEntity {...app_props}/></ProtectedRoute>}/>
+          </Route>
+
           <Route path="*" element={<div>invalid url!</div>}/>
         </Routes>
       </div>

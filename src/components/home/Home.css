@@ -1,0 +1,23 @@
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+#search-input {
+  text-align: center;
+}
+
+#search-form {
+  width: 96%;
+  margin: auto;
+}
+
+.MuiButtonBase-root.MuiChip-root{
+  margin: 3px;
+}
