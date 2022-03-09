@@ -4,6 +4,11 @@ import {ForceGraph3D} from 'react-force-graph';
 function CategoryGraph(props) {
 
   const [stat, setStat] = useState(null);
+  let gData = {
+    "nodes": [],
+    "links": []
+  };
+  let links = [];
 
   function getStats() {
     fetch(process.env.REACT_APP_SERVER_URL + 'api/status/', {
@@ -18,34 +23,33 @@ function CategoryGraph(props) {
     });
   }
 
+  function createLinks(item) {
+    if (item._id.length > 1) {
+      let result = item._id.flatMap(
+        (v, i) => item._id.slice(i + 1).map(w => [v, w])
+      );
+      result.forEach((item) => {
+        links.push({source: item[0], target: item[1]})
+      })
+    }
+  }
+
   useEffect(() => {
     if (!stat) {
       getStats();
     }
   }, [stat]);
 
-  console.log(stat);
+  if (stat) {
 
-  const gData = {
-    "nodes": [
-      {
-        "id": "id1",
-        "name": "name1",
-        "val": 1
-      },
-      {
-        "id": "id2",
-        "name": "name2",
-        "val": 10
-      },
-    ],
-    "links": [
-      {
-        "source": "id1",
-        "target": "id2"
-      },
-    ]
-  };
+    let gCategories = stat?.category_wise_count?.map((i) => ({id: i._id, name: i._id, value: i.category_count}));
+
+    stat?.category_group_wise_count?.forEach(createLinks);
+    gData = {
+      "nodes": gCategories,
+      "links": links
+    };
+  }
 
   return (
     <div>
