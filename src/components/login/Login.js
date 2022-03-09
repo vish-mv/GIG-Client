@@ -5,6 +5,7 @@ import {Link, useLocation, useNavigate} from "react-router-dom";
 import {withStyles} from "@mui/styles";
 import Styles from "../../styles/Styles";
 import {setAuthUser, setAuthToken} from "../../auth/User";
+import {userLogin} from "../../auth/Login";
 
 function Login(props) {
   const location = useLocation();
@@ -16,41 +17,14 @@ function Login(props) {
 
   let redirectUrl = location.state?.from?.pathname || "/";
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    if (username === "" || password === "") {
-      setError("username/password required!");
-    }
-    else {
-
-      let loginUrl = process.env.REACT_APP_SERVER_URL + 'api/user/login';
-      const requestOptions = {
-        headers: {'Content-Type': 'application/json'},
-        method: 'POST',
-        body: JSON.stringify({username: username, password: password})
-      };
-      fetch(loginUrl, requestOptions).then(results => {
-        return results.json();
-      }, error => {
-        console.log("error connecting to server");
-        setError("server error!");
-      }).then(data => {
-        if (data) {
-          // this.handleChange("loginResult", data);
-          if (data.status === 403) {
-            setError(data.payload);
-          }
-          else if (data.status === 200) {
-            setUser(username);
-            setAuthUser(username);
-            setAuthToken(data.payload);
-            navigate(redirectUrl)
-          }
-          else {
-            setError("login error!");
-          }
-        }
-      });
+    const response=await userLogin(username,password);
+    if (response.error){
+      setError(response.error)
+    }else{
+      setUser(username);
+      navigate(redirectUrl)
     }
   }
 
