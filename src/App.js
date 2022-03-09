@@ -27,7 +27,7 @@ function App() {
     if (user) {
       validateToken(setUser);
     }
-  });
+  },[user]);
 
   return (
     <ThemeProvider theme={appTheme}>

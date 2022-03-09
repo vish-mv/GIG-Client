@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import {AuthStore} from "./AuthStore";
 
 const authStorage= localStorage;
@@ -20,8 +20,12 @@ export function setAuthToken(token) {
 }
 
 export function logout(setUserState) {
+  if (!setUserState){
+    console.log("user set state function is undefined. This might cause the App to not function properly.")
+  }
   setUserState("");
   for (const [key,value] of Object.entries(AuthStore)) {
+    console.log("removing auth data:",key);
     authStorage.removeItem(value);
   }
 }
