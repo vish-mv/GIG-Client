@@ -11,6 +11,7 @@ import {validateToken} from "./auth/Authentication";
 import {ProtectedRoute} from "./auth/ProtectedRoute";
 import {getAuthUser, logout} from "./auth/User";
 import Home from "./components/home/Home";
+import CategoryGraph from "./components/graphs/CategoryGraph/CategoryGraph";
 
 const appTheme = createTheme({
   palette: {
@@ -41,6 +42,7 @@ function App() {
             <Route path="search/:searchParam" element={<SearchResults {...app_props}/>}/>
             <Route path="/content/:titleParam" element={<ViewEntity {...app_props}/>}/>
             <Route path="/edit/:titleParam" element={<ProtectedRoute><EditEntity {...app_props}/></ProtectedRoute>}/>
+            <Route path="graphs/category" element={<CategoryGraph {...app_props}/>}/>
           </Route>
 
           <Route path="*" element={<div>invalid url!</div>}/>
