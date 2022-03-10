@@ -54,7 +54,7 @@ const Styles = theme => ({
     '&:hover': {
       backgroundColor: theme.palette.common.white,
     },
-    marginRight: theme.spacing(2),
+    marginRight: "-25px",
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
@@ -72,6 +72,7 @@ const Styles = theme => ({
     justifyContent: 'center',
   },
   inputRoot: {
+    marginTop:'3px',
     color: '#0000008F',
     width: '100%',
     paddingLeft: theme.spacing(2),

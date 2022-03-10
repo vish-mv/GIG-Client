@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField/TextField";
 import Button from "@mui/material/Button/Button";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {withStyles} from "@mui/styles";
-import Styles from "../../styles/Styles";
+import Styles from "../shared/header/Styles";
 import {userLogin} from "../../auth/Login";
 
 function Login(props) {

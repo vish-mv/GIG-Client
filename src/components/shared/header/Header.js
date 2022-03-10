@@ -5,10 +5,12 @@ import Typography from "@mui/material/Typography/Typography";
 import AppBar from "@mui/material/AppBar/AppBar";
 import {withStyles} from "@mui/styles";
 import BeatLoader from 'react-spinners/BeatLoader';
-import Styles, {override} from "../../../styles/Styles";
+import Styles, {override} from "./Styles";
 import {Link, useLocation, useNavigate, Outlet} from "react-router-dom";
 import './Header.css'
 import {logout} from "../../../auth/User";
+import Button from "@mui/material/Button/Button";
+import Grid from '@mui/material/Grid';
 
 function Header(props) {
   const navigate = useNavigate();
@@ -30,39 +32,52 @@ function Header(props) {
     <div>
       <AppBar position="static" style={{marginTop: 0}}>
         <Toolbar className={classes.appBar}>
-          <Typography component={Link} to="/" style={{textDecoration: 'none'}} className={classes.menuButton}
-                      variant="h6"
-                      color="inherit" noWrap>
-            General Information Graph
-          </Typography>
-          <div className={classes.search} style={{width: '50%'}}>
-            <form id="search-form" onSubmit={handleSubmit} noValidate autoComplete="off">
-              <InputBase
-                name="search"
-                placeholder="Search…"
-                value={searchKey}
-                onChange={(e) => setSearchKey(e.target.value)}
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
+          <Grid container spacing={2}>
+            <Grid item>
+              <Typography component={Link} to="/" style={{textDecoration: 'none'}} className={classes.menuButton}
+                          variant="h6"
+                          color="inherit" noWrap>
+                General Information Graph
+              </Typography>
+            </Grid>
+            <Grid item sm={8}>
+              <form id="search-form" onSubmit={handleSubmit} noValidate autoComplete="off" style={{display: 'flex'}}>
+                <div className={classes.search} style={{width:'100%'}}>
+                  <InputBase
+                    name="search"
+                    placeholder="Search…"
+                    value={searchKey}
+                    onChange={(e) => setSearchKey(e.target.value)}
+                    classes={{
+                      root: classes.inputRoot,
+                      input: classes.inputInput,
+                    }}
+                  />
+                </div>
+                <Button variant="contained" color="primary" type="submit" style={{borderRadius: '20px'}}>
+                  Search
+                </Button>
+              </form>
+            </Grid>
+            <Grid item sx={{marginTop:1}}>
+              <BeatLoader
+                css={override}
+                sizeUnit={"px"}
+                size={14}
+                color={'#36D7B7'}
+                loading={isLoading}
               />
-            </form>
-          </div>
-          <BeatLoader
-            css={override}
-            sizeUnit={"px"}
-            size={14}
-            color={'#36D7B7'}
-            loading={isLoading}
-          />
-          <div className={classes.grow}/>
+            </Grid>
+            <Grid item sx={{ flexGrow: 1 }}/>
+            <Grid item sx={{marginTop:1}}>
+              {user ?
+                <Link to={'#'} onClick={() => logout(setUser)} className={classes.loginButton}>{user} -
+                  Logout</Link> :
+                <Link to={'/login'} className={classes.loginButton}>Login</Link>
+              }
+            </Grid>
+          </Grid>
         </Toolbar>
-        {user ?
-          <Link to={'#'} onClick={() => logout(setUser)} className={classes.loginButton}>{user} -
-            Logout</Link> :
-          <Link to={'/login'} className={classes.loginButton}>Login</Link>
-        }
       </AppBar>
       <Outlet/>
     </div>

@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {withStyles} from "@mui/styles";
 import {Button} from "@mui/material";
-import Styles from "../../styles/Styles"
+import Styles from "../shared/header/Styles"
 import BeatLoader from "react-spinners/BeatLoader";
 import Tooltip from "@mui/material/Tooltip/Tooltip";
 import downArrow from "./resources/down.png"

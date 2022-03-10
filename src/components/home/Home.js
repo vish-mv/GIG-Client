@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography/Typography";
 import {withStyles} from "@mui/styles";
 import CountUp from 'react-countup';
 import Chip from '@mui/material/Chip';
-import Styles, {counterProps} from "../../styles/Styles";
+import Styles, {counterProps} from "./Styles";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import './Home.css'
 import {logout} from "../../auth/User";
@@ -55,6 +55,11 @@ function Home(props) {
             Logout</Link> :
           <Link to={'/login'} className={classes.loginButton}>Login</Link>
         }
+        <Link to="/graphs/category" style={{textDecoration: "none"}}>
+          <Button variant="outlined" color="secondary" type="button" style={{borderRadius: "25px"}}>
+            View Graph
+          </Button>
+        </Link>
         <h1>GIG</h1>
         <p>
           General Information Graph
