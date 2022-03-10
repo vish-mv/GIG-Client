@@ -39,7 +39,7 @@ function Graph(props) {
 
     const categories = stat?.category_wise_count;
     for (let i = 0; i < categories?.length; i++) {
-      const result = await getSearchResults(categories[i]._id, true);
+      const result = await getSearchResults(categories[i]._id + ":", true);
       if (result) {
         statGraph = addNewEntitiesToGraph(statGraph, result);
         setGraphData(statGraph);
