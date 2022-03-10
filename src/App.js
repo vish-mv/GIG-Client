@@ -11,7 +11,7 @@ import {validateToken} from "./auth/Authentication";
 import {ProtectedRoute} from "./auth/ProtectedRoute";
 import {getAuthUser, logout} from "./auth/User";
 import Home from "./components/home/Home";
-import Graph from "./components/graphs/Graph/Graph";
+import Graph from "./components/graphs/graph/Graph";
 import {AppRoutes} from "./routes";
 
 const appTheme = createTheme({

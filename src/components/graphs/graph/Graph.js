@@ -11,12 +11,16 @@ import {
 import {getGraphStats} from "../../../functions/api/GetStats";
 import {generateSearchQuery} from "../../../functions/GenerateSearchQuery";
 import GraphLoader from "../../../resources/graph_loader.gif"
+import GraphPanel from "../panel/GraphPanel";
+import "./Graph.css"
 
 function Graph(props) {
 
   const [stat, setStat] = useState(null);
   const [graphData, setGraphData] = useState(null);
-  const [resultsPerNode, setResultsPerNode] = useState(1000);
+  const [resultsPerNode, setResultsPerNode] = useState(100);
+  const [showNodeName, setShowNodeName] = useState(false);
+  const app_props = {showNodeName, setShowNodeName, resultsPerNode, setResultsPerNode};
 
   async function getStats() {
     const graphStatData = await getGraphStats();
@@ -36,13 +40,14 @@ function Graph(props) {
   const loadInitialGraph = useCallback(async () => {
     let statGraph = createDataGraphFromStats(stat);
     setGraphData(statGraph);
-
-    const categories = stat?.category_wise_count;
-    for (let i = 0; i < categories?.length; i++) {
-      const result = await getSearchResults(categories[i]._id + ":", true);
-      if (result) {
-        statGraph = addNewEntitiesToGraph(statGraph, result);
-        setGraphData(statGraph);
+    if (resultsPerNode>0) {
+      const categories = stat?.category_wise_count;
+      for (let i = 0; i < categories?.length; i++) {
+        const result = await getSearchResults(categories[i]._id + ":", true);
+        if (result) {
+          statGraph = addNewEntitiesToGraph(statGraph, result);
+          setGraphData(statGraph);
+        }
       }
     }
   }, [setGraphData, stat, getSearchResults]);
@@ -69,19 +74,22 @@ function Graph(props) {
   }
 
   return (
-    <div>
+    <div id="gig-info-graph" className="content">
       {graphData ?
         <ForceGraph3D
           graphData={graphData} nodeAutoColorBy="name"
           linkAutoColorBy="source"
           linkWidth={1}
           onNodeClick={handleNodeClick}
-          // nodeThreeObject={node => {
-          //   const sprite = new SpriteText(node.id);
-          //   sprite.color = node.color;
-          //   sprite.textHeight = 8;
-          //   return sprite;
-          // }}
+          nodeThreeObject={node => {
+            if (showNodeName) {
+              const sprite = new SpriteText(node.id);
+              sprite.color = node.color;
+              sprite.textHeight = 8;
+              return sprite;
+            }
+          }}
+          backgroundColor="#eee"
           onNodeDragEnd={node => {
             node.fx = node.x;
             node.fy = node.y;
@@ -91,6 +99,7 @@ function Graph(props) {
         <header className="App-header"><img src={GraphLoader} alt="Generating Information Graph..." width="100px"/>
         </header>
       }
+      <GraphPanel {...app_props}/>
     </div>
 
   )

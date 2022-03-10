@@ -9,7 +9,7 @@ export function addNewEntitiesToGraph(currentGraph, newEntities) {
     nodes.push({
       id: entity.title,
       name: entity.title,
-      value: entity.title,
+      value: entity.links.length,
       type: "entity",
       links: linksArray
 
@@ -41,7 +41,7 @@ export function createLinkNodesFromEntityNode(currentGraph, node) {
     nodes.push({
       id: link,
       name: link,
-      value: link,
+      value: links.length,
       type: "entity",
 
     });
