@@ -1,5 +1,5 @@
 import {getAuthHeaders} from "../../../auth/Authentication";
-import {Routes} from "../../../routes";
+import {AppRoutes} from "../../../routes";
 
 export function saveEntity(entity, modifiedEntityObj, navigate) {
   let updateUrl = process.env.REACT_APP_SERVER_URL + 'api/update';
@@ -18,7 +18,7 @@ export function saveEntity(entity, modifiedEntityObj, navigate) {
       if (data.status === 200) {
         alert("updated successfully!");
         if (entity.title !== modifiedEntity.title) {
-          navigate(Routes.edit + modifiedEntity.title)
+          navigate(AppRoutes.edit + modifiedEntity.title)
         }
       }
       else {

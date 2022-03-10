@@ -6,6 +6,7 @@ import {Styles} from "./Styles";
 import {getResults} from "../../functions/api/GetQueries";
 import InfiniteList from "../infinite_list/InfiniteList";
 import MainContentList from "../main_content/MainContentList";
+import {generateSearchQuery} from "../../functions/GenerateSearchQuery";
 
 
 function SearchResults(props) {
@@ -18,19 +19,14 @@ function SearchResults(props) {
 
   async function getSearchResults(initialSearch) {
     if (searchParam.length > 1) {
-      let searchUrl = process.env.REACT_APP_SERVER_URL + 'api/search?query=';
-      if (searchParam.includes(":")) {
-        let searchArray = searchParam.split(":", 2);
-        searchUrl += searchArray[1] + '&categories=' + searchArray[0];
-      } else {
-        searchUrl += searchParam;
-      }
+      const searchUrl= generateSearchQuery(searchParam);
       let result = await getResults(searchUrl, initialSearch, searchResults, searchPage, setSearchResults, setSearchPage, 15);
       setIsLoading(false);
       return result
     }
     return false
   }
+
   if (searchParam !== searchState) {
     console.log("loading search results:", searchParam);
     getSearchResults(true);

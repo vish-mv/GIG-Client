@@ -1,16 +1,15 @@
-import React, {useEffect, useState, useRef, useCallback} from "react"
+import React, {useEffect, useState, useCallback} from "react"
 import {ForceGraph3D} from 'react-force-graph';
 import SpriteText from 'three-spritetext';
 import {getResults} from "../../../functions/api/GetQueries";
-import {validateToken} from "../../../auth/Authentication";
+import {dummy} from "./Functions";
 
-function CategoryGraph(props) {
+function Graph(props) {
 
   const [stat, setStat] = useState(null);
   const [graphData, setGraphData] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  function dummy(){}
 
   function getStats() {
     fetch(process.env.REACT_APP_SERVER_URL + 'api/status/', {
@@ -50,44 +49,10 @@ function CategoryGraph(props) {
 
   if (!stat) {
     console.log("get stats");
-    getStats();
+    getStats()
   }
 
-  useEffect(() => {
-    if (graphData && !isLoaded){
-      setIsLoaded(true);
-      console.log("load entities");
-
-      stat?.category_wise_count.forEach((category)=>getSearchResults(category._id,true))
-      console.log(graphData)
-    }
-
-  }, [stat,isLoaded, getSearchResults, graphData]);
-
-  const handleClick = useCallback(node => {
-    if (node.type === "category") {
-      getSearchResults(node.id + ":")
-    }
-    else if (node.type === "entity") {
-      const {nodes, links} = graphData;
-      node.links?.forEach((link)=>{
-        nodes.push({
-          id: link,
-          name: link,
-          value: link,
-          type: "entity",
-
-        });
-        links.push({
-          source: link,
-          target: node.id
-        });
-      });
-      setGraphData({nodes: nodes, links: links})
-    }
-  });
-
-  async function getSearchResults(searchParam, initialSearch) {
+  const getSearchResults = useCallback(async (searchParam, initialSearch) => {
     if (searchParam.length > 1) {
       let searchUrl = process.env.REACT_APP_SERVER_URL + 'api/search?query=';
       if (searchParam.includes(":")) {
@@ -96,12 +61,11 @@ function CategoryGraph(props) {
       } else {
         searchUrl += searchParam;
       }
-      let result = await getResults(searchUrl, initialSearch, [], 0, dummy, dummy, 15);
+      let result = await getResults(searchUrl, initialSearch, [], 0, dummy, dummy, 1000);
       if (result) {
-        console.log(result);
         const {nodes, links} = graphData;
         result.forEach((entity) => {
-          const linksArray=entity.links.map(linkObj=>linkObj.title);
+          const linksArray = entity.links.map(linkObj => linkObj.title);
           nodes.push({
             id: entity.title,
             name: entity.title,
@@ -123,8 +87,40 @@ function CategoryGraph(props) {
       return result
     }
     return false
-  }
+  },[graphData]);
 
+  useEffect(() => {
+    if (graphData && !isLoaded) {
+      setIsLoaded(true);
+      console.log("load entities");
+
+      stat?.category_wise_count.forEach((category) => getSearchResults(category._id, true))
+    }
+
+  }, [stat, isLoaded, getSearchResults, graphData]);
+
+  const handleClick = (node => {
+    if (node.type === "category") {
+      getSearchResults(node.id + ":")
+    }
+    else if (node.type === "entity") {
+      const {nodes, links} = graphData;
+      node.links?.forEach((link) => {
+        nodes.push({
+          id: link,
+          name: link,
+          value: link,
+          type: "entity",
+
+        });
+        links.push({
+          source: link,
+          target: node.id
+        });
+      });
+      setGraphData({nodes: nodes, links: links})
+    }
+  });
 
   return (
     <div>
@@ -152,4 +148,4 @@ function CategoryGraph(props) {
 
 }
 
-export default CategoryGraph
+export default Graph

@@ -11,7 +11,8 @@ import {validateToken} from "./auth/Authentication";
 import {ProtectedRoute} from "./auth/ProtectedRoute";
 import {getAuthUser, logout} from "./auth/User";
 import Home from "./components/home/Home";
-import CategoryGraph from "./components/graphs/CategoryGraph/CategoryGraph";
+import Graph from "./components/graphs/Graph/Graph";
+import {AppRoutes} from "./routes";
 
 const appTheme = createTheme({
   palette: {
@@ -37,12 +38,13 @@ function App() {
       <div className="App">
         <Routes>
           <Route index element={<Home {...app_props}/>}/>
-          <Route path="/login" element={<Login {...app_props}/>}/>
+          <Route path={AppRoutes.login} element={<Login {...app_props}/>}/>
           <Route element={<Header {...app_props}/>}>
-            <Route path="search/:searchParam" element={<SearchResults {...app_props}/>}/>
-            <Route path="/content/:titleParam" element={<ViewEntity {...app_props}/>}/>
-            <Route path="/edit/:titleParam" element={<ProtectedRoute><EditEntity {...app_props}/></ProtectedRoute>}/>
-            <Route path="graphs/category" element={<CategoryGraph {...app_props}/>}/>
+            <Route path={AppRoutes.search + ":searchParam"} element={<SearchResults {...app_props}/>}/>
+            <Route path={AppRoutes.entity + ":titleParam"} element={<ViewEntity {...app_props}/>}/>
+            <Route path={AppRoutes.edit + ":titleParam"}
+                   element={<ProtectedRoute><EditEntity {...app_props}/></ProtectedRoute>}/>
+            <Route path={AppRoutes.graph} element={<Graph {...app_props}/>}/>
           </Route>
 
           <Route path="*" element={<div>invalid url!</div>}/>

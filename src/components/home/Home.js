@@ -9,6 +9,8 @@ import Styles, {counterProps} from "./Styles";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import './Home.css'
 import {logout} from "../../auth/User";
+import {getGraphStats} from "../../functions/api/GetStats";
+import {AppRoutes} from "../../routes";
 
 function Home(props) {
   const navigate = useNavigate();
@@ -19,7 +21,7 @@ function Home(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    const routePath = '/search/';
+    const routePath = AppRoutes.search;
     const url = routePath + encodeURI(searchKey);
     if (searchKey.length > 1 && url !== location.pathname) {
       setIsLoading(true);
@@ -27,22 +29,17 @@ function Home(props) {
     }
   }
 
-  function getStats() {
-    fetch(process.env.REACT_APP_SERVER_URL + 'api/status/', {
-      method: 'GET'
-    }).then(results => {
-      if (results.status === 200) {
-        return results.json();
-      }
-      return null
-    }).then(data => {
-      setStat(data.payload)
-    });
+  async function getStats() {
+    const graphData = await getGraphStats();
+    console.log(graphData);
+    if (graphData) {
+      setStat(graphData.payload)
+    }
   }
 
   useEffect(() => {
     if (!stat) {
-      getStats();
+      getStats().then(() => console.log("graph stats loading success."));
     }
   }, [stat]);
 
@@ -53,9 +50,9 @@ function Home(props) {
         {user ?
           <Link to={'#'} onClick={() => logout(setUser)} className={classes.loginButton}>{user} -
             Logout</Link> :
-          <Link to={'/login'} className={classes.loginButton}>Login</Link>
+          <Link to={AppRoutes.login} className={classes.loginButton}>Login</Link>
         }
-        <Link to="/graphs/category" style={{textDecoration: "none"}}>
+        <Link to={AppRoutes.graph} style={{textDecoration: "none"}}>
           <Button variant="outlined" color="secondary" type="button" style={{borderRadius: "25px"}}>
             View Graph
           </Button>

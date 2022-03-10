@@ -1,7 +1,8 @@
-export const Routes={
+export const AppRoutes={
   home:'/',
   search:'/search/',
   entity:'/content/',
   edit:'/edit/',
-  login:'/login'
+  login:'/login',
+  graph:'/graphs/visualize'
 };
