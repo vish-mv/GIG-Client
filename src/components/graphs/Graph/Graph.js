@@ -39,10 +39,9 @@ function Graph(props) {
     for (let i = 0; i < categories?.length; i++) {
       const result = await getSearchResults(categories[i]._id, true);
       if (result) {
-        statGraph = addNewEntitiesToGraph(statGraph, result);
+        setGraphData(addNewEntitiesToGraph(statGraph, result));
       }
     }
-    setGraphData(statGraph);
   }, [setGraphData, stat, getSearchResults]);
 
   useEffect(() => {
