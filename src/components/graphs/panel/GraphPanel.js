@@ -17,7 +17,12 @@ const panelUI = {
 
 function GraphPanel(props) {
 
-  const {showNodeName, setShowNodeName, resultsPerNode, setResultsPerNode} = props;
+  const {showNodeName, setShowNodeName, setResultsPerNode} = props;
+
+  // TODO: Bug workaround - resetting back to sphere nodes is not working. Therefore reloading the page
+  function refreshPage() {
+    window.location.reload(false);
+  }
 
   const handleViewChange = (event) => {
     setShowNodeName(event.target.value);
@@ -38,7 +43,7 @@ function GraphPanel(props) {
           value={showNodeName}
           onChange={handleViewChange}
         >
-          <FormControlLabel value={false} control={<Radio/>} label="Sphere"/>
+          <FormControlLabel value={false} control={<Radio/>} onClick={refreshPage} label="Sphere"/>
           <FormControlLabel value={true} control={<Radio/>} label="Name"/>
         </RadioGroup>
         <FormLabel id="slider-group-label">Max. Nodes per Category</FormLabel>

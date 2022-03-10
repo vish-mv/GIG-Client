@@ -50,7 +50,7 @@ function Graph(props) {
         }
       }
     }
-  }, [setGraphData, stat, getSearchResults]);
+  }, [setGraphData, stat, getSearchResults, resultsPerNode]);
 
   useEffect(() => {
     if (stat) {
