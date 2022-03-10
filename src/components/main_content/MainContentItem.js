@@ -47,7 +47,7 @@ class MainContentItem extends Component {
                 <div>
                   {categories ? categories.map((category) => (
                     ignoreCategories.includes(category) ? null :
-                      <Link key={category} className={classes.link} to={"/search/" + category + ":"}>
+                      <Link key={category} className={classes.link} to={AppRoutes.search + category + ":"}>
                         <Chip style={{cursor: 'pointer'}}
                               size="small"
                               label={category}

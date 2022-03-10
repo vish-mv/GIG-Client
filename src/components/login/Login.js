@@ -5,6 +5,7 @@ import {Link, useLocation, useNavigate} from "react-router-dom";
 import {withStyles} from "@mui/styles";
 import Styles from "../shared/header/Styles";
 import {userLogin} from "../../auth/Login";
+import {AppRoutes} from "../../routes";
 
 function Login(props) {
   const location = useLocation();
@@ -14,7 +15,7 @@ function Login(props) {
   const [error, setError] = useState("");
   const {classes, setUser} = props;
 
-  let redirectUrl = location.state?.from?.pathname || "/";
+  let redirectUrl = location.state?.from?.pathname || AppRoutes.home;
 
   async function handleSubmit(event) {
     event.preventDefault();

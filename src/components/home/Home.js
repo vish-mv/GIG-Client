@@ -97,7 +97,7 @@ function Home(props) {
               {Array.isArray(stat.category_wise_count) ?
                 stat.category_wise_count.map((category) => (
                   <Chip key={"chip_" + category._id} color="primary" variant="outlined"
-                        component="a" href={"/search/" + category._id + ":"} clickable
+                        component="a" href={AppRoutes.search + category._id + ":"} clickable
                         label={<CountUp {...counterProps} prefix={category._id + ": "}
                                         end={category.category_count}/>}/>
                 )) : null}
@@ -109,7 +109,7 @@ function Home(props) {
                 stat.category_group_wise_count.map((category_group) => (
                   <Chip key={"chip_" + category_group._id} color="secondary"
                         variant="outlined"
-                        component="a" href={"/search/" + category_group._id.join() + ":"} clickable
+                        component="a" href={AppRoutes.search + category_group._id.join() + ":"} clickable
                         label={<CountUp {...counterProps} prefix={category_group._id.join() + ": "}
                                         end={category_group.category_count}/>}/>
                 )) : null}

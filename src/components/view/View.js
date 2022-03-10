@@ -7,6 +7,7 @@ import FormattedContent from "./FormattedContent";
 import {Styles} from "./Styles";
 import {getEntity} from "../../functions/api/GetQueries";
 import {userIsAuthorized} from "../../auth/Authentication";
+import {AppRoutes} from "../../routes";
 
 function ViewEntity(props) {
   const {titleParam} = useParams();
@@ -36,7 +37,7 @@ function ViewEntity(props) {
                 {loadedEntity.title}
               </Typography>
               {isAuthorized ?
-                <Link to={'/edit/' + loadedEntity.title} className={classes.editButton}>Edit</Link> : null}
+                <Link to={AppRoutes.edit + loadedEntity.title} className={classes.editButton}>Edit</Link> : null}
               <br/>
               <table>
                 <tbody>
@@ -50,7 +51,7 @@ function ViewEntity(props) {
                 Links:
                 {loadedEntity.links ? loadedEntity.links.map((link) => (
                   <Link className={classes.link} key={link.title}
-                        to={'/content/' + link.title + "?date=" + link.dates[0]}>
+                        to={AppRoutes.entity + link.title + "?date=" + link.dates[0]}>
                     {link.title}
                   </Link>
                 )) : null}
@@ -59,7 +60,7 @@ function ViewEntity(props) {
               <Typography component="p">
                 Categories:
                 {loadedEntity.categories ? loadedEntity.categories.map((title) => (
-                  <Link className={classes.link} key={loadedEntity.title + title} to={'/search/' + title + ':'}>
+                  <Link className={classes.link} key={loadedEntity.title + title} to={AppRoutes.search + title + ':'}>
                     {title}
                   </Link>
                 )) : null}

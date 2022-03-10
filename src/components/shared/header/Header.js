@@ -11,6 +11,7 @@ import './Header.css'
 import {logout} from "../../../auth/User";
 import Button from "@mui/material/Button/Button";
 import Grid from '@mui/material/Grid';
+import {AppRoutes} from "../../../routes";
 
 function Header(props) {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ function Header(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    const routePath = '/search/';
+    const routePath = AppRoutes.search;
     const url = routePath + encodeURI(searchKey);
     if (searchKey.length > 1 && url !== location.pathname) {
       setIsLoading(true);
@@ -34,7 +35,8 @@ function Header(props) {
         <Toolbar className={classes.appBar}>
           <Grid container spacing={2}>
             <Grid item>
-              <Typography component={Link} to="/" style={{textDecoration: 'none'}} className={classes.menuButton}
+              <Typography component={Link} to={AppRoutes.home} style={{textDecoration: 'none'}}
+                          className={classes.menuButton}
                           variant="h6"
                           color="inherit" noWrap>
                 General Information Graph
@@ -42,7 +44,7 @@ function Header(props) {
             </Grid>
             <Grid item sm={8}>
               <form id="search-form" onSubmit={handleSubmit} noValidate autoComplete="off" style={{display: 'flex'}}>
-                <div className={classes.search} style={{width:'100%'}}>
+                <div className={classes.search} style={{width: '100%'}}>
                   <InputBase
                     name="search"
                     placeholder="Search…"
@@ -59,7 +61,7 @@ function Header(props) {
                 </Button>
               </form>
             </Grid>
-            <Grid item sx={{marginTop:1}}>
+            <Grid item sx={{marginTop: 1}}>
               <BeatLoader
                 css={override}
                 sizeUnit={"px"}
@@ -68,12 +70,12 @@ function Header(props) {
                 loading={isLoading}
               />
             </Grid>
-            <Grid item sx={{ flexGrow: 1 }}/>
-            <Grid item sx={{marginTop:1}}>
+            <Grid item sx={{flexGrow: 1}}/>
+            <Grid item sx={{marginTop: 1}}>
               {user ?
                 <Link to={'#'} onClick={() => logout(setUser)} className={classes.loginButton}>{user} -
                   Logout</Link> :
-                <Link to={'/login'} className={classes.loginButton}>Login</Link>
+                <Link to={AppRoutes.login} className={classes.loginButton}>Login</Link>
               }
             </Grid>
           </Grid>
