@@ -31,7 +31,6 @@ function Home(props) {
 
   async function getStats() {
     const graphData = await getGraphStats();
-    console.log(graphData);
     if (graphData) {
       setStat(graphData.payload)
     }

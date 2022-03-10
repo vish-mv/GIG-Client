@@ -2,125 +2,69 @@ import React, {useEffect, useState, useCallback} from "react"
 import {ForceGraph3D} from 'react-force-graph';
 import SpriteText from 'three-spritetext';
 import {getResults} from "../../../functions/api/GetQueries";
-import {dummy} from "./Functions";
+import {
+  addNewEntitiesToGraph,
+  createDataGraphFromStats,
+  createLinkNodesFromEntityNode,
+  dummy
+} from "./Functions";
+import {getGraphStats} from "../../../functions/api/GetStats";
+import {generateSearchQuery} from "../../../functions/GenerateSearchQuery";
+import GraphLoader from "../../../resources/graph_loader.gif"
 
 function Graph(props) {
 
   const [stat, setStat] = useState(null);
   const [graphData, setGraphData] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [resultsPerNode, setResultsPerNode] = useState(1000);
 
-
-  function getStats() {
-    fetch(process.env.REACT_APP_SERVER_URL + 'api/status/', {
-      method: 'GET'
-    }).then(results => {
-      if (results.status === 200) {
-        return results.json();
-      }
-      return null
-    }).then(data => {
-      setStat(data.payload);
-      //format category data to graph data structure
-      let links = [];
-
-      function createLinks(item) {
-        if (item._id.length > 1) {
-          let result = item._id.flatMap(
-            (v, i) => item._id.slice(i + 1).map(w => [v, w])
-          );
-          result.forEach((item) => {
-            links.push({source: item[0], target: item[1]})
-          })
-        }
-      }
-
-      let gCategories = data.payload?.category_wise_count?.map((i) => ({
-        id: i._id,
-        name: i._id,
-        value: i.category_count,
-        type: "category"
-      }));
-
-      data.payload?.category_group_wise_count?.forEach(createLinks);
-      setGraphData({nodes: gCategories, links: links});
-    });
-  }
-
-  if (!stat) {
-    console.log("get stats");
-    getStats()
+  async function getStats() {
+    const graphStatData = await getGraphStats();
+    if (graphStatData) {
+      setStat(graphStatData.payload);
+    }
   }
 
   const getSearchResults = useCallback(async (searchParam, initialSearch) => {
     if (searchParam.length > 1) {
-      let searchUrl = process.env.REACT_APP_SERVER_URL + 'api/search?query=';
-      if (searchParam.includes(":")) {
-        let searchArray = searchParam.split(":", 2);
-        searchUrl += searchArray[1] + '&categories=' + searchArray[0];
-      } else {
-        searchUrl += searchParam;
-      }
-      let result = await getResults(searchUrl, initialSearch, [], 0, dummy, dummy, 1000);
-      if (result) {
-        const {nodes, links} = graphData;
-        result.forEach((entity) => {
-          const linksArray = entity.links.map(linkObj => linkObj.title);
-          nodes.push({
-            id: entity.title,
-            name: entity.title,
-            value: entity.title,
-            type: "entity",
-            links: linksArray
-
-          });
-          entity.categories.forEach((category) => {
-            links.push({
-              source: category,
-              target: entity.title
-            });
-          });
-
-        });
-        setGraphData({nodes: nodes, links: links})
-      }
-      return result
+      const searchUrl = generateSearchQuery(searchParam);
+      return await getResults(searchUrl, initialSearch, [], 0, dummy, dummy, resultsPerNode);
     }
     return false
-  },[graphData]);
+  }, [resultsPerNode]);
+
+  const loadInitialGraph = useCallback(async () => {
+    let statGraph = createDataGraphFromStats(stat);
+    const categories = stat?.category_wise_count;
+    for (let i = 0; i < categories?.length; i++) {
+      const result = await getSearchResults(categories[i]._id, true);
+      if (result) {
+        statGraph = addNewEntitiesToGraph(statGraph, result);
+      }
+    }
+    setGraphData(statGraph);
+  }, [setGraphData, stat, getSearchResults]);
 
   useEffect(() => {
-    if (graphData && !isLoaded) {
-      setIsLoaded(true);
-      console.log("load entities");
-
-      stat?.category_wise_count.forEach((category) => getSearchResults(category._id, true))
+    if (stat) {
+      loadInitialGraph().then(() => console.log("initial graph loaded!"))
+    } else {
+      getStats().then(() => console.log("graph stats loaded."))
     }
+  }, [stat, loadInitialGraph]);
 
-  }, [stat, isLoaded, getSearchResults, graphData]);
-
-  const handleClick = (node => {
-    if (node.type === "category") {
-      getSearchResults(node.id + ":")
+  async function handleNodeClick(node) {
+    switch (node.type) {
+      case "category":
+        const result = await getSearchResults(node.id + ":");
+        setGraphData(addNewEntitiesToGraph(graphData, result));
+        break;
+      case "entity":
+        setGraphData(createLinkNodesFromEntityNode(graphData, node));
+        break;
+      default:
     }
-    else if (node.type === "entity") {
-      const {nodes, links} = graphData;
-      node.links?.forEach((link) => {
-        nodes.push({
-          id: link,
-          name: link,
-          value: link,
-          type: "entity",
-
-        });
-        links.push({
-          source: link,
-          target: node.id
-        });
-      });
-      setGraphData({nodes: nodes, links: links})
-    }
-  });
+  }
 
   return (
     <div>
@@ -129,7 +73,7 @@ function Graph(props) {
           graphData={graphData} nodeAutoColorBy="name"
           linkAutoColorBy="source"
           linkWidth={1}
-          onNodeClick={handleClick}
+          onNodeClick={handleNodeClick}
           // nodeThreeObject={node => {
           //   const sprite = new SpriteText(node.id);
           //   sprite.color = node.color;
@@ -141,7 +85,7 @@ function Graph(props) {
             node.fy = node.y;
             node.fz = node.z;
           }}
-        /> : null}
+        /> : <header className="App-header"><img src={GraphLoader} alt="Generating Information Graph..."/></header>}
     </div>
 
   )
