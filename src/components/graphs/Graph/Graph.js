@@ -35,11 +35,14 @@ function Graph(props) {
 
   const loadInitialGraph = useCallback(async () => {
     let statGraph = createDataGraphFromStats(stat);
+    setGraphData(statGraph);
+
     const categories = stat?.category_wise_count;
     for (let i = 0; i < categories?.length; i++) {
       const result = await getSearchResults(categories[i]._id, true);
       if (result) {
-        setGraphData(addNewEntitiesToGraph(statGraph, result));
+        statGraph = addNewEntitiesToGraph(statGraph, result);
+        setGraphData(statGraph);
       }
     }
   }, [setGraphData, stat, getSearchResults]);
@@ -84,7 +87,10 @@ function Graph(props) {
             node.fy = node.y;
             node.fz = node.z;
           }}
-        /> : <header className="App-header"><img src={GraphLoader} alt="Generating Information Graph..."/></header>}
+        /> :
+        <header className="App-header"><img src={GraphLoader} alt="Generating Information Graph..." width="100px"/>
+        </header>
+      }
     </div>
 
   )
