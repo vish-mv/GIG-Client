@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {withStyles} from "@mui/styles";
-import Styles from "../shared/header/Styles"
+import Styles from "./Styles"
 import {Link} from "react-router-dom";
 import Avatar from "@mui/material/Avatar/Avatar";
 import Grid from "@mui/material/Grid/Grid";

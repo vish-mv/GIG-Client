@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {withStyles} from "@mui/styles";
 import {Typography} from "@mui/material";
-import Styles from "../shared/header/Styles"
+import Styles from "./Styles"
 import List from "@mui/material/List/List";
 import MainContentItem from "./MainContentItem";
 import Moment from 'moment';

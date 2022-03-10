@@ -6,7 +6,7 @@ import Avatar from "@mui/material/Avatar/Avatar";
 import Tooltip from "@mui/material/Tooltip/Tooltip";
 import {Link} from "react-router-dom";
 import {withStyles} from "@mui/styles";
-import Styles from "../shared/header/Styles";
+import Styles from "./Styles";
 
 class RelatedLinkList extends Component {
 
