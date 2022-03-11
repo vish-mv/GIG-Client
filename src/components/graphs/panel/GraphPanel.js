@@ -49,6 +49,7 @@ function GraphPanel(props) {
 
   return (
     <Paper sx={panelUI} elevation={3}>
+      // TODO: Add search option here
       <FormControl>
         <FormLabel id="graph-theme-radio-buttons-group-label">Graph Theme</FormLabel>
         <RadioGroup

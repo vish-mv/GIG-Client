@@ -83,6 +83,7 @@ function Graph(props) {
 
   return (
     <div id={"gig-info-graph-" + backgroundTheme.value} className="content">
+      //TODO: change graph style 2D/3D based on graphStyle state
       {graphData ?
         <ForceGraph3D
           graphData={graphData} nodeAutoColorBy="name"
