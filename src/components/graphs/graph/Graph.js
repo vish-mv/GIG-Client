@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useCallback} from "react"
-import {ForceGraph3D} from 'react-force-graph';
+import {ForceGraph3D, ForceGraph2D} from 'react-force-graph';
 import SpriteText from 'three-spritetext';
 import {getResults} from "../../../functions/api/GetQueries";
 import {
@@ -76,11 +76,32 @@ function Graph(props) {
   return (
     <div id="gig-info-graph" className="content">
       {graphData ?
-        <ForceGraph3D
+        <ForceGraph2D
           graphData={graphData} nodeAutoColorBy="name"
           linkAutoColorBy="source"
           linkWidth={1}
           onNodeClick={handleNodeClick}
+          nodeCanvasObject={(node, ctx, globalScale) => {
+            if (showNodeName) {
+              const label = node.id;
+              const fontSize = 12 / globalScale;
+              ctx.font = `${fontSize}px Sans-Serif`;
+              const textWidth = ctx.measureText(label).width;
+              const bckgDimensions = [textWidth, fontSize].map(n => n + fontSize * 0.2); // some padding
+
+              ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+              ctx.fillRect(node.x - bckgDimensions[0] / 2, node.y - bckgDimensions[1] / 2, ...bckgDimensions);
+
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'middle';
+              ctx.fillStyle = node.color;
+              ctx.fillText(label, node.x, node.y);
+
+              node.__bckgDimensions = bckgDimensions; // to re-use in nodePointerAreaPaint
+            }else{
+              return false
+            }
+          }}
           nodeThreeObject={node => {
             if (showNodeName) {
               const sprite = new SpriteText(node.id);
