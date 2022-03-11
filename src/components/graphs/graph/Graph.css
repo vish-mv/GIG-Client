@@ -1,3 +1,7 @@
-#gig-info-graph .scene-tooltip {
+#gig-info-graph-light .scene-tooltip {
   color: #333;
+}
+
+#gig-info-graph-dark .scene-tooltip {
+  color: #ddd;
 }

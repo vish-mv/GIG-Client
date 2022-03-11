@@ -13,6 +13,7 @@ import {generateSearchQuery} from "../../../functions/GenerateSearchQuery";
 import GraphLoader from "../../../resources/graph_loader.gif"
 import GraphPanel from "../panel/GraphPanel";
 import "./Graph.css"
+import {GraphTheme} from "./Constants";
 
 function Graph(props) {
 
@@ -20,7 +21,15 @@ function Graph(props) {
   const [graphData, setGraphData] = useState(null);
   const [resultsPerNode, setResultsPerNode] = useState(100);
   const [showNodeName, setShowNodeName] = useState(false);
-  const app_props = {showNodeName, setShowNodeName, resultsPerNode, setResultsPerNode};
+  const [backgroundTheme, setBackgroundTheme] = useState(GraphTheme.light);
+  const app_props = {
+    showNodeName,
+    setShowNodeName,
+    resultsPerNode,
+    setResultsPerNode,
+    backgroundTheme,
+    setBackgroundTheme
+  };
 
   async function getStats() {
     const graphStatData = await getGraphStats();
@@ -40,7 +49,7 @@ function Graph(props) {
   const loadInitialGraph = useCallback(async () => {
     let statGraph = createDataGraphFromStats(stat);
     setGraphData(statGraph);
-    if (resultsPerNode>0) {
+    if (resultsPerNode > 0) {
       const categories = stat?.category_wise_count;
       for (let i = 0; i < categories?.length; i++) {
         const result = await getSearchResults(categories[i]._id + ":", true);
@@ -74,13 +83,14 @@ function Graph(props) {
   }
 
   return (
-    <div id="gig-info-graph" className="content">
+    <div id={"gig-info-graph-" + backgroundTheme.value} className="content">
       {graphData ?
-        <ForceGraph2D
+        <ForceGraph3D
           graphData={graphData} nodeAutoColorBy="name"
           linkAutoColorBy="source"
           linkWidth={1}
           onNodeClick={handleNodeClick}
+          backgroundColor={backgroundTheme.color}
           nodeCanvasObject={(node, ctx, globalScale) => {
             if (showNodeName) {
               const label = node.id;
@@ -98,7 +108,7 @@ function Graph(props) {
               ctx.fillText(label, node.x, node.y);
 
               node.__bckgDimensions = bckgDimensions; // to re-use in nodePointerAreaPaint
-            }else{
+            } else {
               return false
             }
           }}
@@ -110,7 +120,6 @@ function Graph(props) {
               return sprite;
             }
           }}
-          backgroundColor="#eee"
           onNodeDragEnd={node => {
             node.fx = node.x;
             node.fy = node.y;
