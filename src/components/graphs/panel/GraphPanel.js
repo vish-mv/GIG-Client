@@ -7,7 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Slider from '@mui/material/Slider';
 import Divider from '@mui/material/Divider';
-import {GraphTheme} from "../graph/Constants";
+import {GraphTheme, GraphStyle, NodeStyle} from "../graph/Constants";
 
 
 const panelUI = {
@@ -19,19 +19,28 @@ const panelUI = {
 
 function GraphPanel(props) {
 
-  const {showNodeName, setShowNodeName, setResultsPerNode, backgroundTheme, setBackgroundTheme} = props;
+  const {
+    nodeStyle, setNodeStyle,
+    setResultsPerNode,
+    backgroundTheme, setBackgroundTheme,
+    graphStyle, setGraphStyle
+  } = props;
 
   // TODO: Bug workaround - resetting back to sphere nodes is not working. Therefore reloading the page
   function refreshPage() {
     window.location.reload(false);
   }
 
-  const handleViewChange = (event) => {
-    setShowNodeName(event.target.value);
+  const handleNodeStyleChange = (event) => {
+    setNodeStyle(NodeStyle[event.target.value]);
   };
 
-  const handleThemeChange = (event) => {
+  const handleGraphThemeChange = (event) => {
     setBackgroundTheme(GraphTheme[event.target.value]);
+  };
+
+  const handleGraphStyleChange = (event) => {
+    setGraphStyle(GraphStyle[event.target.value]);
   };
 
   const handleResultsPerNodeLimitChange = (event, value) => {
@@ -41,40 +50,46 @@ function GraphPanel(props) {
   return (
     <Paper sx={panelUI} elevation={3}>
       <FormControl>
-        <FormLabel id="node-theme-radio-buttons-group-label">Background Color</FormLabel>
+        <FormLabel id="graph-theme-radio-buttons-group-label">Graph Theme</FormLabel>
         <RadioGroup
           row
-          aria-labelledby="node-theme-radio-buttons-group-label"
-          name="node-theme-radio-buttons-group-row"
+          aria-labelledby="graph-theme-radio-buttons-group-label"
+          name="graph-theme-radio-buttons-group-row"
           value={backgroundTheme.value}
-          onChange={handleThemeChange}
+          onChange={handleGraphThemeChange}
         >
-          <FormControlLabel value={GraphTheme.dark.value} control={<Radio color="success"/>} label={GraphTheme.dark.label}/>
-          <FormControlLabel value={GraphTheme.light.value} control={<Radio color="success"/>} label={GraphTheme.light.label}/>
+          <FormControlLabel value={GraphTheme.dark.value} control={<Radio color="success"/>}
+                            label={GraphTheme.dark.label}/>
+          <FormControlLabel value={GraphTheme.light.value} control={<Radio color="success"/>}
+                            label={GraphTheme.light.label}/>
         </RadioGroup>
         <Divider variant="middle"/><br/>
-        <FormLabel id="node-style-radio-buttons-group-label">Graph Style</FormLabel>
+        <FormLabel id="graph-style-radio-buttons-group-label">Graph Style</FormLabel>
         <RadioGroup
           row
-          aria-labelledby="node-style-radio-buttons-group-label"
-          name="node-style-radio-buttons-group-row"
-          // value={showNodeName}
-          // onChange={handleViewChange}
+          aria-labelledby="graph-style-radio-buttons-group-label"
+          name="graph-style-radio-buttons-group-row"
+          value={graphStyle.value}
+          onChange={handleGraphStyleChange}
         >
-          <FormControlLabel value="3D" control={<Radio color="secondary"/>} label="3D"/>
-          <FormControlLabel value="2D" control={<Radio color="secondary"/>} label="2D"/>
+          <FormControlLabel value={GraphStyle.threeDimensional.value} control={<Radio color="secondary"/>}
+                            label={GraphStyle.threeDimensional.label}/>
+          <FormControlLabel value={GraphStyle.twoDimensional.value} control={<Radio color="secondary"/>}
+                            label={GraphStyle.twoDimensional.label}/>
         </RadioGroup>
         <Divider variant="middle"/><br/>
-        <FormLabel id="node-view-radio-buttons-group-label">Node View</FormLabel>
+        <FormLabel id="node-view-radio-buttons-group-label">Node Style</FormLabel>
         <RadioGroup
           row
           aria-labelledby="node-view-radio-buttons-group-label"
           name="node-view-radio-buttons-row"
-          value={showNodeName}
-          onChange={handleViewChange}
+          value={nodeStyle.value}
+          onChange={handleNodeStyleChange}
         >
-          <FormControlLabel value={false} control={<Radio/>} onClick={refreshPage} label="Sphere"/>
-          <FormControlLabel value={true} control={<Radio/>} label="Name"/>
+          <FormControlLabel value={NodeStyle.sphere.value} control={<Radio/>} onClick={refreshPage}
+                            label={NodeStyle.sphere.label}/>
+          <FormControlLabel value={NodeStyle.name.value} control={<Radio/>}
+                            label={NodeStyle.name.label}/>
         </RadioGroup>
         <Divider variant="middle"/><br/>
         <FormLabel id="slider-group-label">Max. Nodes per Category</FormLabel>

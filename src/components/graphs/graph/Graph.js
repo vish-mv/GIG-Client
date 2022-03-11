@@ -13,22 +13,21 @@ import {generateSearchQuery} from "../../../functions/GenerateSearchQuery";
 import GraphLoader from "../../../resources/graph_loader.gif"
 import GraphPanel from "../panel/GraphPanel";
 import "./Graph.css"
-import {GraphTheme} from "./Constants";
+import {GraphTheme, GraphStyle, NodeStyle} from "./Constants";
 
 function Graph(props) {
 
   const [stat, setStat] = useState(null);
   const [graphData, setGraphData] = useState(null);
   const [resultsPerNode, setResultsPerNode] = useState(100);
-  const [showNodeName, setShowNodeName] = useState(false);
+  const [nodeStyle, setNodeStyle] = useState(NodeStyle.sphere);
   const [backgroundTheme, setBackgroundTheme] = useState(GraphTheme.light);
+  const [graphStyle, setGraphStyle] = useState(GraphStyle.threeDimensional);
   const app_props = {
-    showNodeName,
-    setShowNodeName,
-    resultsPerNode,
-    setResultsPerNode,
-    backgroundTheme,
-    setBackgroundTheme
+    nodeStyle, setNodeStyle,
+    resultsPerNode, setResultsPerNode,
+    backgroundTheme, setBackgroundTheme,
+    graphStyle, setGraphStyle
   };
 
   async function getStats() {
@@ -92,7 +91,7 @@ function Graph(props) {
           onNodeClick={handleNodeClick}
           backgroundColor={backgroundTheme.color}
           nodeCanvasObject={(node, ctx, globalScale) => {
-            if (showNodeName) {
+            if (nodeStyle.value===NodeStyle.name.value) {
               const label = node.id;
               const fontSize = 12 / globalScale;
               ctx.font = `${fontSize}px Sans-Serif`;
@@ -108,12 +107,10 @@ function Graph(props) {
               ctx.fillText(label, node.x, node.y);
 
               node.__bckgDimensions = bckgDimensions; // to re-use in nodePointerAreaPaint
-            } else {
-              return false
             }
           }}
           nodeThreeObject={node => {
-            if (showNodeName) {
+            if (nodeStyle.value===NodeStyle.name.value) {
               const sprite = new SpriteText(node.id);
               sprite.color = node.color;
               sprite.textHeight = 8;
