@@ -17,7 +17,11 @@ import GraphStyleWrapper from "./GraphStyleWrapper"
 
 function Graph() {
 
+  const [width, setWidth] = useState(window.innerWidth);
+  const [height, setHeight] = useState(window.innerHeight - 70);
+
   const [searchKey, setSearchKey] = useState("");
+  const [viewGraphPanel, setViewGraphPanel] = useState(true);
   const [stat, setStat] = useState(null);
   const [graphData, setGraphData] = useState(null);
   const [resultsPerNode, setResultsPerNode] = useState(100);
@@ -29,8 +33,18 @@ function Graph() {
     resultsPerNode, setResultsPerNode,
     backgroundTheme, setBackgroundTheme,
     graphStyle, setGraphStyle,
-    searchKey, setSearchKey
+    searchKey, setSearchKey,
+    viewGraphPanel, setViewGraphPanel
   };
+
+  function setGraphDimensions() {
+    setWidth(window.innerWidth);
+    setHeight(window.innerHeight - 70)
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", setGraphDimensions);
+  }, []);
 
   async function getStats() {
     const graphStatData = await getGraphStats();
@@ -96,6 +110,8 @@ function Graph() {
     <div id={"gig-info-graph-" + backgroundTheme.value} className="content">
       {graphData ?
         <GraphStyleWrapper
+          width={width}
+          height={height}
           graphStyle={graphStyle}
           graphData={graphData} nodeAutoColorBy="name"
           linkAutoColorBy="source"
