@@ -8,6 +8,7 @@ import FormLabel from '@mui/material/FormLabel';
 import Slider from '@mui/material/Slider';
 import Divider from '@mui/material/Divider';
 import {GraphTheme, GraphStyle, NodeStyle} from "../graph/Constants";
+import "./GraphPanel.css"
 
 
 const panelUI = {
