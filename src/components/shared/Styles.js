@@ -79,11 +79,7 @@ const Styles = theme => ({
     paddingRight: theme.spacing(2),
   },
   inputInput: {
-    paddingTop: theme.spacing(1),
-    paddingRight: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-    paddingLeft: theme.spacing(1),
-    marginLeft: theme.spacing(1),
+    padding: theme.spacing(1),
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
