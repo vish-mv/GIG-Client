@@ -1,5 +1,4 @@
 import React, {useEffect, useState, useCallback} from "react"
-import {ForceGraph3D, ForceGraph2D} from 'react-force-graph';
 import SpriteText from 'three-spritetext';
 import {getResults} from "../../../functions/api/GetQueries";
 import {
@@ -14,6 +13,7 @@ import GraphLoader from "../../../resources/graph_loader.gif"
 import GraphPanel from "../panel/GraphPanel";
 import "./Graph.css"
 import {GraphTheme, GraphStyle, NodeStyle} from "./Constants";
+import GraphStyleWrapper from "./GraphStyleWrapper"
 
 function Graph(props) {
 
@@ -83,16 +83,17 @@ function Graph(props) {
 
   return (
     <div id={"gig-info-graph-" + backgroundTheme.value} className="content">
-      //TODO: change graph style 2D/3D based on graphStyle state
+      {/*//TODO: change graph style 2D/3D based on graphStyle state*/}
       {graphData ?
-        <ForceGraph3D
+        <GraphStyleWrapper
+          graphStyle={graphStyle}
           graphData={graphData} nodeAutoColorBy="name"
           linkAutoColorBy="source"
           linkWidth={1}
           onNodeClick={handleNodeClick}
           backgroundColor={backgroundTheme.color}
           nodeCanvasObject={(node, ctx, globalScale) => {
-            if (nodeStyle.value===NodeStyle.name.value) {
+            if (nodeStyle.value === NodeStyle.name.value) {
               const label = node.id;
               const fontSize = 12 / globalScale;
               ctx.font = `${fontSize}px Sans-Serif`;
@@ -111,7 +112,7 @@ function Graph(props) {
             }
           }}
           nodeThreeObject={node => {
-            if (nodeStyle.value===NodeStyle.name.value) {
+            if (nodeStyle.value === NodeStyle.name.value) {
               const sprite = new SpriteText(node.id);
               sprite.color = node.color;
               sprite.textHeight = 8;
