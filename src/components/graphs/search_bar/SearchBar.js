@@ -6,8 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import ResartAltIcon from '@mui/icons-material/RestartAlt';
-import {Link} from "react-router-dom";
-import {AppRoutes} from "../../../routes";
+import {AppPreferences} from "../../../preferences";
 
 export default function SearchBar(props) {
   const {searchKey, setSearchKey} = props;
@@ -15,9 +14,14 @@ export default function SearchBar(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    if (searchInput.length>2){
+    if (searchInput.length > AppPreferences.minimumSearchKeyLength) {
       setSearchKey(searchInput);
     }
+  }
+
+  function resetGraph() {
+    setSearchInput("");
+    setSearchKey("");
   }
 
   return (
@@ -42,7 +46,7 @@ export default function SearchBar(props) {
         <SearchIcon/>
       </IconButton>
       <Divider sx={{height: 28, m: 0.5}} orientation="vertical"/>
-      <IconButton component={Link} to={AppRoutes.graph} color="primary" sx={{p: '10px'}} aria-label="directions">
+      <IconButton onClick={resetGraph} color="primary" sx={{p: '10px'}} aria-label="directions">
         <ResartAltIcon/>
       </IconButton>
     </Paper>

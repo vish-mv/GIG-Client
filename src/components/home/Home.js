@@ -11,6 +11,7 @@ import './Home.css'
 import {logout} from "../../auth/User";
 import {getGraphStats} from "../../functions/api/GetStats";
 import {AppRoutes} from "../../routes";
+import {AppPreferences} from "../../preferences";
 
 function Home(props) {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ function Home(props) {
     event.preventDefault();
     const routePath = AppRoutes.search;
     const url = routePath + encodeURI(searchKey);
-    if (searchKey.length > 1 && url !== location.pathname) {
+    if (searchKey.length > AppPreferences.minimumSearchKeyLength && url !== location.pathname) {
       setIsLoading(true);
       navigate(url);
     }

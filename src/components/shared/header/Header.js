@@ -14,6 +14,7 @@ import Grid from '@mui/material/Grid';
 import {AppRoutes} from "../../../routes";
 import BubbleChartIcon from '@mui/icons-material/BubbleChart';
 import IconButton from "@mui/material/IconButton/IconButton";
+import {AppPreferences} from "../../../preferences";
 
 function Header(props) {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ function Header(props) {
     event.preventDefault();
     const routePath = AppRoutes.search;
     const url = routePath + encodeURI(searchKey);
-    if (searchKey.length > 1 && url !== location.pathname) {
+    if (searchKey.length > AppPreferences.minimumSearchKeyLength && url !== location.pathname) {
       setIsLoading(true);
       navigate(url);
     }
