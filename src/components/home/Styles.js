@@ -53,15 +53,6 @@ const Styles = theme => ({
       width: 'auto',
     },
   },
-  searchIcon: {
-    width: theme.spacing(9),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   inputRoot: {
     marginTop:'3px',
     color: '#0000008F',
