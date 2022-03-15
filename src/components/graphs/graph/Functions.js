@@ -1,6 +1,6 @@
 export function dummy() {
   //this is a dummy function to replace setState function when no state update is required.
-};
+}
 
 export function addNewEntitiesToGraph(currentGraph, newEntities) {
   const {nodes, links} = currentGraph;
@@ -61,8 +61,8 @@ export function createNodeLinksFromStats(stat) {
       let result = item._id.flatMap(
         (v, i) => item._id.slice(i + 1).map(w => [v, w])
       );
-      result.forEach((item) => {
-        links.push({source: item[0], target: item[1]})
+      result.forEach((i) => {
+        links.push({source: i[0], target: i[1]})
       });
     }
   }

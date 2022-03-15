@@ -36,8 +36,8 @@ function ViewEntity(props) {
               <Typography variant="h4" component="h4">
                 {loadedEntity.title}
               </Typography>
-              {isAuthorized ?
-                <Link to={AppRoutes.edit + loadedEntity.title} className={classes.editButton}>Edit</Link> : null}
+              {isAuthorized &&
+                <Link to={AppRoutes.edit + loadedEntity.title} className={classes.editButton}>Edit</Link>}
               <br/>
               <table>
                 <tbody>
