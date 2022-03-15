@@ -33,15 +33,6 @@ const Styles = theme => ({
     textAlign: "centre",
     color: 'white'
   },
-  loginButton: {
-    fontSize: 14,
-    textAlign: "right",
-    margin: 10,
-    position: "absolute",
-    right: 0,
-    top: 12,
-    color: 'white'
-  },
   menuButton: {
     marginLeft: -12,
     marginRight: 20,

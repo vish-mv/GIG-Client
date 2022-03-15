@@ -1,4 +1,4 @@
-import {getAuthUser, getAuthToken, logout, getUserRole} from "./User";
+import {getAuthToken, logout, getUserRole} from "./User";
 import {UserRoles} from "./AuthStore";
 
 export function getAuthHeaders() {

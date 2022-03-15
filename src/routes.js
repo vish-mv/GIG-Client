@@ -4,5 +4,6 @@ export const AppRoutes={
   entity:'/content/',
   edit:'/edit/',
   login:'/login',
+  register:'/register',
   graph:'/graphs/visualize'
 };

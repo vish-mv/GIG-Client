@@ -8,16 +8,16 @@ import Chip from '@mui/material/Chip';
 import Styles, {counterProps} from "./Styles";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import './Home.css'
-import {logout} from "../../auth/User";
 import {getGraphStats} from "../../functions/api/GetStats";
 import {AppRoutes} from "../../routes";
 import {AppPreferences} from "../../preferences";
+import UserInfo from "../shared/user_info/UserInfo";
 
 function Home(props) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const {classes, user, setIsLoading, setUser, searchKey, setSearchKey} = props;
+  const {classes, setIsLoading, searchKey, setSearchKey} = props;
   const [stat, setStat] = useState(null);
 
   function handleSubmit(event) {
@@ -47,11 +47,7 @@ function Home(props) {
   return (
     <header className="App-header">
       <div className="content">
-        {user ?
-          <Link to={'#'} onClick={() => logout(setUser)} className={classes.loginButton}>{user} -
-            Logout</Link> :
-          <Link to={AppRoutes.login} className={classes.loginButton}>Login</Link>
-        }
+        <UserInfo {...props} /><br/>
         <Link to={AppRoutes.graph} style={{textDecoration: "none"}}>
           <Button variant="outlined" color="secondary" type="button" style={{borderRadius: "25px"}}>
             View Graph

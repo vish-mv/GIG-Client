@@ -5,22 +5,22 @@ import Typography from "@mui/material/Typography/Typography";
 import AppBar from "@mui/material/AppBar/AppBar";
 import {withStyles} from "@mui/styles";
 import BeatLoader from 'react-spinners/BeatLoader';
-import Styles, {override} from "./Styles";
+import Styles, {override} from "../Styles";
 import {Link, useLocation, useNavigate, Outlet} from "react-router-dom";
 import './Header.css'
-import {logout} from "../../../auth/User";
 import Button from "@mui/material/Button/Button";
 import Grid from '@mui/material/Grid';
 import {AppRoutes} from "../../../routes";
 import BubbleChartIcon from '@mui/icons-material/BubbleChart';
 import IconButton from "@mui/material/IconButton/IconButton";
 import {AppPreferences} from "../../../preferences";
+import UserInfo from "../user_info/UserInfo";
 
 function Header(props) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const {classes, user, isLoading, setIsLoading, setUser, searchKey, setSearchKey} = props;
+  const {classes, isLoading, setIsLoading, searchKey, setSearchKey} = props;
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -45,11 +45,12 @@ function Header(props) {
                 General Information Graph
               </Typography>
               <IconButton component={Link} to={AppRoutes.graph} color="secondary" aria-label="view-graph">
-                <BubbleChartIcon sx={{fontSize:'3rem'}} />
+                <BubbleChartIcon sx={{fontSize: '3rem'}}/>
               </IconButton>
             </Grid>
             <Grid item sm={8}>
-              <form id="search-form" onSubmit={handleSubmit} noValidate autoComplete="off" style={{display: 'flex', marginTop:'12px'}}>
+              <form id="search-form" onSubmit={handleSubmit} noValidate autoComplete="off"
+                    style={{display: 'flex', marginTop: '12px'}}>
                 <div className={classes.search} style={{width: '100%'}}>
                   <InputBase
                     name="search"
@@ -78,11 +79,7 @@ function Header(props) {
             </Grid>
             <Grid item sx={{flexGrow: 1}}/>
             <Grid item sx={{marginTop: 2.5}}>
-              {user ?
-                <Link to={'#'} onClick={() => logout(setUser)} className={classes.loginButton}>{user} -
-                  Logout</Link> :
-                <Link to={AppRoutes.login} className={classes.loginButton}>Login</Link>
-              }
+              <UserInfo {...props} />
             </Grid>
           </Grid>
         </Toolbar>
