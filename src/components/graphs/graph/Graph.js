@@ -83,7 +83,6 @@ function Graph(props) {
 
   return (
     <div id={"gig-info-graph-" + backgroundTheme.value} className="content">
-      {/*//TODO: change graph style 2D/3D based on graphStyle state*/}
       {graphData ?
         <GraphStyleWrapper
           graphStyle={graphStyle}
@@ -97,18 +96,18 @@ function Graph(props) {
               const label = node.id;
               const fontSize = 12 / globalScale;
               ctx.font = `${fontSize}px Sans-Serif`;
-              const textWidth = ctx.measureText(label).width;
-              const bckgDimensions = [textWidth, fontSize].map(n => n + fontSize * 0.2); // some padding
-
               ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-              ctx.fillRect(node.x - bckgDimensions[0] / 2, node.y - bckgDimensions[1] / 2, ...bckgDimensions);
 
               ctx.textAlign = 'center';
               ctx.textBaseline = 'middle';
               ctx.fillStyle = node.color;
               ctx.fillText(label, node.x, node.y);
-
-              node.__bckgDimensions = bckgDimensions; // to re-use in nodePointerAreaPaint
+            }
+            else {
+              ctx.beginPath();
+              ctx.arc(node.x, node.y, 4, 0, 2 * Math.PI, false);
+              ctx.fillStyle = node.color;
+              ctx.fill();
             }
           }}
           nodeThreeObject={node => {
