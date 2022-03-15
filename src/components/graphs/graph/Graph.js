@@ -15,8 +15,9 @@ import "./Graph.css"
 import {GraphTheme, GraphStyle, NodeStyle} from "./Constants";
 import GraphStyleWrapper from "./GraphStyleWrapper"
 
-function Graph(props) {
+function Graph() {
 
+  const [searchKey, setSearchKey] = useState("");
   const [stat, setStat] = useState(null);
   const [graphData, setGraphData] = useState(null);
   const [resultsPerNode, setResultsPerNode] = useState(100);
@@ -27,7 +28,8 @@ function Graph(props) {
     nodeStyle, setNodeStyle,
     resultsPerNode, setResultsPerNode,
     backgroundTheme, setBackgroundTheme,
-    graphStyle, setGraphStyle
+    graphStyle, setGraphStyle,
+    searchKey, setSearchKey
   };
 
   async function getStats() {
@@ -49,16 +51,25 @@ function Graph(props) {
     let statGraph = createDataGraphFromStats(stat);
     setGraphData(statGraph);
     if (resultsPerNode > 0) {
-      const categories = stat?.category_wise_count;
-      for (let i = 0; i < categories?.length; i++) {
-        const result = await getSearchResults(categories[i]._id + ":", true);
+      if (searchKey && searchKey !== "") {
+        const result = await getSearchResults(searchKey, true);
         if (result) {
           statGraph = addNewEntitiesToGraph(statGraph, result);
           setGraphData(statGraph);
         }
+      } else {
+        const categories = stat?.category_wise_count;
+        for (let i = 0; i < categories?.length; i++) {
+          const result = await getSearchResults(categories[i]._id + ":", true);
+          if (result) {
+            statGraph = addNewEntitiesToGraph(statGraph, result);
+            setGraphData(statGraph);
+          }
+        }
       }
+
     }
-  }, [setGraphData, stat, getSearchResults, resultsPerNode]);
+  }, [setGraphData, stat, getSearchResults, resultsPerNode, searchKey]);
 
   useEffect(() => {
     if (stat) {

@@ -12,6 +12,8 @@ import {logout} from "../../../auth/User";
 import Button from "@mui/material/Button/Button";
 import Grid from '@mui/material/Grid';
 import {AppRoutes} from "../../../routes";
+import BubbleChartIcon from '@mui/icons-material/BubbleChart';
+import IconButton from "@mui/material/IconButton/IconButton";
 
 function Header(props) {
   const navigate = useNavigate();
@@ -41,9 +43,12 @@ function Header(props) {
                           color="inherit" noWrap>
                 General Information Graph
               </Typography>
+              <IconButton component={Link} to={AppRoutes.graph} color="secondary" aria-label="view-graph">
+                <BubbleChartIcon sx={{fontSize:'3rem'}} />
+              </IconButton>
             </Grid>
             <Grid item sm={8}>
-              <form id="search-form" onSubmit={handleSubmit} noValidate autoComplete="off" style={{display: 'flex'}}>
+              <form id="search-form" onSubmit={handleSubmit} noValidate autoComplete="off" style={{display: 'flex', marginTop:'12px'}}>
                 <div className={classes.search} style={{width: '100%'}}>
                   <InputBase
                     name="search"
@@ -71,7 +76,7 @@ function Header(props) {
               />
             </Grid>
             <Grid item sx={{flexGrow: 1}}/>
-            <Grid item sx={{marginTop: 1}}>
+            <Grid item sx={{marginTop: 2.5}}>
               {user ?
                 <Link to={'#'} onClick={() => logout(setUser)} className={classes.loginButton}>{user} -
                   Logout</Link> :
