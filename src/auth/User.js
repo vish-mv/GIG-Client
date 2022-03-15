@@ -1,4 +1,3 @@
-// import React from "react";
 import {AuthStore} from "./AuthStore";
 
 const authStorage = localStorage;
