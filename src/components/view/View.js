@@ -41,29 +41,29 @@ function ViewEntity(props) {
               <br/>
               <table>
                 <tbody>
-                {loadedEntity.attributes ? Object.entries(loadedEntity.attributes).map((attribute) => (
+                {Object.entries(loadedEntity?.attributes).map((attribute) => (
                   <FormattedContent key={attribute[1].name} content={attribute[1]}/>
-                )) : null}
+                ))}
                 </tbody>
               </table>
               <br/>
               <Typography component="p">
                 Links:
-                {loadedEntity.links ? loadedEntity.links.map((link) => (
+                {loadedEntity?.links?.map((link) => (
                   <Link className={classes.link} key={link.title}
                         to={AppRoutes.entity + link.title + "?date=" + link.dates[0]}>
                     {link.title}
                   </Link>
-                )) : null}
+                ))}
               </Typography>
               <br/>
               <Typography component="p">
                 Categories:
-                {loadedEntity.categories ? loadedEntity.categories.map((title) => (
+                {loadedEntity?.categories?.map((title) => (
                   <Link className={classes.link} key={loadedEntity.title + title} to={AppRoutes.search + title + ':'}>
                     {title}
                   </Link>
-                )) : null}
+                ))}
               </Typography>
             </div>
             :
