@@ -9,7 +9,7 @@ import ResartAltIcon from '@mui/icons-material/RestartAlt';
 import {AppPreferences} from "../../../preferences";
 
 export default function SearchBar(props) {
-  const {searchKey, setSearchKey} = props;
+  const {searchKey, setSearchKey, viewGraphPanel, setViewGraphPanel} = props;
   const [searchInput, setSearchInput] = useState(searchKey);
 
   function handleSubmit(event) {
@@ -31,7 +31,7 @@ export default function SearchBar(props) {
       component="form"
       sx={{p: '2px 4px', display: 'flex', alignItems: 'center', width: 400, margin: 2}}
     >
-      <IconButton sx={{p: '10px'}} aria-label="menu">
+      <IconButton sx={{p: '10px'}} aria-label="menu" onClick={() => setViewGraphPanel(!viewGraphPanel)}>
         <MenuIcon/>
       </IconButton>
       <InputBase
