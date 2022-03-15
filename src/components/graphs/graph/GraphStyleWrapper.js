@@ -1,5 +1,5 @@
 import React from "react";
-import {ForceGraph3D, ForceGraph2D} from 'react-force-graph';
+import {ForceGraph2D, ForceGraph3D} from 'react-force-graph';
 import {GraphStyle} from "./Constants";
 
 function GraphStyleWrapper(props) {

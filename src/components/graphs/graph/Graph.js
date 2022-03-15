@@ -1,18 +1,13 @@
-import React, {useEffect, useState, useCallback} from "react"
+import React, {useCallback, useEffect, useState} from "react"
 import SpriteText from 'three-spritetext';
 import {getResults} from "../../../functions/api/GetQueries";
-import {
-  addNewEntitiesToGraph,
-  createDataGraphFromStats,
-  createLinkNodesFromEntityNode,
-  dummy
-} from "./Functions";
+import {addNewEntitiesToGraph, createDataGraphFromStats, createLinkNodesFromEntityNode, dummy} from "./Functions";
 import {getGraphStats} from "../../../functions/api/GetStats";
 import {generateSearchQuery} from "../../../functions/GenerateSearchQuery";
 import GraphLoader from "../../../resources/graph_loader.gif"
 import GraphPanel from "../panel/GraphPanel";
 import "./Graph.css"
-import {GraphTheme, GraphStyle, NodeStyle} from "./Constants";
+import {GraphStyle, GraphTheme, NodeStyle} from "./Constants";
 import GraphStyleWrapper from "./GraphStyleWrapper"
 
 function Graph() {

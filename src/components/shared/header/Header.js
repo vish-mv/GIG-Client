@@ -6,7 +6,7 @@ import AppBar from "@mui/material/AppBar/AppBar";
 import {withStyles} from "@mui/styles";
 import BeatLoader from 'react-spinners/BeatLoader';
 import Styles, {override} from "../Styles";
-import {Link, useLocation, useNavigate, Outlet} from "react-router-dom";
+import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
 import './Header.css'
 import Button from "@mui/material/Button/Button";
 import Grid from '@mui/material/Grid';

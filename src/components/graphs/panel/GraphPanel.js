@@ -7,7 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Slider from '@mui/material/Slider';
 import Divider from '@mui/material/Divider';
-import {GraphTheme, GraphStyle, NodeStyle} from "../graph/Constants";
+import {GraphStyle, GraphTheme, NodeStyle} from "../graph/Constants";
 import "./GraphPanel.css"
 import SearchBar from "../search_bar/SearchBar"
 import Fade from '@mui/material/Fade';
