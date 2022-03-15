@@ -6,14 +6,14 @@ import {Link, useParams} from "react-router-dom";
 import FormattedContent from "./FormattedContent";
 import {Styles} from "./Styles";
 import {getEntity} from "../../functions/api/GetQueries";
-import {userIsAuthorized} from "../../auth/Authentication";
+import {userIsEditAuthorized} from "../../auth/Authentication";
 import {AppRoutes} from "../../routes";
 
 function ViewEntity(props) {
   const {titleParam} = useParams();
   const {classes} = props;
   const [loadedEntity, setLoadedEntity] = useState(null);
-  const isAuthorized = userIsAuthorized();
+  const isAuthorized = userIsEditAuthorized();
 
   async function updateEntityState(data) {
     setLoadedEntity(data);
