@@ -26,11 +26,6 @@ function GraphPanel(props) {
     graphStyle, setGraphStyle
   } = props;
 
-  // TODO: Bug workaround - resetting back to sphere nodes is not working. Therefore reloading the page
-  function refreshPage() {
-    window.location.reload(false);
-  }
-
   const handleNodeStyleChange = (event) => {
     setNodeStyle(NodeStyle[event.target.value]);
   };
@@ -87,7 +82,7 @@ function GraphPanel(props) {
           value={nodeStyle.value}
           onChange={handleNodeStyleChange}
         >
-          <FormControlLabel value={NodeStyle.sphere.value} control={<Radio/>} onClick={refreshPage}
+          <FormControlLabel value={NodeStyle.sphere.value} control={<Radio/>}
                             label={NodeStyle.sphere.label}/>
           <FormControlLabel value={NodeStyle.name.value} control={<Radio/>}
                             label={NodeStyle.name.label}/>
