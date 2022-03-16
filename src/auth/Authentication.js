@@ -1,5 +1,6 @@
 import {getAuthToken, getUserRole, logout} from "./User";
 import {UserRoles} from "./AuthStore";
+import {ApiRoutes, getServerUrl} from "../server";
 
 export function getAuthHeaders() {
   const token = getAuthToken();
@@ -13,7 +14,7 @@ export function userIsEditAuthorized() {
 
 export function validateToken(setUserState) {
   console.log("validating token");
-  let loginUrl = process.env.REACT_APP_SERVER_URL + 'api/token/validate';
+  let loginUrl = getServerUrl(ApiRoutes.tokenValidation);
 
   const requestOptions = {
     headers: getAuthHeaders(),

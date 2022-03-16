@@ -1,5 +1,7 @@
-export function generateSearchQuery(searchParam){
-  let searchUrl = process.env.REACT_APP_SERVER_URL + 'api/search?query=';
+import {ApiRoutes, getServerUrl} from "../server";
+
+export function generateSearchQuery(searchParam) {
+  let searchUrl = getServerUrl(ApiRoutes.search);
   if (searchParam.includes(":")) {
     let searchArray = searchParam.split(":", 2);
     searchUrl += searchArray[1] + '&categories=' + searchArray[0];

@@ -1,8 +1,9 @@
 import {getAuthHeaders} from "../../../auth/Authentication";
 import {AppRoutes} from "../../../routes";
+import {ApiRoutes, getServerUrl} from "../../../server";
 
 export function saveEntity(entity, modifiedEntityObj, navigate) {
-  let updateUrl = process.env.REACT_APP_SERVER_URL + 'api/update';
+  let updateUrl = getServerUrl(ApiRoutes.update);
   let modifiedEntity = modifiedEntityObj['jsObject'];
   const requestOptions = {
     headers: getAuthHeaders(),

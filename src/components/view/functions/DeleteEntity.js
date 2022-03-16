@@ -1,7 +1,9 @@
+import {ApiRoutes, getServerUrl} from "../../../server";
+
 export function deleteEntity(entity, navigate) {
   let isConfirmed = window.confirm("Are you sure you want to delete this entity?");
   if (isConfirmed) {
-    let deleteUrl = process.env.REACT_APP_SERVER_URL + 'api/delete';
+    let deleteUrl = getServerUrl(ApiRoutes.delete);
     const requestOptions = {
       headers: this.props.getHeaders(),
       method: 'POST',

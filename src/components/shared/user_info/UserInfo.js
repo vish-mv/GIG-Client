@@ -9,8 +9,11 @@ function UserInfo(props) {
   const {user, classes, setUser} = props;
 
   if (user) {
-    return <Link to={'#'} onClick={() => logout(setUser)} className={classes.loginButton}>{user} -
-      Logout</Link>
+    return <div style={{fontSize: '14px'}}>
+      <Link to={'#'}
+            onClick={() => logout(setUser)}
+            className={classes.loginButton}>{user} - Logout
+      </Link></div>
   }
   return <div style={{fontSize: '14px'}}>
     <Link to={AppRoutes.login} className={classes.loginButton}>Login</Link> or

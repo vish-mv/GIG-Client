@@ -1,11 +1,12 @@
 import {setAuthToken, setAuthUser, setUserRole} from "./User";
+import {ApiRoutes, getServerUrl} from "../server";
 
 export async function userLogin(username, password) {
   if (username === "" || password === "") {
     return {error: "username/password required!"};
   }
 
-  let loginUrl = process.env.REACT_APP_SERVER_URL + 'api/user/login';
+  let loginUrl = getServerUrl(ApiRoutes.login);
   const requestOptions = {
     headers: {'Content-Type': 'application/json'},
     method: 'POST',
