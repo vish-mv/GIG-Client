@@ -1,6 +1,6 @@
 export const ApiRoutes = {
   tokenValidation: 'api/token/validate',
-  images: '/images',
+  images: 'images',
   login: 'api/user/login',
   delete: 'api/delete',
   update: 'api/update',
