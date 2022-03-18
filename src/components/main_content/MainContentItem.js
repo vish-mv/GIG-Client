@@ -33,7 +33,7 @@ class MainContentItem extends Component {
                     variant="body2"
                     color="textSecondary"
                   >
-                    {moment(subtitle,'DD  MMM YYYY h:mm A').fromNow()}
+                    {moment(subtitle, 'DD  MMM YYYY h:mm A').fromNow()}
                   </Typography>
                   <Typography
                     className={"news-description"}
@@ -41,7 +41,7 @@ class MainContentItem extends Component {
                     variant="body2"
                     color="textSecondary"
                   >
-                    {description.substring(0,400)}
+                    {description.substring(0, 400)}
                   </Typography>
                 </Link>
                 <div>
@@ -54,7 +54,7 @@ class MainContentItem extends Component {
                               variant="outlined"
                         />
                       </Link>
-                    )) : null}
+                  )) : null}
                 </div>
                 {/*<RelatedLinkList links={links}/>*/}
               </div>

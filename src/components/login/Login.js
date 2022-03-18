@@ -19,10 +19,10 @@ function Login(props) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const response=await userLogin(username,password);
-    if (response.error){
+    const response = await userLogin(username, password);
+    if (response.error) {
       setError(response.error)
-    }else{
+    } else {
       setUser(username);
       navigate(redirectUrl)
     }

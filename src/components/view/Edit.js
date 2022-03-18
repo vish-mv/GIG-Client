@@ -56,7 +56,7 @@ function EditEntity(props) {
                 Save
               </Button>
               <Button variant="contained" color="error" type="button"
-                      onClick={()=>deleteEntity(loadedEntity, navigate)}>
+                      onClick={() => deleteEntity(loadedEntity, navigate)}>
                 Delete
               </Button>
             </div>

@@ -1,4 +1,3 @@
-
 //NOTE: object attribute name and value should be the same for the value assign to succeed.
 
 export const GraphTheme = {

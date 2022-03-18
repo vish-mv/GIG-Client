@@ -23,7 +23,7 @@ const Styles = theme => ({
   grow: {
     flexGrow: 1,
   },
-  errorText:{
+  errorText: {
     fontSize: 14,
     textAlign: "centre",
     color: 'red'
@@ -54,7 +54,7 @@ const Styles = theme => ({
     },
   },
   inputRoot: {
-    marginTop:'3px',
+    marginTop: '3px',
     color: '#0000008F',
     width: '100%',
     paddingLeft: theme.spacing(2),

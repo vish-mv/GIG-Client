@@ -4,7 +4,7 @@ import {GraphStyle} from "./Constants";
 
 function GraphStyleWrapper(props) {
   const {graphStyle} = props;
-  
+
   if (graphStyle === GraphStyle.twoDimensional) {
     return <ForceGraph2D {...props}/>
   }

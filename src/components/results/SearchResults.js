@@ -19,7 +19,7 @@ function SearchResults(props) {
 
   async function getSearchResults(initialSearch) {
     if (searchParam.length > 1) {
-      const searchUrl= generateSearchQuery(searchParam);
+      const searchUrl = generateSearchQuery(searchParam);
       let result = await getResults(searchUrl, initialSearch, searchResults, searchPage, setSearchResults, setSearchPage, 15);
       setIsLoading(false);
       return result
@@ -36,7 +36,7 @@ function SearchResults(props) {
   return (
     <Grid className={classes.container} container width={1}>
       <Grid item lg={3} className={classes.leftContentColumn}/>
-      <Grid item  lg={6} className={classes.mainContentColumn}>
+      <Grid item lg={6} className={classes.mainContentColumn}>
         <InfiniteList listItems={searchResults}
                       getResultItems={getSearchResults}
                       list={<MainContentList listItems={searchResults}/>}
