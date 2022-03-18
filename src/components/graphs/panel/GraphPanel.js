@@ -26,7 +26,7 @@ function GraphPanel(props) {
     setResultsPerNode,
     backgroundTheme, setBackgroundTheme,
     graphStyle, setGraphStyle,
-    viewGraphPanel
+    viewGraphPanel, graphData
   } = props;
 
   const handleNodeStyleChange = (event) => {
@@ -47,62 +47,66 @@ function GraphPanel(props) {
 
   return (
     <div style={panelUI}>
-      <SearchBar {...props} />
-      <Fade in={viewGraphPanel}>
-        <Paper elevation={3} sx={{padding: 2, width: 'fit-content', margin: 2}}>
-          <FormControl>
-            <FormLabel id="graph-theme-radio-buttons-group-label">Graph Theme</FormLabel>
-            <RadioGroup
-              row
-              aria-labelledby="graph-theme-radio-buttons-group-label"
-              name="graph-theme-radio-buttons-group-row"
-              value={backgroundTheme.value}
-              onChange={handleGraphThemeChange}
-            >
-              <FormControlLabel value={GraphTheme.dark.value} control={<Radio color="success"/>}
-                                label={GraphTheme.dark.label}/>
-              <FormControlLabel value={GraphTheme.light.value} control={<Radio color="success"/>}
-                                label={GraphTheme.light.label}/>
-            </RadioGroup>
-            <Divider variant="middle"/><br/>
-            <FormLabel id="graph-style-radio-buttons-group-label">Graph Style</FormLabel>
-            <RadioGroup
-              row
-              aria-labelledby="graph-style-radio-buttons-group-label"
-              name="graph-style-radio-buttons-group-row"
-              value={graphStyle.value}
-              onChange={handleGraphStyleChange}
-            >
-              <FormControlLabel value={GraphStyle.threeDimensional.value} control={<Radio color="secondary"/>}
-                                label={GraphStyle.threeDimensional.label}/>
-              <FormControlLabel value={GraphStyle.twoDimensional.value} control={<Radio color="secondary"/>}
-                                label={GraphStyle.twoDimensional.label}/>
-            </RadioGroup>
-            <Divider variant="middle"/><br/>
-            <FormLabel id="node-view-radio-buttons-group-label">Node Style</FormLabel>
-            <RadioGroup
-              row
-              aria-labelledby="node-view-radio-buttons-group-label"
-              name="node-view-radio-buttons-row"
-              value={nodeStyle.value}
-              onChange={handleNodeStyleChange}
-            >
-              <FormControlLabel value={NodeStyle.sphere.value} control={<Radio/>}
-                                label={NodeStyle.sphere.label}/>
-              <FormControlLabel value={NodeStyle.name.value} control={<Radio/>}
-                                label={NodeStyle.name.label}/>
-            </RadioGroup>
-            <Divider variant="middle"/><br/>
-            <FormLabel id="slider-group-label">Max. Nodes per Category</FormLabel>
-            <Slider defaultValue={100}
-                    onChangeCommitted={handleResultsPerNodeLimitChange}
-                    step={1}
-                    min={0}
-                    max={1000}
-                    valueLabelDisplay="auto"/>
-          </FormControl>
-        </Paper>
-      </Fade>
+      {graphData &&
+      <div>
+        <SearchBar {...props} />
+        <Fade in={graphData && viewGraphPanel}>
+          <Paper elevation={3} sx={{padding: 2, width: 'fit-content', margin: 2}}>
+            <FormControl>
+              <FormLabel id="graph-theme-radio-buttons-group-label">Graph Theme</FormLabel>
+              <RadioGroup
+                row
+                aria-labelledby="graph-theme-radio-buttons-group-label"
+                name="graph-theme-radio-buttons-group-row"
+                value={backgroundTheme.value}
+                onChange={handleGraphThemeChange}
+              >
+                <FormControlLabel value={GraphTheme.dark.value} control={<Radio color="success"/>}
+                                  label={GraphTheme.dark.label}/>
+                <FormControlLabel value={GraphTheme.light.value} control={<Radio color="success"/>}
+                                  label={GraphTheme.light.label}/>
+              </RadioGroup>
+              <Divider variant="middle"/><br/>
+              <FormLabel id="graph-style-radio-buttons-group-label">Graph Style</FormLabel>
+              <RadioGroup
+                row
+                aria-labelledby="graph-style-radio-buttons-group-label"
+                name="graph-style-radio-buttons-group-row"
+                value={graphStyle.value}
+                onChange={handleGraphStyleChange}
+              >
+                <FormControlLabel value={GraphStyle.threeDimensional.value} control={<Radio color="secondary"/>}
+                                  label={GraphStyle.threeDimensional.label}/>
+                <FormControlLabel value={GraphStyle.twoDimensional.value} control={<Radio color="secondary"/>}
+                                  label={GraphStyle.twoDimensional.label}/>
+              </RadioGroup>
+              <Divider variant="middle"/><br/>
+              <FormLabel id="node-view-radio-buttons-group-label">Node Style</FormLabel>
+              <RadioGroup
+                row
+                aria-labelledby="node-view-radio-buttons-group-label"
+                name="node-view-radio-buttons-row"
+                value={nodeStyle.value}
+                onChange={handleNodeStyleChange}
+              >
+                <FormControlLabel value={NodeStyle.sphere.value} control={<Radio/>}
+                                  label={NodeStyle.sphere.label}/>
+                <FormControlLabel value={NodeStyle.name.value} control={<Radio/>}
+                                  label={NodeStyle.name.label}/>
+              </RadioGroup>
+              <Divider variant="middle"/><br/>
+              <FormLabel id="slider-group-label">Max. Nodes per Category</FormLabel>
+              <Slider defaultValue={100}
+                      onChangeCommitted={handleResultsPerNodeLimitChange}
+                      step={1}
+                      min={0}
+                      max={1000}
+                      valueLabelDisplay="auto"/>
+            </FormControl>
+          </Paper>
+        </Fade>
+      </div>
+      }
     </div>
   )
 }

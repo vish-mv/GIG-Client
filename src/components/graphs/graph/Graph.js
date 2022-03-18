@@ -4,11 +4,11 @@ import {getResults} from "../../../functions/api/GetQueries";
 import {addNewEntitiesToGraph, createDataGraphFromStats, createLinkNodesFromEntityNode, dummy} from "./Functions";
 import {getGraphStats} from "../../../functions/api/GetStats";
 import {generateSearchQuery} from "../../../functions/GenerateSearchQuery";
-import GraphLoader from "../../../resources/graph_loader.gif"
 import GraphPanel from "../panel/GraphPanel";
 import "./Graph.css"
 import {GraphStyle, GraphTheme, NodeStyle} from "./Constants";
 import GraphStyleWrapper from "./GraphStyleWrapper"
+import RingLoader from "react-spinners/RingLoader";
 
 function Graph() {
 
@@ -29,7 +29,8 @@ function Graph() {
     backgroundTheme, setBackgroundTheme,
     graphStyle, setGraphStyle,
     searchKey, setSearchKey,
-    viewGraphPanel, setViewGraphPanel
+    viewGraphPanel, setViewGraphPanel,
+    graphData
   };
 
   function setGraphDimensions() {
@@ -146,7 +147,10 @@ function Graph() {
             node.fz = node.z;
           }}
         /> :
-        <header className="App-header"><img src={GraphLoader} alt="Generating Information Graph..." width="100px"/>
+        <header className="App-header">
+          <div style={{marginTop: '-250px', marginLeft: '-250px'}}>
+            <RingLoader color='#36D7B7' loading={true} size={150}/>
+          </div>
         </header>
       }
       <GraphPanel {...app_props}/>

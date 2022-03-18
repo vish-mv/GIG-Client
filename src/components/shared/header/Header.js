@@ -68,14 +68,16 @@ function Header(props) {
                 </Button>
               </form>
             </Grid>
-            <Grid item sx={{marginTop: 1}}>
-              <BeatLoader
-                css={override}
-                sizeUnit={"px"}
-                size={14}
-                color={'#36D7B7'}
-                loading={isLoading}
-              />
+            <Grid item>
+              <div style={{marginTop: '20px'}}>
+                <BeatLoader
+                  css={override}
+                  sizeUnit={"px"}
+                  size={14}
+                  color={'#36D7B7'}
+                  loading={isLoading}
+                />
+              </div>
             </Grid>
             <Grid item sx={{flexGrow: 1}}/>
             <Grid item sx={{marginTop: 2.5}}>
