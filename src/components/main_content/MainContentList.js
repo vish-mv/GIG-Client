@@ -10,28 +10,36 @@ class MainContentList extends Component {
 
   render() {
     const {classes, listItems, vertical} = this.props;
+    if (listItems) {
+      return (
+        <List className={classes.listContainer}>
+          {Array.isArray(listItems) ?
+            listItems.map((entity) => (
+              <MainContentItem key={entity.title}
+                               imageUrl={entity.image_url} title={entity.title}
+                               subtitle={entity.source_date !== "0001-01-01T00:00:00Z" ?
+                                 Moment(entity.source_date).format('DD  MMM YYYY h:mm A') :
+                                 Moment(entity.updated_at).format('DD  MMM YYYY h:mm A')}
+                               description={entity.snippet}
+                               links={entity.links.slice(0, 20)}
+                               categories={entity.categories}
+                               vertical={vertical}
+              />
+            ))
+            :
+            <Typography component="p" style={{textAlign: 'center'}}>
+              No Results Found
+            </Typography>
+          }
+        </List>
+      )
+    }
     return (
-      <List className={classes.listContainer}>
-        {Array.isArray(listItems) ?
-          listItems.map((entity) => (
-            <MainContentItem key={entity.title}
-                             imageUrl={entity.image_url} title={entity.title}
-                             subtitle={entity.source_date !== "0001-01-01T00:00:00Z" ?
-                               Moment(entity.source_date).format('DD  MMM YYYY h:mm A') :
-                               Moment(entity.updated_at).format('DD  MMM YYYY h:mm A')}
-                             description={entity.snippet}
-                             links={entity.links.slice(0, 20)}
-                             categories={entity.categories}
-                             vertical={vertical}
-            />
-          ))
-          :
-          <Typography component="p" style={{textAlign: 'center'}}>
-            No Results Found
-          </Typography>
-        }
-      </List>
+      <Typography component="p" style={{textAlign: 'center'}}>
+        Loading Results...
+      </Typography>
     )
+
   }
 }
 
