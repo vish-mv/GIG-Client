@@ -4,7 +4,7 @@ import {useParams} from 'react-router-dom'
 import Grid from "@mui/material/Grid/Grid";
 import {Styles} from "./Styles";
 import {getResults} from "../../functions/api/GetQueries";
-import InfiniteList from "../infinite_list/InfiniteList";
+import InfiniteList from "../infinite-list/infinite-list";
 import MainContentList from "../main_content/MainContentList";
 import {generateSearchQuery} from "../../functions/GenerateSearchQuery";
 
