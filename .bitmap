@@ -9,5 +9,11 @@
  */
 
 {
+    "infinite-list": {
+        "scope": "lsflk.gig",
+        "version": "0.0.1",
+        "mainFile": "infinite-list.js",
+        "rootDir": "src/components/infinite-list"
+    },
     "$schema-version": "14.9.0"
 }
