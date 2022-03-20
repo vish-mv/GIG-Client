@@ -11,7 +11,7 @@ import './Home.css'
 import {getGraphStats} from "../../functions/api/GetStats";
 import {AppRoutes} from "../../routes";
 import {AppPreferences} from "../../preferences";
-import UserInfo from "../shared/user_info/UserInfo";
+import UserInfo from "../shared/user-info/UserInfo";
 
 function Home(props) {
   const navigate = useNavigate();
