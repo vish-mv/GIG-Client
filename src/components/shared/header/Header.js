@@ -14,7 +14,7 @@ import {AppRoutes} from "../../../routes";
 import BubbleChartIcon from '@mui/icons-material/BubbleChart';
 import IconButton from "@mui/material/IconButton/IconButton";
 import {AppPreferences} from "../../../preferences";
-import UserInfo from "../user_info/UserInfo";
+import UserInfo from "../user-info/UserInfo";
 
 function Header(props) {
   const navigate = useNavigate();

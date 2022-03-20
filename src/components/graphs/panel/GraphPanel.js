@@ -9,7 +9,7 @@ import Slider from '@mui/material/Slider';
 import Divider from '@mui/material/Divider';
 import {GraphStyle, GraphTheme, NodeStyle} from "../graph/Constants";
 import "./GraphPanel.css"
-import SearchBar from "../search_bar/SearchBar"
+import SearchBar from "../search-bar/SearchBar"
 import Fade from '@mui/material/Fade';
 
 const panelUI = {
