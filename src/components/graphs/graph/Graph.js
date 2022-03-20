@@ -1,9 +1,9 @@
 import React, {useCallback, useEffect, useState} from "react"
 import SpriteText from 'three-spritetext';
-import {getResults} from "../../../functions/api/GetQueries";
+import {getResults} from "../../../gig-client-shared/functions/api/getQueries";
 import {addNewEntitiesToGraph, createDataGraphFromStats, createLinkNodesFromEntityNode, dummy} from "./Functions";
-import {getGraphStats} from "../../../functions/api/GetStats";
-import {generateSearchQuery} from "../../../functions/GenerateSearchQuery";
+import {getGraphStats} from "../../../gig-client-shared/functions/api/getStats";
+import {generateSearchQuery} from "../../../gig-client-shared/functions/generateSearchQuery";
 import GraphPanel from "../panel/GraphPanel";
 import "./Graph.css"
 import {GraphStyle, GraphTheme, NodeStyle} from "./Constants";

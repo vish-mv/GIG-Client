@@ -7,9 +7,9 @@ import EditEntity from "./components/view/Edit"
 import Login from "./components/login/Login"
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import './App.css';
-import {validateToken} from "./auth/Authentication";
-import {ProtectedRoute} from "./auth/ProtectedRoute";
-import {getAuthUser, logout} from "./auth/User";
+import {validateToken} from "./gig-client-shared/auth/Authentication";
+import {ProtectedRoute} from "./gig-client-shared/auth/ProtectedRoute";
+import {getAuthUser, logout} from "./gig-client-shared/auth/User";
 import Home from "./components/home/Home";
 import Graph from "./components/graphs/graph/Graph";
 import {AppRoutes} from "./routes";

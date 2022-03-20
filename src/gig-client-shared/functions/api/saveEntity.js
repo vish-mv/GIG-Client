@@ -1,4 +1,4 @@
-import {getAuthHeaders} from "../../../auth/Authentication";
+import {getAuthHeaders} from "../../auth/Authentication";
 import {AppRoutes} from "../../../routes";
 import {ApiRoutes, getServerUrl} from "../../../server";
 

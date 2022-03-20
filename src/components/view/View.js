@@ -3,10 +3,10 @@ import Typography from '@mui/material/Typography';
 import {withStyles} from '@mui/styles';
 import Paper from '@mui/material/Paper';
 import {Link, useParams} from "react-router-dom";
-import FormattedContent from "./FormattedContent";
+import FormattedContent from "../../gig-client-shared/components/formatted-content-viewer/FormattedContentViewer";
 import {Styles} from "./Styles";
-import {getEntity} from "../../functions/api/GetQueries";
-import {userIsEditAuthorized} from "../../auth/Authentication";
+import {getEntity} from "../../gig-client-shared/functions/api/getQueries";
+import {userIsEditAuthorized} from "../../gig-client-shared/auth/Authentication";
 import {AppRoutes} from "../../routes";
 
 function ViewEntity(props) {

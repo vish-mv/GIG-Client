@@ -24,7 +24,7 @@ const styles = theme => ({
   }
 });
 
-class FormattedContent extends Component {
+class FormattedContentViewer extends Component {
 
   formatValues(values) {
     return values.map(value => {
@@ -80,8 +80,8 @@ class FormattedContent extends Component {
   }
 }
 
-FormattedContent.propTypes = {
+FormattedContentViewer.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(FormattedContent);
+export default withStyles(styles)(FormattedContentViewer);
