@@ -3,10 +3,10 @@ import {withStyles} from '@mui/styles';
 import {useParams} from 'react-router-dom'
 import Grid from "@mui/material/Grid/Grid";
 import {Styles} from "./Styles";
-import {getResults} from "../../gig-client-shared/functions/api/getQueries";
-import InfiniteList from "../../gig-client-shared/components/infinite-list/infinite-list";
-import MainContentList from "../../gig-client-shared/components/main-content-list/MainContentList";
-import {generateSearchQuery} from "../../gig-client-shared/functions/generateSearchQuery";
+import {getResults} from "@lsflk/gig-client-shared/functions";
+import InfiniteList from "@lsflk/gig-client-shared/components";
+import MainContentList from "@lsflk/gig-client-shared/components";
+import {generateSearchQuery} from "@lsflk/gig-client-shared/functions";
 
 
 function SearchResults(props) {

@@ -6,10 +6,10 @@ import {useNavigate, useParams} from 'react-router-dom';
 import JSONInput from 'react-json-editor-ajrm';
 import locale from 'react-json-editor-ajrm/locale/en';
 import Button from "@mui/material/Button/Button";
-import {getEntity} from "../../gig-client-shared/functions/api/getQueries";
+import {getEntity} from "@lsflk/gig-client-shared/functions/api/getQueries";
 import {Styles} from "./Styles";
-import {saveEntity} from "../../gig-client-shared/functions/api/saveEntity";
-import {deleteEntity} from "../../gig-client-shared/functions/api/deleteEntity";
+import {saveEntity} from "@lsflk/gig-client-shared/functions/api/saveEntity";
+import {deleteEntity} from "@lsflk/gig-client-shared/functions/api/deleteEntity";
 
 function EditEntity(props) {
 
