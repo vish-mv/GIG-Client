@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import {logout} from "@lsflk/gig-client-shared/auth/User";
+import {logout} from "@lsflk/gig-client-shared/auth";
 import {AppRoutes} from "../../../routes";
 import {withStyles} from "@mui/styles";
 import Styles from "../Styles";

@@ -3,10 +3,10 @@ import Typography from '@mui/material/Typography';
 import {withStyles} from '@mui/styles';
 import Paper from '@mui/material/Paper';
 import {Link, useParams} from "react-router-dom";
-import FormattedContent from "@lsflk/gig-client-shared/components/formatted-content-viewer/FormattedContentViewer";
+import {FormattedContentViewer} from "@lsflk/gig-client-shared/components";
 import {Styles} from "./Styles";
-import {getEntity} from "@lsflk/gig-client-shared/functions/api/getQueries";
-import {userIsEditAuthorized} from "@lsflk/gig-client-shared/auth/Authentication";
+import {getEntity} from "@lsflk/gig-client-shared/functions";
+import {userIsEditAuthorized} from "@lsflk/gig-client-shared/auth";
 import {AppRoutes} from "../../routes";
 
 function ViewEntity(props) {
@@ -42,7 +42,7 @@ function ViewEntity(props) {
               <table>
                 <tbody>
                 {Object.entries(loadedEntity?.attributes).map((attribute) => (
-                  <FormattedContent key={attribute[1].name} content={attribute[1]}/>
+                  <FormattedContentViewer key={attribute[1].name} content={attribute[1]}/>
                 ))}
                 </tbody>
               </table>
