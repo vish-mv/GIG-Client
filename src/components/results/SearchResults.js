@@ -17,8 +17,7 @@ function SearchResults(props) {
 
   async function getSearchResults(initialSearch) {
     if (searchParam.length > 1) {
-      const searchUrl = generateSearchQuery(searchParam);
-      let result = await getResults(searchUrl, initialSearch, searchResults, searchPage, setSearchResults, setSearchPage, 15);
+      let result = await getResults(searchParam, initialSearch, searchResults, searchPage, setSearchResults, setSearchPage, 15);
       setIsLoading(false);
       return result
     }

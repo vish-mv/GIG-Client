@@ -49,8 +49,7 @@ function Graph() {
 
   const getSearchResults = useCallback(async (searchParam, initialSearch) => {
     if (searchParam.length > 1) {
-      const searchUrl = generateSearchQuery(searchParam);
-      return getResults(searchUrl, initialSearch, [], 0, dummy, dummy, resultsPerNode);
+      return getResults(searchParam, initialSearch, [], 0, dummy, dummy, resultsPerNode);
     }
     return false
   }, [resultsPerNode]);
