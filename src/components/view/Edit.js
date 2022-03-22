@@ -50,7 +50,7 @@ function EditEntity(props) {
                 }}
               />
               <Button disabled={!isChanged} variant="contained" color="primary" type="button"
-                      onClick={() => saveEntity(loadedEntity, modifiedEntity, navigate)}>
+                      onClick={() => saveEntity(loadedEntity, modifiedEntity['jsObject'], navigate)}>
                 Save
               </Button>
               <Button variant="contained" color="error" type="button"
