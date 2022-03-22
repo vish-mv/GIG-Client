@@ -42,7 +42,10 @@ function ViewEntity(props) {
               <table>
                 <tbody>
                 {Object.entries(loadedEntity?.attributes).map((attribute) => (
-                  <FormattedContentViewer key={attribute[1].name} content={attribute[1]}/>
+                  <tr key={attribute[1].name}>
+                    <td><Typography>{attribute[1]?.name !== "" ? attribute[1]?.name + ": " : ""}</Typography></td>
+                    <td><FormattedContentViewer key={attribute[1]?.name} content={attribute[1]?.values}/></td>
+                  </tr>
                 ))}
                 </tbody>
               </table>
