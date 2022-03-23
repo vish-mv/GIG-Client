@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from "react"
 import SpriteText from 'three-spritetext';
-import {generateSearchQuery, getGraphStats, getResults} from "@lsflk/gig-client-shared/functions";
+import {getGraphStats, getResults} from "@lsflk/gig-client-shared/functions";
 import {addNewEntitiesToGraph, createDataGraphFromStats, createLinkNodesFromEntityNode, dummy} from "./Functions";
 import GraphPanel from "../panel/GraphPanel";
 import "./Graph.css"

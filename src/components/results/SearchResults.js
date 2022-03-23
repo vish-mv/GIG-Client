@@ -3,7 +3,7 @@ import {withStyles} from '@mui/styles';
 import {useParams} from 'react-router-dom'
 import Grid from "@mui/material/Grid/Grid";
 import {Styles} from "./Styles";
-import {generateSearchQuery, getResults} from "@lsflk/gig-client-shared/functions";
+import {getResults} from "@lsflk/gig-client-shared/functions";
 import {InfiniteList, MainContentList} from "@lsflk/gig-client-shared/components";
 
 

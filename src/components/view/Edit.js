@@ -8,6 +8,7 @@ import locale from 'react-json-editor-ajrm/locale/en';
 import Button from "@mui/material/Button/Button";
 import {deleteEntity, getEntity, saveEntity} from "@lsflk/gig-client-shared/functions";
 import {Styles} from "./Styles";
+import {Facebook} from 'react-content-loader';
 
 function EditEntity(props) {
 
@@ -16,7 +17,6 @@ function EditEntity(props) {
   const {classes, user} = props;
   const [loadedEntity, setLoadedEntity] = useState(null);
   const [modifiedEntity, setModifiedEntity] = useState(null);
-  const [isChanged, setIsChanged] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -29,27 +29,25 @@ function EditEntity(props) {
 
   async function updateEntityState(data) {
     setLoadedEntity(data);
-    setModifiedEntity(data);
   }
 
   return (
     <div className="content">
       <div className={classes.container}>
         <Paper className={classes.searchResult} elevation={1}>
-          {modifiedEntity ?
+          {loadedEntity ?
             <div>
               <JSONInput
                 id='entity_editor'
-                placeholder={modifiedEntity}
+                placeholder={loadedEntity}
                 locale={locale}
                 height
                 width
                 onChange={(e) => {
                   setModifiedEntity(e);
-                  setIsChanged(true)
                 }}
               />
-              <Button disabled={!isChanged} variant="contained" color="primary" type="button"
+              <Button variant="contained" color="primary" type="button"
                       onClick={() => saveEntity(loadedEntity, modifiedEntity['jsObject'], navigate)}>
                 Save
               </Button>
@@ -60,7 +58,7 @@ function EditEntity(props) {
             </div>
             :
             <Typography component="p">
-              Document not found
+              <Facebook/>
             </Typography>
           }
         </Paper>
