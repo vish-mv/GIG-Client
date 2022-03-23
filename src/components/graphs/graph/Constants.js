@@ -3,7 +3,7 @@
 export const GraphTheme = {
   dark: {
     label: "Dark",
-    color: "#111",
+    color: "#222",
     value: "dark"
   },
   light: {

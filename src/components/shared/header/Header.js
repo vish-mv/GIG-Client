@@ -15,6 +15,7 @@ import BubbleChartIcon from '@mui/icons-material/BubbleChart';
 import IconButton from "@mui/material/IconButton/IconButton";
 import {AppPreferences} from "../../../preferences";
 import UserInfo from "../user-info/UserInfo";
+import SearchIcon from '@mui/icons-material/Search';
 
 function Header(props) {
   const navigate = useNavigate();
@@ -34,24 +35,29 @@ function Header(props) {
 
   return (
     <div>
-      <AppBar position="static" style={{marginTop: 0}}>
+      <AppBar position="static">
         <Toolbar className={classes.appBar}>
-          <Grid container spacing={2}>
-            <Grid item>
-              <Typography component={Link} to={AppRoutes.home} style={{textDecoration: 'none'}}
+          <Grid container>
+            <Grid item sx={{marginTop: 1}}>
+              <Typography component={Link} to={AppRoutes.home} sx={{textDecoration: 'none', fontSize: 30}}
                           className={classes.menuButton}
                           variant="h6"
                           color="inherit" noWrap>
-                General Information Graph
+                GIG
               </Typography>
+            </Grid>
+            <Grid item>
               <IconButton component={Link} to={AppRoutes.graph} color="secondary" aria-label="view-graph">
                 <BubbleChartIcon sx={{fontSize: '3rem'}}/>
               </IconButton>
             </Grid>
-            <Grid item sm={8}>
+            <Grid item sm={6} xs={12}>
               <form id="search-form" onSubmit={handleSubmit} noValidate autoComplete="off"
                     style={{display: 'flex', marginTop: '12px'}}>
                 <div className={classes.search} style={{width: '100%'}}>
+                  <IconButton sx={{p: '5px'}} aria-label="search">
+                    <SearchIcon/>
+                  </IconButton>
                   <InputBase
                     name="search"
                     placeholder="Search…"
@@ -80,8 +86,8 @@ function Header(props) {
               </div>
             </Grid>
             <Grid item sx={{flexGrow: 1}}/>
-            <Grid item sx={{marginTop: 2.5}}>
-              <UserInfo {...props} />
+            <Grid item sx={{marginTop: 3, marginBottom:3}}>
+              <UserInfo {...props} color="white"/>
             </Grid>
           </Grid>
         </Toolbar>

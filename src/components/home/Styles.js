@@ -40,34 +40,36 @@ const Styles = theme => ({
   },
   search: {
     position: 'relative',
-    borderRadius: '20px',
+    borderRadius: '35px',
     backgroundColor: theme.palette.common.white,
     '&:hover': {
       backgroundColor: theme.palette.common.white,
+      boxShadow:'0 1px 6px rgb(32 33 36 / 28%)'
     },
     marginRight: "-25px",
     marginLeft: 0,
-    width: '100%',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(2),
       width: 'auto',
     },
+    display: 'flex',
+    padding: 3,
+    paddingLeft: 10,
+    paddingRight: 10,
+    border: '1px solid #dfe1e5'
   },
   inputRoot: {
     marginTop: '3px',
     color: '#0000008F',
-    width: '100%',
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
+    width: '90%'
   },
   inputInput: {
     padding: theme.spacing(1),
     marginLeft: theme.spacing(1),
     transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: 400,
-    },
+    [theme.breakpoints.up('md')]: {},
   },
 });
 

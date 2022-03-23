@@ -19,14 +19,8 @@
 }
 
 #search-header {
-  width: 100%;
   text-align: left;
   color: white;
-}
-
-#search-form {
-  width: 96%;
-  margin: auto;
 }
 
 .MuiButtonBase-root.MuiChip-root {

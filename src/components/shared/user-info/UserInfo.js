@@ -6,18 +6,18 @@ import {withStyles} from "@mui/styles";
 import Styles from "../Styles";
 
 function UserInfo(props) {
-  const {user, classes, setUser} = props;
+  const {user, classes, setUser, color} = props;
 
   if (user) {
-    return <div style={{fontSize: '14px'}}>
-      <Link to={'#'}
+    return <div style={{fontSize: '12px', color: color}}>
+      <Link to={'#'} style={{color: color}}
             onClick={() => logout(setUser)}
             className={classes.loginButton}>{user} - Logout
       </Link></div>
   }
-  return <div style={{fontSize: '14px'}}>
-    <Link to={AppRoutes.login} className={classes.loginButton}>Login</Link> or
-    <Link to={AppRoutes.register} className={classes.loginButton}>Register</Link>
+  return <div style={{fontSize: '12px', color: color}}>
+    <Link to={AppRoutes.login} className={classes.loginButton} style={{color: color}}>Login</Link> or
+    <Link to={AppRoutes.register} className={classes.loginButton} style={{color: color}}>Register</Link>
   </div>
 }
 

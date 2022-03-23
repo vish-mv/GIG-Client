@@ -34,12 +34,11 @@ const Styles = theme => ({
     color: 'white'
   },
   loginButton: {
-    fontSize: 14,
+    fontSize: 12,
     textAlign: "right",
     margin: 10,
     right: 0,
     top: 12,
-    color: 'white'
   },
   menuButton: {
     marginLeft: -12,
@@ -61,6 +60,10 @@ const Styles = theme => ({
       marginLeft: theme.spacing(2),
       width: 'auto',
     },
+    border: '0.5px solid #ddd',
+    boxShadow:'5px 5 px rgba(0, 0, 0, 0.2)',
+    display: 'flex',
+    paddingLeft: 10,
   },
   searchIcon: {
     width: theme.spacing(9),
@@ -75,7 +78,6 @@ const Styles = theme => ({
     marginTop: '3px',
     color: '#0000008F',
     width: '100%',
-    paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
   },
   inputInput: {
