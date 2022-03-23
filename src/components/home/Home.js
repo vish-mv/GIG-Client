@@ -59,36 +59,33 @@ function Home(props) {
         </p>
         <Grid container>
           <Grid item sx={{flexGrow: 1}}/>
-          <Grid item xs={12} lg={4}>
+          <Grid item xs={12} sm={6} lg={4}>
             <form id="search-form" onSubmit={handleSubmit} noValidate autoComplete="off">
               <div className={classes.search} style={{margin: '20px'}}>
                 <IconButton sx={{p: '5px'}} aria-label="search">
                   <SearchIcon/>
                 </IconButton>
-                <InputBase
-                  id="search-input"
-                  name="search"
-                  placeholder="Search…"
-                  value={searchKey}
-                  onChange={(e) => setSearchKey(e.target.value)}
-                  classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput,
-                  }}
-                />
-                {searchKey ?
-                <IconButton sx={{p: '5px'}} aria-label="search" onClick={() => setSearchKey("")}>
-                  <CloseIcon/>
-                </IconButton>:
-                  <IconButton sx={{p: '5px'}} aria-label="search">
-                  </IconButton>
-                }
+                <Tooltip title="Search">
+                  <InputBase
+                    id="search-input"
+                    name="search"
+                    placeholder="Search…"
+                    value={searchKey}
+                    onChange={(e) => setSearchKey(e.target.value)}
+                    classes={{
+                      root: classes.inputRoot,
+                      input: classes.inputInput,
+                    }}
+                  /></Tooltip>
+                {searchKey &&
+                <Tooltip title="Clear">
+                  <IconButton sx={{p: '5px'}} aria-label="search" onClick={() => setSearchKey("")}>
+                    <CloseIcon/>
+                  </IconButton></Tooltip>}
               </div>
-              <Tooltip title="Search">
-                <Button variant="contained" color="primary" type="submit" tooltip="Search">
-                  Search
-                </Button>
-              </Tooltip>
+              <Button variant="contained" color="primary" type="submit" tooltip="Search">
+                Search
+              </Button>
             </form>
           </Grid>
           <Grid item sx={{flexGrow: 1}}/>
