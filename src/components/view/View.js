@@ -8,6 +8,7 @@ import {Styles} from "./Styles";
 import {getEntity} from "@lsflk/gig-client-shared/functions";
 import {userIsEditAuthorized} from "@lsflk/gig-client-shared/auth";
 import {AppRoutes} from "../../routes";
+import {Facebook} from 'react-content-loader';
 
 function ViewEntity(props) {
   const {titleParam} = useParams();
@@ -71,7 +72,7 @@ function ViewEntity(props) {
             </div>
             :
             <Typography component="p">
-              Document not found
+              <Facebook/>
             </Typography>
           }
         </Paper>
