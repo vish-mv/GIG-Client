@@ -7,11 +7,12 @@ import Styles from "../shared/Styles";
 import {userLogin} from "@lsflk/gig-client-shared/auth";
 import {AppRoutes} from "../../routes";
 
-function Login(props) {
+function Register(props) {
   const location = useLocation();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const {classes, setUser} = props;
 
@@ -19,12 +20,18 @@ function Login(props) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const response = await userLogin(username, password);
-    if (response.error) {
-      setError(response.error)
-    } else {
-      setUser(username);
-      navigate(redirectUrl)
+
+    if (password !== "" && password === confirmPassword) {
+      const response = await userLogin(username, password);
+      if (response.error) {
+        setError(response.error)
+      } else {
+        setUser(username);
+        navigate(redirectUrl)
+      }
+    }
+    else{
+      setError("Password and Confirm Password Fields are not matching!")
     }
   }
 
@@ -55,7 +62,7 @@ function Login(props) {
             margin="normal"
             type="password"
             placeholder="password"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           /><br/><br/>
           <Button variant="contained" color="primary" type="submit">
             Login
@@ -67,4 +74,4 @@ function Login(props) {
   );
 }
 
-export default withStyles(Styles)(Login);
+export default withStyles(Styles)(Register);
