@@ -31,34 +31,32 @@ function Login(props) {
   return (
     <header className="App-header">
       <div className="content">
-        <h1>GIG</h1>
+        <h1 style={{fontSize: 80}}>GIG</h1>
         <p>
           General Information Graph
         </p>
-        <p>
+        <h5>
           Login
-        </p>
+        </h5>
         <p className={classes.errorText}>{error}</p>
         <form id="login-form" onSubmit={handleSubmit} noValidate>
           <TextField
+            size="small"
             id="username"
             name="username"
-            className="search-text"
             margin="normal"
-            variant='standard'
             placeholder="username"
             onChange={(e) => setUsername(e.target.value)}
           /><br/>
           <TextField
+            size="small"
             id="password"
             name="password"
-            className="search-text"
-            variant='standard'
             margin="normal"
             type="password"
             placeholder="password"
             onChange={(e) => setPassword(e.target.value)}
-          /><br/>
+          /><br/><br/>
           <Button variant="contained" color="primary" type="submit">
             Login
           </Button><br/>

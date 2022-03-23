@@ -29,9 +29,9 @@ const Styles = theme => ({
     color: 'red'
   },
   linkButton: {
-    fontSize: 14,
+    fontSize: 12,
     textAlign: "centre",
-    color: 'white'
+    color: 'rgba(0,0,0,.87)'
   },
   loginButton: {
     fontSize: 12,
