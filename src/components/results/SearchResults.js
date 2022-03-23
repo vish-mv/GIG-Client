@@ -36,7 +36,7 @@ function SearchResults(props) {
       <Grid item lg={6} className={classes.mainContentColumn}>
         <InfiniteList listItems={searchResults}
                       getResultItems={getSearchResults}
-                      list={<MainContentList listItems={searchResults}/>}
+                      list={<MainContentList elevation={1} listItems={searchResults}/>}
         />
       </Grid>
 
