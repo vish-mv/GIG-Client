@@ -12,6 +12,7 @@ import {validateToken} from "@lsflk/gig-client-shared/functions";
 import Home from "./components/home/Home";
 import Graph from "./components/graphs/graph/Graph";
 import {AppRoutes} from "./routes";
+import Register from "./components/register/Register";
 
 const appTheme = createTheme({
   palette: {
@@ -38,6 +39,7 @@ function App() {
         <Routes>
           <Route index element={<Home {...app_props}/>}/>
           <Route path={AppRoutes.login} element={<Login {...app_props}/>}/>
+          <Route path={AppRoutes.register} element={<Register {...app_props}/>}/>
           <Route element={<Header {...app_props}/>}>
             <Route path={AppRoutes.search + ":searchParam"} element={<SearchResults {...app_props}/>}/>
             <Route path={AppRoutes.entity + ":titleParam"} element={<ViewEntity {...app_props}/>}/>

@@ -26,8 +26,7 @@ function SearchResults(props) {
 
   if (searchParam !== searchState) {
     console.log("loading search results:", searchParam);
-    getSearchResults(true);
-    setSearchState(searchParam);
+    getSearchResults(true).then(setSearchState(searchParam));
   }
 
   return (

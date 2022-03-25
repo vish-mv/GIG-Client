@@ -6,7 +6,7 @@ import {useNavigate, useParams} from 'react-router-dom';
 import JSONInput from 'react-json-editor-ajrm';
 import locale from 'react-json-editor-ajrm/locale/en';
 import Button from "@mui/material/Button/Button";
-import {deleteEntity, getEntity, saveEntity} from "@lsflk/gig-client-shared/functions";
+import {deleteEntity, getEntity, updateEntity} from "@lsflk/gig-client-shared/functions";
 import {Styles} from "./Styles";
 import {Facebook} from 'react-content-loader';
 
@@ -48,7 +48,7 @@ function EditEntity(props) {
                 }}
               />
               <Button variant="contained" color="primary" type="button"
-                      onClick={() => saveEntity(loadedEntity, modifiedEntity['jsObject'], navigate)}>
+                      onClick={() => updateEntity(loadedEntity, modifiedEntity['jsObject'], navigate)}>
                 Save
               </Button>
               <Button variant="contained" color="error" type="button"
