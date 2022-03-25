@@ -22,14 +22,10 @@ function EditEntity(props) {
     if (user) {
       if (!loadedEntity || (loadedEntity.title !== titleParam)) {
         console.log("get profile entity:", titleParam);
-        getEntity(titleParam, updateEntityState);
+        getEntity(titleParam).then(entity => setLoadedEntity(entity));
       }
     }
   });
-
-  async function updateEntityState(data) {
-    setLoadedEntity(data);
-  }
 
   return (
     <div className="content">

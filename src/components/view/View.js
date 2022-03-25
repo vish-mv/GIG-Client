@@ -16,14 +16,10 @@ function ViewEntity(props) {
   const [loadedEntity, setLoadedEntity] = useState(null);
   const isAuthorized = userIsEditAuthorized();
 
-  async function updateEntityState(data) {
-    setLoadedEntity(data);
-  }
-
   useEffect(() => {
     if (!loadedEntity || loadedEntity.title !== titleParam) {
       console.log("get profile entity:", titleParam);
-      getEntity(titleParam, updateEntityState);
+      getEntity(titleParam).then(entity => setLoadedEntity(entity));
     }
 
   });

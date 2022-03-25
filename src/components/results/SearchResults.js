@@ -5,6 +5,7 @@ import Grid from "@mui/material/Grid/Grid";
 import {Styles} from "./Styles";
 import {getResults} from "@lsflk/gig-client-shared/functions";
 import {InfiniteList, MainContentList} from "@lsflk/gig-client-shared/components";
+import {AppRoutes} from "../../routes";
 
 
 function SearchResults(props) {
@@ -35,7 +36,12 @@ function SearchResults(props) {
       <Grid item lg={6} className={classes.mainContentColumn}>
         <InfiniteList listItems={searchResults}
                       getResultItems={getSearchResults}
-                      list={<MainContentList elevation={1} listItems={searchResults}/>}
+                      list={<MainContentList
+                        elevation={3}
+                        listItems={searchResults}
+                        entityRoute={AppRoutes.entity}
+                        searchRoute={AppRoutes.search}
+                      />}
         />
       </Grid>
 
