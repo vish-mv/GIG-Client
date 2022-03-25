@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import InputBase from "@mui/material/InputBase/InputBase";
 import Toolbar from "@mui/material/Toolbar/Toolbar";
 import Typography from "@mui/material/Typography/Typography";
@@ -6,7 +6,7 @@ import AppBar from "@mui/material/AppBar/AppBar";
 import {withStyles} from "@mui/styles";
 import BeatLoader from 'react-spinners/BeatLoader';
 import Styles, {override} from "../Styles";
-import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
+import {Link, Outlet, useLocation, useNavigate, useParams} from "react-router-dom";
 import './Header.css'
 import Button from "@mui/material/Button/Button";
 import Grid from '@mui/material/Grid';
@@ -20,6 +20,7 @@ import SearchIcon from '@mui/icons-material/Search';
 function Header(props) {
   const navigate = useNavigate();
   const location = useLocation();
+  const params = useParams();
 
   const {classes, isLoading, setIsLoading, searchKey, setSearchKey} = props;
 
@@ -32,6 +33,12 @@ function Header(props) {
       navigate(url);
     }
   }
+
+  useEffect(() => {
+    if (params?.searchParam && searchKey === "") {
+      setSearchKey(params.searchParam)
+    }
+  }, []);
 
   return (
     <div>
@@ -86,7 +93,7 @@ function Header(props) {
               </div>
             </Grid>
             <Grid item sx={{flexGrow: 1}}/>
-            <Grid item sx={{marginTop: 3, marginBottom:3}}>
+            <Grid item sx={{marginTop: 3, marginBottom: 3}}>
               <UserInfo {...props} color="white"/>
             </Grid>
           </Grid>
