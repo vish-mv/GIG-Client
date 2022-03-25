@@ -2,8 +2,8 @@
   text-align: center;
 }
 
-body{
-  color: rgba(0,0,0,.87)
+body {
+  color: rgba(0, 0, 0, .87)
 }
 
 .App-link {
@@ -12,4 +12,14 @@ body{
 
 .content {
   width: 100%;
+}
+
+.mainContent p, tr td p {
+  font-size: 12px;
+}
+
+.mainContent a, .content p a {
+  text-decoration: none;
+  color: #1976d2;
+  font-size: 12px;
 }

@@ -9,6 +9,31 @@ import {getEntity} from "@lsflk/gig-client-shared/functions";
 import {userIsEditAuthorized} from "@lsflk/gig-client-shared/auth";
 import {AppRoutes} from "../../routes";
 import {Facebook} from 'react-content-loader';
+import Chip from '@mui/material/Chip';
+
+function Highlight({ children: text = "", tags = [] }) {
+  if (!tags?.length) return text;
+  const matches = [...text.matchAll(new RegExp(tags.join("|"), "ig"))];
+  const startText = text.slice(0, matches[0]?.index);
+  return (
+    <span>
+      {startText}
+      {matches.map((match, i) => {
+        const startIndex = match.index;
+        const currentText = match[0];
+        const endIndex = startIndex + currentText.length;
+        const nextIndex = matches[i + 1]?.index;
+        const untilNextText = text.slice(endIndex, nextIndex);
+        return (
+          <span key={i}>
+            <mark>{currentText}</mark>
+            {untilNextText}
+          </span>
+        );
+      })}
+    </span>
+  );
+}
 
 function ViewEntity(props) {
   const {titleParam} = useParams();
@@ -36,6 +61,7 @@ function ViewEntity(props) {
               {isAuthorized &&
               <Link to={AppRoutes.edit + loadedEntity.title} className={classes.editButton}>Edit</Link>}
               <br/>
+              <Highlight tags={["Hel", "co", "nd"]}>Hello CodeSandbox</Highlight>
               <table>
                 <tbody>
                 {Object.entries(loadedEntity?.attributes).map((attribute) => (
@@ -50,19 +76,27 @@ function ViewEntity(props) {
               <Typography component="p">
                 Links:
                 {loadedEntity?.links?.map((link) => (
-                  <Link className={classes.link} key={link.title}
-                        to={AppRoutes.entity + link.title + "?date=" + link.dates[0]}>
-                    {link.title}
-                  </Link>
+                  <Chip
+                    key={link.title}
+                    label={link.title}
+                    href={AppRoutes.entity + link.title + "?date=" + link.dates[0]}
+                    clickable
+                    component="a"
+                  />
                 ))}
               </Typography>
               <br/>
               <Typography component="p">
                 Categories:
                 {loadedEntity?.categories?.map((title) => (
-                  <Link className={classes.link} key={loadedEntity.title + title} to={AppRoutes.search + title + ':'}>
-                    {title}
-                  </Link>
+                  <Chip
+                    key={title}
+                    label={title}
+                    variant="outlined"
+                    href={AppRoutes.search + title + ':'}
+                    clickable
+                    component="a"
+                  />
                 ))}
               </Typography>
             </div>
