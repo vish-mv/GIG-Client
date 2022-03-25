@@ -11,30 +11,6 @@ import {AppRoutes} from "../../routes";
 import {Facebook} from 'react-content-loader';
 import Chip from '@mui/material/Chip';
 
-function Highlight({ children: text = "", tags = [] }) {
-  if (!tags?.length) return text;
-  const matches = [...text.matchAll(new RegExp(tags.join("|"), "ig"))];
-  const startText = text.slice(0, matches[0]?.index);
-  return (
-    <span>
-      {startText}
-      {matches.map((match, i) => {
-        const startIndex = match.index;
-        const currentText = match[0];
-        const endIndex = startIndex + currentText.length;
-        const nextIndex = matches[i + 1]?.index;
-        const untilNextText = text.slice(endIndex, nextIndex);
-        return (
-          <span key={i}>
-            <mark>{currentText}</mark>
-            {untilNextText}
-          </span>
-        );
-      })}
-    </span>
-  );
-}
-
 function ViewEntity(props) {
   const {titleParam} = useParams();
   const {classes} = props;
@@ -61,13 +37,16 @@ function ViewEntity(props) {
               {isAuthorized &&
               <Link to={AppRoutes.edit + loadedEntity.title} className={classes.editButton}>Edit</Link>}
               <br/>
-              <Highlight tags={["Hel", "co", "nd"]}>Hello CodeSandbox</Highlight>
               <table>
                 <tbody>
                 {Object.entries(loadedEntity?.attributes).map((attribute) => (
                   <tr key={attribute[1].name}>
                     <td><Typography>{attribute[1]?.name !== "" ? attribute[1]?.name + ": " : ""}</Typography></td>
-                    <td><FormattedContentViewer key={attribute[1]?.name} content={attribute[1]?.values}/></td>
+                    <td><FormattedContentViewer
+                      key={attribute[1]?.name} content={attribute[1]?.values}
+                      highlightTags={loadedEntity?.links?.map((link) => link.title)}
+                      entityRoute={AppRoutes.entity}
+                    /></td>
                   </tr>
                 ))}
                 </tbody>
