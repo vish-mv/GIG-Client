@@ -53,7 +53,7 @@ function SearchResults(props) {
   return (
     <Grid className={classes.container} container width={1} style={{paddingLeft: 0}}>
       <Grid item sm={0} lg={3} className={classes.leftContentColumn}>
-        <Box id="category-drawer" class={classes.categoryDrawer} role="presentation">
+        <Box id="category-drawer" role="presentation">
           <List>
             <ListItem style={{borderBottomRightRadius:'25px',borderTopRightRadius:'25px'}} button key="Categories">
               <ListItemText secondary="Categories"/>
