@@ -44,7 +44,7 @@ const Styles = theme => ({
     backgroundColor: theme.palette.common.white,
     '&:hover': {
       backgroundColor: theme.palette.common.white,
-      boxShadow:'0 1px 6px rgb(32 33 36 / 28%)'
+      boxShadow: '0 1px 6px rgb(32 33 36 / 28%)'
     },
     marginRight: "-25px",
     marginLeft: 0,

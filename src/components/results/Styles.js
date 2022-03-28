@@ -13,5 +13,5 @@ export const Styles = theme => ({
   },
   link: {
     paddingRight: '10px'
-  }
+  },
 });
