@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import Typography from '@mui/material/Typography';
 import {withStyles} from '@mui/styles';
 import Paper from '@mui/material/Paper';
-import {Link, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {FormattedContentViewer} from "@lsflk/gig-client-shared/components";
 import {Styles} from "./Styles";
 import {getEntity} from "@lsflk/gig-client-shared/functions";
@@ -16,6 +16,8 @@ import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
 
 function ViewEntity(props) {
   const {titleParam} = useParams();
@@ -73,11 +75,18 @@ function ViewEntity(props) {
         <Paper className={classes.searchResult} elevation={6}>
           {loadedEntity ?
             <div>
-              <Typography variant="h4" component="h4">
-                {loadedEntity.title}
-              </Typography>
-              {isAuthorized &&
-              <Link to={AppRoutes.edit + loadedEntity.title} className={classes.editButton}>Edit</Link>}
+              <Grid container>
+                <Grid item lg={11}>
+                  <Typography variant="h4" component="h4">
+                    {loadedEntity.title}
+                  </Typography>
+                </Grid>
+                <Grid item lg={1} style={{textAlign:'right'}}>
+                  {isAuthorized &&
+                  <Button component="a" href={AppRoutes.edit + loadedEntity.title} variant="outlined">Edit</Button>
+                  }
+                </Grid>
+              </Grid>
               <br/>
               <table>
                 <tbody>
