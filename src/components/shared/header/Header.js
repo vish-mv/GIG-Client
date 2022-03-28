@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import InputBase from "@mui/material/InputBase/InputBase";
 import Toolbar from "@mui/material/Toolbar/Toolbar";
 import Typography from "@mui/material/Typography/Typography";
@@ -21,6 +21,7 @@ function Header(props) {
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
+  const [initialLoad, setInitialLoad] = useState(true);
 
   const {classes, isLoading, setIsLoading, searchKey, setSearchKey} = props;
 
@@ -35,10 +36,11 @@ function Header(props) {
   }
 
   useEffect(() => {
-    if (params?.searchParam && searchKey === "") {
-      setSearchKey(params.searchParam)
+    if (initialLoad && params?.searchParam && searchKey === "") {
+      setSearchKey(params.searchParam);
+      setInitialLoad(false);
     }
-  }, []);
+  }, [initialLoad, params?.searchParam, searchKey, setInitialLoad, setSearchKey]);
 
   return (
     <div>
