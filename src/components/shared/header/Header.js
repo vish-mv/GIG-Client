@@ -42,7 +42,7 @@ function Header(props) {
 
   return (
     <div>
-      <AppBar position="static">
+      <AppBar position="static" style={{position: 'fixed', zIndex: 1000}}>
         <Toolbar className={classes.appBar}>
           <Grid container>
             <Grid item sx={{marginTop: 1}}>
@@ -99,7 +99,9 @@ function Header(props) {
           </Grid>
         </Toolbar>
       </AppBar>
-      <Outlet/>
+      <div style={{paddingTop: 64}}>
+        <Outlet/>
+      </div>
     </div>
   )
 }

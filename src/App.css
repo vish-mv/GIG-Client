@@ -18,8 +18,14 @@ body {
   font-size: 12px;
 }
 
-.mainContent a, .content p a {
+.mainContent a, .content td a {
   text-decoration: none;
   color: #1976d2;
   font-size: 12px;
+}
+
+.content td.attribute{
+  padding-top: 13px;
+  vertical-align: top;
+  text-transform: capitalize;
 }
