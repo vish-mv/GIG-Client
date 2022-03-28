@@ -44,7 +44,9 @@ function App() {
             <Route path={AppRoutes.search + ":searchParam"} element={<SearchResults {...app_props}/>}/>
             <Route path={AppRoutes.entity + ":titleParam"} element={<ViewEntity {...app_props}/>}/>
             <Route path={AppRoutes.edit + ":titleParam"}
-                   element={<ProtectedRoute><EditEntity {...app_props}/></ProtectedRoute>}/>
+                   element={<ProtectedRoute loginRoute={AppRoutes.login}>
+                     <EditEntity {...app_props}/>
+                   </ProtectedRoute>}/>
             <Route path={AppRoutes.graph} element={<Graph {...app_props}/>}/>
           </Route>
 
