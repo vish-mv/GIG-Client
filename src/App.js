@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {Route, Routes} from "react-router-dom";
 import Header from "./components/shared/header/Header";
 import SearchResults from "./components/results/SearchResults";
-import ViewEntity from "./components/view/View"
-import EditEntity from "./components/view/Edit"
+import ViewEntity from "./components/entity/View"
+import EditEntity from "./components/entity/Edit"
 import Login from "./components/login/Login"
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import './App.css';
