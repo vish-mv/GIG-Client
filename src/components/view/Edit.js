@@ -3,7 +3,6 @@ import Typography from '@mui/material/Typography';
 import {withStyles} from '@mui/styles';
 import Paper from '@mui/material/Paper';
 import {useNavigate, useParams} from 'react-router-dom';
-import JSONInput from 'react-json-editor-ajrm';
 import locale from 'react-json-editor-ajrm/locale/en';
 import Button from "@mui/material/Button/Button";
 import {deleteEntity, getEntity, updateEntity} from "@lsflk/gig-client-shared/functions";
@@ -15,6 +14,8 @@ import Tabs from "@mui/material/Tabs/Tabs";
 import Tab from "@mui/material/Tab/Tab";
 import TabPanel from "./EditTabPanel"
 import EditUI from "./EditUI"
+import {JsonEditor as Editor} from 'jsoneditor-react';
+import 'jsoneditor-react/es/editor.min.css';
 
 function EditEntity(props) {
 
@@ -23,6 +24,7 @@ function EditEntity(props) {
   const {classes, user} = props;
   const [loadedEntity, setLoadedEntity] = useState(null);
   const [modifiedEntity, setModifiedEntity] = useState(null);
+  const [isModified, setIsModified] = useState(false);
   const [tabValue, setTabValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -36,11 +38,21 @@ function EditEntity(props) {
     };
   }
 
+  function updateEditedEntity(entity){
+    setModifiedEntity(entity);
+    if (!isModified){
+      setIsModified(true)
+    }
+  }
+
   useEffect(() => {
     if (user) {
       if (!loadedEntity || (loadedEntity.title !== titleParam)) {
         console.log("get profile entity:", titleParam);
-        getEntity(titleParam).then(entity => setLoadedEntity(entity));
+        getEntity(titleParam).then(entity => {
+          setLoadedEntity(entity);
+          setModifiedEntity(entity);
+        });
       }
     }
   });
@@ -49,7 +61,7 @@ function EditEntity(props) {
     <div className="content">
       <div className={classes.container}>
         <Paper className={classes.searchResult} elevation={1}>
-          {loadedEntity ?
+          {modifiedEntity ?
             <div>
               <Box sx={{width: '100%'}}>
                 <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
@@ -59,25 +71,32 @@ function EditEntity(props) {
                   </Tabs>
                 </Box>
                 <TabPanel value={tabValue} index={0}>
-                  <EditUI entity={loadedEntity}/>
+                  <EditUI entity={modifiedEntity} setEntity={updateEditedEntity}/>
                 </TabPanel>
                 <TabPanel value={tabValue} index={1}>
-                  <JSONInput
+                  <Editor
                     id='entity_editor'
-                    placeholder={loadedEntity}
+                    value={modifiedEntity}
                     locale={locale}
                     height
                     width
-                    onChange={(e) => {
-                      setModifiedEntity(e);
-                    }}
+                    onChange={(e) => {updateEditedEntity(e.target.value)}}
                   />
                 </TabPanel>
               </Box>
               <Grid container spacing={2} style={{margin: 2}}>
                 <Grid item>
-                  <Button variant="outlined" color="primary" type="button"
-                          onClick={() => updateEntity(loadedEntity, modifiedEntity['jsObject'], navigate)}>
+                  <Button disabled={!isModified} variant="outlined" color="primary" type="button"
+                          onClick={() => {
+                            updateEntity(loadedEntity, modifiedEntity, navigate).then((response) => {
+                                if (response?.status === 200) {
+                                  alert("modifications saved successfully");
+                                } else {
+                                  alert("error saving the entity")
+                                }
+                              }
+                            )
+                          }}>
                     Save
                   </Button>
                 </Grid>
@@ -87,8 +106,7 @@ function EditEntity(props) {
                             if (window.confirm("Are you sure you want to delete this entity?") === true) {
                               deleteEntity(loadedEntity, navigate)
                             }
-                          }
-                          }>
+                          }}>
                     Delete
                   </Button>
                 </Grid>
