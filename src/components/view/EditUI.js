@@ -12,7 +12,7 @@ export default function EditUI(props) {
     <div>
       <table>
         <tbody>
-        {["title", "image_url"].map((attribute) => (
+        {["title", "image_url","source","source_signature","snippet","search_text","created_at","updated_at"].map((attribute) => (
           <tr key={"tr_edit" + attribute}>
             <td className="attribute">
               <Typography>{attribute !== "" ? attribute + ": " : ""}</Typography></td>
@@ -23,7 +23,6 @@ export default function EditUI(props) {
                 size="small"
                 value={entity[attribute]}
                 onChange={(e) => {
-                  console.log(e.target.value);
                   let entityCopy = {...entity};
                   entityCopy[attribute] = e.target.value;
                   setEntity(entityCopy);

@@ -3,7 +3,6 @@ import Typography from '@mui/material/Typography';
 import {withStyles} from '@mui/styles';
 import Paper from '@mui/material/Paper';
 import {useNavigate, useParams} from 'react-router-dom';
-import locale from 'react-json-editor-ajrm/locale/en';
 import Button from "@mui/material/Button/Button";
 import {deleteEntity, getEntity, updateEntity} from "@lsflk/gig-client-shared/functions";
 import {Styles} from "./Styles";
@@ -75,11 +74,7 @@ function EditEntity(props) {
                 </TabPanel>
                 <TabPanel value={tabValue} index={1}>
                   <Editor
-                    id='entity_editor'
                     value={modifiedEntity}
-                    locale={locale}
-                    height
-                    width
                     onChange={(e) => {updateEditedEntity(e.target.value)}}
                   />
                 </TabPanel>
