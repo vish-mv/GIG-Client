@@ -6,10 +6,7 @@ import {useParams} from 'react-router-dom';
 import {getEntity} from "@lsflk/gig-client-shared/functions";
 import {Styles} from "./Styles";
 import {Facebook} from 'react-content-loader';
-import Grid from "@mui/material/Grid/Grid";
 import Box from "@mui/material/Box/Box";
-import Tabs from "@mui/material/Tabs/Tabs";
-import Tab from "@mui/material/Tab/Tab";
 import TabPanel from "./edit-tools/EditTabPanel"
 import EditUI from "./edit-tools/EditUI"
 import {JsonEditor as Editor} from 'jsoneditor-react';
@@ -56,16 +53,12 @@ function EditEntity(props) {
         modifiedEntity={modifiedEntity}
         tabValue={tabValue}
         handleChange={handleChange}
+        setIsModified={setIsModified}
       />}
       <div className={classes.container}>
         <Paper className={classes.searchResult} elevation={6}>
           {modifiedEntity ?
             <div>
-              <Grid container>
-                <Grid item lg={12} style={{textAlign: 'right'}}>
-
-                </Grid>
-              </Grid>
               <Box sx={{width: '100%'}}>
                 <TabPanel value={tabValue} index={0}>
                   <EditUI entity={modifiedEntity} setEntity={updateEditedEntity}/>

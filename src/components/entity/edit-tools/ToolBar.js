@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Grid from "@mui/material/Grid/Grid";
 import Button from "@mui/material/Button/Button";
 import {deleteEntity, updateEntity} from "@lsflk/gig-client-shared/functions";
@@ -7,9 +7,14 @@ import {AppRoutes} from "../../../routes";
 import Tabs from "@mui/material/Tabs/Tabs";
 import Tab from "@mui/material/Tab/Tab";
 import Box from "@mui/material/Box/Box";
+import Typography from '@mui/material/Typography';
+import Fade from '@mui/material/Fade';
+import {useNavigate} from "react-router-dom";
 
 export default function ToolBar(props) {
-  const {isModified, loadedEntity, modifiedEntity, tabValue, handleChange} = props;
+  const navigate = useNavigate();
+  const {isModified, loadedEntity, modifiedEntity, tabValue, handleChange, setIsModified} = props;
+  const [status, setStatus] = useState(null);
 
   function a11yProps(index) {
     return {
@@ -17,6 +22,22 @@ export default function ToolBar(props) {
       'aria-controls': `simple-tabpanel-${index}`,
     };
   }
+
+  const saveSuccessMessage = <div style={{marginTop: 8}}><Typography variant="p" style={{color: 'green'}}>Entity Saved
+    Successfully!</Typography></div>;
+  const saveErrorMessage = <div style={{marginTop: 8}}><Typography variant="p" style={{color: 'red'}}>Error Saving
+    Entity!</Typography></div>;
+  const deleteConfirmMessage = <Typography variant="p" style={{color: 'red'}}>Are you sure you want to delete this
+    entity? <Button variant="outlined" color="error" type="button" style={{marginRight: 8, marginLeft: 8}}
+                    onClick={() => {
+                      deleteEntity(loadedEntity);
+                      navigate(AppRoutes.home)
+                    }}> Yes </Button>
+    <Button variant="outlined" color="primary" type="button"
+            onClick={() => {
+              setStatus(null);
+            }}> No </Button>
+  </Typography>;
 
   return <Paper elevation={3} sx={{position: 'fixed', zIndex: 200, padding: 1, width: '100%'}}>
     <Grid container spacing={1}>
@@ -29,8 +50,12 @@ export default function ToolBar(props) {
         </Box>
       </Grid>
       <Grid item lg={10}>
-        <Grid container spacing={1}>
-          <Grid lg={9} item/>
+        <Grid container spacing={1} style={{textAlign: 'right'}}>
+          <Grid lg={10} item style={{textAlign: 'center'}}>
+            <Fade in={!!status}>
+              <div>{status}</div>
+            </Fade>
+          </Grid>
           <Grid item>
             <Button component="a" href={AppRoutes.entity + loadedEntity?.title} variant="outlined">View</Button>
           </Grid>
@@ -39,10 +64,12 @@ export default function ToolBar(props) {
                     onClick={() => {
                       updateEntity(loadedEntity, modifiedEntity).then((response) => {
                           if (response?.status === 200) {
-                            alert("modifications saved successfully");
+                            setStatus(saveSuccessMessage);
+                            setIsModified(false);
                           } else {
-                            alert("error saving the entity")
+                            setStatus(saveErrorMessage);
                           }
+                          setTimeout(() => setStatus(null), 5000)
                         }
                       )
                     }}>
@@ -52,16 +79,11 @@ export default function ToolBar(props) {
           <Grid item>
             <Button variant="outlined" color="error" type="button"
                     onClick={() => {
-                      if (window.confirm("Are you sure you want to delete this entity?") === true) {
-                        deleteEntity(loadedEntity)
-                      }
+                      setStatus(deleteConfirmMessage);
+                      setTimeout(() => setStatus(null), 5000);
                     }}>
               Delete
             </Button>
-          </Grid>
-          <Grid item>
-            {/*<Alert severity="success">*/}
-            {/*This is a success alert — check it out!</Alert>*/}
           </Grid>
         </Grid>
       </Grid>
