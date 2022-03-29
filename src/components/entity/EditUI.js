@@ -52,7 +52,7 @@ export default function EditUI(props) {
           </tr>
         })}
         <tr>
-          <td>
+          <td className="attribute">
             Links:
           </td>
           <td>
@@ -67,7 +67,7 @@ export default function EditUI(props) {
             ))}</td>
         </tr>
         <tr>
-          <td>
+          <td className="attribute">
             Categories:
           </td>
           <td>

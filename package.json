@@ -8,6 +8,7 @@
     "@emotion/styled": "^11.8.1",
     "@lsflk/gig-client-shared": "^0.3.22",
     "@mui/icons-material": "^5.4.4",
+    "@mui/lab": "^5.0.0-alpha.75",
     "@mui/material": "^5.4.4",
     "@mui/styles": "^5.4.4",
     "@testing-library/jest-dom": "^5.16.2",

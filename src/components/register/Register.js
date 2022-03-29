@@ -70,7 +70,7 @@ function Register(props) {
               placeholder="confirm password"
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
-            <Button variant="contained" color="primary" type="submit">
+            <Button variant="contained" color="primary" type="submit" sx={{marginTop:1}}>
               Register
             </Button>
             <Link to={AppRoutes.login} className={classes.linkButton}>Login</Link>

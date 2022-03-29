@@ -12,6 +12,7 @@ import ListItemText from "@mui/material/ListItemText/ListItemText";
 import Divider from "@mui/material/Divider/Divider";
 import Box from "@mui/material/Box/Box";
 import "./Search.css"
+import Typography from "@mui/material/Typography"
 
 
 function SearchResults(props) {
@@ -55,15 +56,18 @@ function SearchResults(props) {
       <Grid item sm={0} lg={3} className={classes.leftContentColumn}>
         <Box id="category-drawer" role="presentation">
           <List>
-            <ListItem style={{borderBottomRightRadius:'25px',borderTopRightRadius:'25px'}} button key="Categories">
-              <ListItemText secondary="Categories"/>
+            <ListItem style={{borderBottomRightRadius: '25px', borderTopRightRadius: '25px'}} button key="Categories">
+              <ListItemText disableTypography
+                            primary={<Typography variant="h5">Categories</Typography>}/>
             </ListItem>
           </List>
           <Divider/>
           <List>
             {stat?.category_wise_count?.map((item) => (
-              <ListItem style={{borderBottomRightRadius:'25px',borderTopRightRadius:'25px'}} button key={item._id} component="a" href={AppRoutes.search + item._id + ":"}>
-                <ListItemText disableTypography primary={<div style={{color:'rgb(60,64,67)'}}>{item._id}</div>}/>
+              <ListItem style={{borderBottomRightRadius: '25px', borderTopRightRadius: '25px'}} button key={item._id}
+                        component="a" href={AppRoutes.search + item._id + ":"}>
+                <ListItemText disableTypography
+                              primary={<Typography style={{color: 'rgba(60,64,67,0.9)'}}>{item._id}</Typography>}/>
               </ListItem>
             ))}
           </List>

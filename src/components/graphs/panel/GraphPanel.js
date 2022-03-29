@@ -52,7 +52,7 @@ function GraphPanel(props) {
         <SearchBar {...props} />
         <Fade in={graphData && viewGraphPanel}>
           <Paper elevation={3} sx={{padding: 2, width: 'fit-content', margin: 2}}>
-            <FormControl>
+            <FormControl sx={{flexDirection: "column"}}>
               <FormLabel id="graph-theme-radio-buttons-group-label">Graph Theme</FormLabel>
               <RadioGroup
                 row
@@ -66,7 +66,7 @@ function GraphPanel(props) {
                 <FormControlLabel value={GraphTheme.light.value} control={<Radio color="success"/>}
                                   label={GraphTheme.light.label}/>
               </RadioGroup>
-              <Divider variant="middle"/>
+              <Divider variant="middle" sx={{marginBottom:1}}/>
               <FormLabel id="graph-style-radio-buttons-group-label">Graph Style</FormLabel>
               <RadioGroup
                 row
@@ -80,7 +80,7 @@ function GraphPanel(props) {
                 <FormControlLabel value={GraphStyle.twoDimensional.value} control={<Radio color="secondary"/>}
                                   label={GraphStyle.twoDimensional.label}/>
               </RadioGroup>
-              <Divider variant="middle"/>
+              <Divider variant="middle" sx={{marginBottom:1}}/>
               <FormLabel id="node-view-radio-buttons-group-label">Node Style</FormLabel>
               <RadioGroup
                 row
@@ -94,7 +94,7 @@ function GraphPanel(props) {
                 <FormControlLabel value={NodeStyle.name.value} control={<Radio/>}
                                   label={NodeStyle.name.label}/>
               </RadioGroup>
-              <Divider variant="middle"/>
+              <Divider variant="middle" sx={{marginBottom:1}}/>
               <FormLabel id="slider-group-label">Max. Nodes per Category</FormLabel>
               <Slider defaultValue={100}
                       onChangeCommitted={handleResultsPerNodeLimitChange}

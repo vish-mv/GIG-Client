@@ -116,7 +116,7 @@ function ViewEntity(props) {
                   </tr>
                 ))}
                 <tr>
-                  <td>
+                  <td className="attribute">
                     Links:
                   </td>
                   <td>
@@ -131,7 +131,7 @@ function ViewEntity(props) {
                     ))}</td>
                 </tr>
                 <tr>
-                  <td>
+                  <td className="attribute">
                     Categories:
                   </td>
                   <td>

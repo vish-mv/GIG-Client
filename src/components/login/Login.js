@@ -56,7 +56,7 @@ function Login(props) {
               placeholder="password"
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button variant="contained" color="primary" type="submit">
+            <Button variant="contained" color="primary" type="submit" sx={{marginTop:1}}>
               Login
             </Button>
             <Link to={AppRoutes.register} className={classes.linkButton}>Register</Link>

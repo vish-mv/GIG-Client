@@ -1,7 +1,15 @@
 #category-drawer {
   position: fixed;
   height: 100vh;
-  overflow-y: scroll;
+  overflow-y: hidden;
   overflow-x: hidden;
   width: 250px;
+}
+
+#category-drawer:hover{
+  overflow-y: scroll;
+}
+
+.MuiButtonBase-root .MuiListItem-root .MuiListItem-gutters{
+  border-radius: 25px;
 }

@@ -19,7 +19,7 @@ const appTheme = createTheme({
     mode: 'light',
   },
   typography: {
-    fontSize: 12,
+    fontSize: 11,
     h1: {
       fontSize: 80
     },
