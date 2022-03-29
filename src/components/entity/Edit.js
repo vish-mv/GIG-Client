@@ -15,6 +15,7 @@ import TabPanel from "./edit-tools/EditTabPanel"
 import EditUI from "./edit-tools/EditUI"
 import {JsonEditor as Editor} from 'jsoneditor-react';
 import 'jsoneditor-react/es/editor.min.css';
+import {AppRoutes} from "../../routes";
 
 function EditEntity(props) {
 
@@ -62,6 +63,11 @@ function EditEntity(props) {
         <Paper className={classes.searchResult} elevation={1}>
           {modifiedEntity ?
             <div>
+              <Grid container>
+                <Grid item lg={12} style={{textAlign:'right'}}>
+                  <Button component="a" href={AppRoutes.entity + loadedEntity.title} variant="outlined">View</Button>
+                </Grid>
+              </Grid>
               <Box sx={{width: '100%'}}>
                 <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
                   <Tabs value={tabValue} onChange={handleChange} aria-label="basic tabs example">
