@@ -4,13 +4,14 @@ import {AppRoutes} from "../../../routes";
 import Chip from "@mui/material/Chip/Chip";
 import TextField from "@mui/material/TextField";
 import ValueEditor from "./ValueEditor";
+import ChipInput from 'material-ui-chip-input'
 
 export default function EditUI(props) {
   const {entity, setEntity} = props;
 
   return (
     <div>
-      <table style={{width:'100%'}}>
+      <table style={{width: '100%'}}>
         <tbody>
         {["title", "image_url", "source", "source_signature", "snippet", "search_text", "created_at", "updated_at"].map((attribute) => (
           <tr key={"tr_edit" + attribute}>
@@ -35,7 +36,7 @@ export default function EditUI(props) {
         ))}
         {Object.entries(entity?.attributes).map((attribute, attributeIndex) => {
           let attributeName = attribute[1]?.name;
-          return<tr key={"tr_edit" + attributeName+ attributeIndex}>
+          return <tr key={"tr_edit" + attributeName + attributeIndex}>
             <td className="attribute">
               <Typography>{attributeName !== "" ? attributeName + ": " : ""}</Typography></td>
             <td>
@@ -71,16 +72,19 @@ export default function EditUI(props) {
             Categories:
           </td>
           <td>
-            {entity?.categories?.map((title) => (
-              <Chip
-                key={title}
-                label={title}
-                variant="outlined"
-                href={AppRoutes.search + title + ':'}
-                clickable
-                component="a"
-              />
-            ))}
+            <ChipInput
+              value={entity?.categories}
+              onAdd={(chip) => {
+                let entityCopy = {...entity};
+                entityCopy.categories = [...entityCopy.categories, chip];
+                setEntity(entityCopy);
+              }}
+              onDelete={(chip, index) => {
+                let entityCopy = {...entity};
+                delete entityCopy.categories[index];
+                setEntity(entityCopy);
+              }}
+            />
           </td>
         </tr>
         </tbody>
