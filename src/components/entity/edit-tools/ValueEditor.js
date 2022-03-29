@@ -24,7 +24,7 @@ export default function ValueEditor(props) {
           <Select
             size="small"
             value={value.value_type}
-            onChange={(e) => setEntityValue(e, "value_type")}
+            onChange={(e) => setEntityValue(e.target.value, "value_type")}
           >
             {Object.entries(ValueTypes).map((valueType) => (
               <MenuItem key={valueType[1]} value={valueType[1]}>{valueType[0]}</MenuItem>
