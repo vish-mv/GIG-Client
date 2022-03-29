@@ -18,6 +18,9 @@ const appTheme = createTheme({
   palette: {
     mode: 'light',
   },
+  typography:{
+    fontSize: 12
+  }
 });
 
 function App() {

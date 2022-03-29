@@ -1,9 +1,9 @@
 import * as React from 'react';
 import Typography from "@mui/material/Typography/Typography";
-import {FormattedContentViewer} from "@lsflk/gig-client-shared/components";
 import {AppRoutes} from "../../routes";
 import Chip from "@mui/material/Chip/Chip";
 import TextField from "@mui/material/TextField";
+import ValueEditor from "./ValueEditor";
 
 export default function EditUI(props) {
   const {entity, setEntity} = props;
@@ -12,7 +12,7 @@ export default function EditUI(props) {
     <div>
       <table>
         <tbody>
-        {["title", "image_url","source","source_signature","snippet","search_text","created_at","updated_at"].map((attribute) => (
+        {["title", "image_url", "source", "source_signature", "snippet", "search_text", "created_at", "updated_at"].map((attribute) => (
           <tr key={"tr_edit" + attribute}>
             <td className="attribute">
               <Typography>{attribute !== "" ? attribute + ": " : ""}</Typography></td>
@@ -21,6 +21,8 @@ export default function EditUI(props) {
                 id="outlined-basic"
                 variant="outlined"
                 size="small"
+                multiline
+                maxRows={5}
                 value={entity[attribute]}
                 onChange={(e) => {
                   let entityCopy = {...entity};
@@ -31,21 +33,24 @@ export default function EditUI(props) {
             </td>
           </tr>
         ))}
-        {Object.entries(entity?.attributes).map((attribute) => (
-          <tr key={"tr_edit" + attribute[1]?.name}>
+        {Object.entries(entity?.attributes).map((attribute, attributeIndex) => {
+          let attributeName = attribute[1]?.name;
+          return<tr key={"tr_edit" + attributeName+ attributeIndex}>
             <td className="attribute">
-              <Typography>{attribute[1]?.name !== "" ? attribute[1]?.name + ": " : ""}</Typography></td>
+              <Typography>{attributeName !== "" ? attributeName + ": " : ""}</Typography></td>
             <td>
-              {attribute[1]?.values.map((attributeValue) => (
-                <FormattedContentViewer
-                  key={"edit" + attributeValue.updated_at} content={attributeValue}
-                  highlightTags={entity?.links?.map((link) => link.title)}
-                  entityRoute={AppRoutes.entity}
+              {attribute[1]?.values.map((attributeValue, valueIndex) => (
+                <ValueEditor
+                  key={"edit" + attributeValue.updated_at + valueIndex} value={attributeValue} setValue={(value) => {
+                  let entityCopy = {...entity};
+                  entity.attributes[attributeName].values[valueIndex] = value;
+                  setEntity(entityCopy);
+                }}
                 />
               ))}
             </td>
           </tr>
-        ))}
+        })}
         <tr>
           <td>
             Links:

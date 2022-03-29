@@ -37,9 +37,9 @@ function EditEntity(props) {
     };
   }
 
-  function updateEditedEntity(entity){
+  function updateEditedEntity(entity) {
     setModifiedEntity(entity);
-    if (!isModified){
+    if (!isModified) {
       setIsModified(true)
     }
   }
@@ -75,7 +75,9 @@ function EditEntity(props) {
                 <TabPanel value={tabValue} index={1}>
                   <Editor
                     value={modifiedEntity}
-                    onChange={(e) => {updateEditedEntity(e.target.value)}}
+                    onChange={(e) => {
+                      updateEditedEntity(e.target.value)
+                    }}
                   />
                 </TabPanel>
               </Box>

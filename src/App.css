@@ -14,14 +14,9 @@ body {
   width: 100%;
 }
 
-.mainContent p, tr td p {
-  font-size: 12px;
-}
-
 .mainContent a, .content td a {
   text-decoration: none;
   color: #1976d2;
-  font-size: 12px;
 }
 
 .content td.attribute{
