@@ -11,8 +11,8 @@ import Grid from "@mui/material/Grid/Grid";
 import Box from "@mui/material/Box/Box";
 import Tabs from "@mui/material/Tabs/Tabs";
 import Tab from "@mui/material/Tab/Tab";
-import TabPanel from "./EditTabPanel"
-import EditUI from "./EditUI"
+import TabPanel from "./edit-tools/EditTabPanel"
+import EditUI from "./edit-tools/EditUI"
 import {JsonEditor as Editor} from 'jsoneditor-react';
 import 'jsoneditor-react/es/editor.min.css';
 

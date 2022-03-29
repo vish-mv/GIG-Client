@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Typography from "@mui/material/Typography/Typography";
-import {AppRoutes} from "../../routes";
+import {AppRoutes} from "../../../routes";
 import Chip from "@mui/material/Chip/Chip";
 import TextField from "@mui/material/TextField";
 import ValueEditor from "./ValueEditor";
@@ -10,13 +10,13 @@ export default function EditUI(props) {
 
   return (
     <div>
-      <table>
+      <table style={{width:'100%'}}>
         <tbody>
         {["title", "image_url", "source", "source_signature", "snippet", "search_text", "created_at", "updated_at"].map((attribute) => (
           <tr key={"tr_edit" + attribute}>
             <td className="attribute">
               <Typography>{attribute !== "" ? attribute + ": " : ""}</Typography></td>
-            <td>
+            <td width="90%">
               <TextField
                 id="outlined-basic"
                 variant="outlined"
