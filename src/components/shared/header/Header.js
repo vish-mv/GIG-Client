@@ -50,7 +50,7 @@ function Header(props) {
             <Grid item sx={{marginTop: 1}}>
               <Typography component={Link} to={AppRoutes.home} sx={{textDecoration: 'none'}}
                           className={classes.menuButton}
-                          variant="h6"
+                          variant="h3"
                           color="inherit" noWrap>
                 GIG
               </Typography>

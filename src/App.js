@@ -27,9 +27,6 @@ const appTheme = createTheme({
       fontSize: 30
     }
   },
-  body1: {
-    fontSize: 12
-  }
 });
 
 function App() {
