@@ -3,9 +3,6 @@ import Typography from "@mui/material/Typography/Typography";
 import TextField from "@mui/material/TextField";
 import ValueEditor from "./ValueEditor";
 import ChipInput from 'material-ui-chip-input'
-import {JsonEditor as Editor} from "jsoneditor-react/es";
-import Chip from "@mui/material/Chip/Chip";
-import {AppRoutes} from "../../../routes";
 
 export default function EditUI(props) {
   const {entity, setEntity} = props;
@@ -58,24 +55,44 @@ export default function EditUI(props) {
             Links:
           </td>
           <td>
-            <Editor
-              value={entity?.links}
-              onChange={(e) => {
+            <ChipInput
+              value={entity?.links?.map((link) => link?.title)}
+              onAdd={(chip) => {
                 let entityCopy = {...entity};
-                entityCopy.links = e.target.value;
+                entityCopy.links = [...entityCopy.links, {title: chip, dates: []}];
+                setEntity(entityCopy);
+              }}
+              onDelete={(chip, index) => {
+                let entityCopy = {...entity};
+                entityCopy.links.splice(index, 1);
                 setEntity(entityCopy);
               }}
             />
-            {entity?.links?.map((link) => (
-              <Chip
-                key={link.title}
-                label={link.title}
-                href={AppRoutes.entity + link.title + "?date=" + link.dates[0]}
-                clickable
-                component="a"
-              />
-            ))}
-            </td>
+            <table style={{width: '100%'}}>
+              <tbody>
+              {entity?.links?.map((link, linkIndex) => {
+                return <tr key={linkIndex}>
+                  <td>{link?.title}</td>
+                  <td width='80%'>
+                    <ChipInput key={linkIndex}
+                               value={link.dates}
+                               onAdd={(chip) => {
+                                 let entityCopy = {...entity};
+                                 entityCopy.links[linkIndex].dates = [...entityCopy.links[linkIndex].dates, chip];
+                                 setEntity(entityCopy);
+                               }}
+                               onDelete={(chip, index) => {
+                                 let entityCopy = {...entity};
+                                 entityCopy.links[linkIndex].dates.splice(index, 1);
+                                 setEntity(entityCopy);
+                               }}
+                    />
+                  </td>
+                </tr>
+              })}
+              </tbody>
+            </table>
+          </td>
         </tr>
         <tr>
           <td className="attribute">
@@ -91,7 +108,7 @@ export default function EditUI(props) {
               }}
               onDelete={(chip, index) => {
                 let entityCopy = {...entity};
-                delete entityCopy.categories[index];
+                entityCopy.categories.splice(index, 1);
                 setEntity(entityCopy);
               }}
             />

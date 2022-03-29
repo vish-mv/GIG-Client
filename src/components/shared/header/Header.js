@@ -47,7 +47,7 @@ function Header(props) {
       <AppBar position="static" style={{position: 'fixed', zIndex: 1000}}>
         <Toolbar className={classes.appBar}>
           <Grid container>
-            <Grid item sx={{marginTop: 1}}>
+            <Grid item sx={{marginTop: 1.2}}>
               <Typography component={Link} to={AppRoutes.home} sx={{textDecoration: 'none'}}
                           className={classes.menuButton}
                           variant="h3"
