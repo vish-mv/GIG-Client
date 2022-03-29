@@ -74,11 +74,10 @@ export default function ValueEditor(props) {
           <td>Updated at:</td>
           <td>
             <DateTimePicker
-              label="Date&Time picker"
-              value={value}
+              value={new Date(value)}
               onChange={(e) => setEntityValue(e)}
               fullWidth
-              renderInput={(params) => <TextField {...params} />}
+              renderInput={(params) => <TextField size="small" {...params} />}
             />
           </td>
         </tr>
