@@ -35,7 +35,7 @@ function Register(props) {
   return (
     <header className="App-header">
       <div className="content">
-        <h1 style={{fontSize: 80}}>GIG</h1>
+        <h1>GIG</h1>
         <p>
           General Information Graph
         </p>

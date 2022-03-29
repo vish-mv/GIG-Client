@@ -5,7 +5,6 @@ export const Styles = theme => ({
     padding: '10px'
   },
   editButton: {
-    fontSize: 14,
     textAlign: "right",
     margin: 10,
   },

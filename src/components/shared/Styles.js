@@ -24,17 +24,14 @@ const Styles = theme => ({
     flexGrow: 1,
   },
   errorText: {
-    fontSize: 14,
     textAlign: "centre",
     color: 'red'
   },
   linkButton: {
-    fontSize: 12,
     textAlign: "centre",
     color: 'rgba(0,0,0,.87)'
   },
   loginButton: {
-    fontSize: 12,
     textAlign: "right",
     margin: 10,
     right: 0,

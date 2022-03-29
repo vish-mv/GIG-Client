@@ -53,7 +53,7 @@ function Home(props) {
         <div style={{position: "absolute", top: '12px', right: '15px'}}>
           <UserInfo {...props} color="rgba(0,0,0,.87)"/><br/>
         </div>
-        <h1 style={{fontSize:80}}>GIG</h1>
+        <h1>GIG</h1>
         <p>
           General Information Graph
         </p>

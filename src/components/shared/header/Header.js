@@ -48,7 +48,7 @@ function Header(props) {
         <Toolbar className={classes.appBar}>
           <Grid container>
             <Grid item sx={{marginTop: 1}}>
-              <Typography component={Link} to={AppRoutes.home} sx={{textDecoration: 'none', fontSize: 30}}
+              <Typography component={Link} to={AppRoutes.home} sx={{textDecoration: 'none'}}
                           className={classes.menuButton}
                           variant="h6"
                           color="inherit" noWrap>

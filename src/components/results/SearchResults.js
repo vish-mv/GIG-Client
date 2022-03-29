@@ -63,7 +63,7 @@ function SearchResults(props) {
           <List>
             {stat?.category_wise_count?.map((item) => (
               <ListItem style={{borderBottomRightRadius:'25px',borderTopRightRadius:'25px'}} button key={item._id} component="a" href={AppRoutes.search + item._id + ":"}>
-                <ListItemText disableTypography primary={<div style={{color:'rgb(60,64,67)', fontSize:'14px'}}>{item._id}</div>}/>
+                <ListItemText disableTypography primary={<div style={{color:'rgb(60,64,67)'}}>{item._id}</div>}/>
               </ListItem>
             ))}
           </List>
