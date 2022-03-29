@@ -6,6 +6,8 @@ import {withStyles} from "@mui/styles";
 import Styles from "../shared/Styles";
 import {readerRegister} from "@lsflk/gig-client-shared/auth";
 import {AppRoutes} from "../../routes";
+import Typography from "@mui/material/Typography/Typography";
+import FormControl from "@mui/material/FormControl/FormControl";
 
 function Register(props) {
   const navigate = useNavigate();
@@ -27,7 +29,7 @@ function Register(props) {
         navigate(AppRoutes.home)
       }
     }
-    else{
+    else {
       setError("Password and Confirm Password Fields are not matching!")
     }
   }
@@ -35,46 +37,45 @@ function Register(props) {
   return (
     <header className="App-header">
       <div className="content">
-        <h1>GIG</h1>
-        <p>
-          General Information Graph
-        </p>
-        <h5>
-          Register New User
-        </h5>
+        <Typography variant="h1">GIG</Typography>
+        <Typography variant="h4">General Information Graph</Typography>
+        <Typography variant="h5">Register New User</Typography>
         <p className={classes.errorText}>{error}</p>
         <form id="login-form" onSubmit={handleSubmit} noValidate>
-          <TextField
-            size="small"
-            id="username"
-            name="username"
-            type="email"
-            margin="normal"
-            placeholder="username"
-            onChange={(e) => setUsername(e.target.value)}
-          /><br/>
-          <TextField
-            size="small"
-            id="password"
-            name="password"
-            margin="normal"
-            type="password"
-            placeholder="password"
-            onChange={(e) => setPassword(e.target.value)}
-          /><br/>
-          <TextField
-            size="small"
-            id="password"
-            name="password"
-            margin="normal"
-            type="password"
-            placeholder="password"
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          /><br/><br/>
-          <Button variant="contained" color="primary" type="submit">
-            Register
-          </Button><br/>
-          <Link to={'/'} className={classes.linkButton}>go back Home</Link>
+          <FormControl sx={{flexDirection: "column"}}>
+            <TextField
+              size="small"
+              id="username"
+              name="username"
+              type="email"
+              margin="dense"
+              placeholder="username"
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <TextField
+              size="small"
+              id="password"
+              name="password"
+              type="password"
+              margin="dense"
+              placeholder="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <TextField
+              size="small"
+              id="confirm-password"
+              name="confirm-password"
+              margin="dense"
+              type="password"
+              placeholder="confirm password"
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            <Button variant="contained" color="primary" type="submit">
+              Register
+            </Button>
+            <Link to={AppRoutes.login} className={classes.linkButton}>Login</Link>
+            <Link to={'/'} className={classes.linkButton}>go back Home</Link>
+          </FormControl>
         </form>
       </div>
     </header>

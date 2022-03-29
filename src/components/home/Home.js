@@ -16,6 +16,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import IconButton from "@mui/material/IconButton/IconButton";
 import Tooltip from '@mui/material/Tooltip';
 import Grid from "@mui/material/Grid/Grid";
+import Typography from "@mui/material/Typography/Typography";
 
 function Home(props) {
   const navigate = useNavigate();
@@ -51,12 +52,10 @@ function Home(props) {
     <header className="App-header">
       <div className="content">
         <div style={{position: "absolute", top: '12px', right: '15px'}}>
-          <UserInfo {...props} color="rgba(0,0,0,.87)"/><br/>
+          <UserInfo {...props} color="rgba(0,0,0,.87)"/>
         </div>
-        <h1>GIG</h1>
-        <p>
-          General Information Graph
-        </p>
+        <Typography variant="h1">GIG</Typography>
+        <Typography variant="h4">General Information Graph</Typography>
         <Grid container>
           <Grid item sx={{flexGrow: 1}}/>
           <Grid item xs={12} sm={6} lg={4}>

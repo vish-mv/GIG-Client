@@ -87,7 +87,6 @@ function ViewEntity(props) {
                   }
                 </Grid>
               </Grid>
-              <br/>
               <table>
                 <tbody>
                 {Object.entries(loadedEntity?.attributes).map((attribute) => (

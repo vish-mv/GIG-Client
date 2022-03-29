@@ -29,7 +29,8 @@ const Styles = theme => ({
   },
   linkButton: {
     textAlign: "centre",
-    color: 'rgba(0,0,0,.87)'
+    color: 'rgba(0,0,0,.87)',
+    margin:'10px'
   },
   loginButton: {
     textAlign: "right",

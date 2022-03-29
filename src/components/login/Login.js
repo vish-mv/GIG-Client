@@ -6,6 +6,8 @@ import {withStyles} from "@mui/styles";
 import Styles from "../shared/Styles";
 import {userLogin} from "@lsflk/gig-client-shared/auth";
 import {AppRoutes} from "../../routes";
+import Typography from "@mui/material/Typography/Typography";
+import FormControl from "@mui/material/FormControl/FormControl";
 
 function Login(props) {
   const location = useLocation();
@@ -31,36 +33,35 @@ function Login(props) {
   return (
     <header className="App-header">
       <div className="content">
-        <h1>GIG</h1>
-        <p>
-          General Information Graph
-        </p>
-        <h5>
-          Login
-        </h5>
-        <p className={classes.errorText}>{error}</p>
+        <Typography variant="h1">GIG</Typography>
+        <Typography variant="h4">General Information Graph</Typography>
+        <Typography variant="h5">Login</Typography>
+        <Typography className={classes.errorText}>{error}</Typography>
         <form id="login-form" onSubmit={handleSubmit} noValidate>
-          <TextField
-            size="small"
-            id="username"
-            name="username"
-            margin="normal"
-            placeholder="username"
-            onChange={(e) => setUsername(e.target.value)}
-          /><br/>
-          <TextField
-            size="small"
-            id="password"
-            name="password"
-            margin="normal"
-            type="password"
-            placeholder="password"
-            onChange={(e) => setPassword(e.target.value)}
-          /><br/><br/>
-          <Button variant="contained" color="primary" type="submit">
-            Login
-          </Button><br/>
-          <Link to={'/'} className={classes.linkButton}>go back Home</Link>
+          <FormControl sx={{flexDirection: "column"}}>
+            <TextField
+              size="small"
+              id="username"
+              name="username"
+              margin="dense"
+              placeholder="username"
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <TextField
+              size="small"
+              id="password"
+              name="password"
+              margin="dense"
+              type="password"
+              placeholder="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Button variant="contained" color="primary" type="submit">
+              Login
+            </Button>
+            <Link to={AppRoutes.register} className={classes.linkButton}>Register</Link>
+            <Link to={'/'} className={classes.linkButton}>go back Home</Link>
+          </FormControl>
         </form>
       </div>
     </header>

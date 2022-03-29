@@ -62,7 +62,7 @@ function Header(props) {
             </Grid>
             <Grid item sm={6} xs={12}>
               <form id="search-form" onSubmit={handleSubmit} noValidate autoComplete="off"
-                    style={{display: 'flex', marginTop: '12px'}}>
+                    style={{display: 'flex', marginTop: '14px'}}>
                 <div className={classes.search} style={{width: '100%'}}>
                   <IconButton sx={{p: '5px'}} aria-label="search">
                     <SearchIcon/>
