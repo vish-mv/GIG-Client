@@ -1,10 +1,11 @@
 import * as React from 'react';
 import Typography from "@mui/material/Typography/Typography";
-import {AppRoutes} from "../../../routes";
-import Chip from "@mui/material/Chip/Chip";
 import TextField from "@mui/material/TextField";
 import ValueEditor from "./ValueEditor";
 import ChipInput from 'material-ui-chip-input'
+import {JsonEditor as Editor} from "jsoneditor-react/es";
+import Chip from "@mui/material/Chip/Chip";
+import {AppRoutes} from "../../../routes";
 
 export default function EditUI(props) {
   const {entity, setEntity} = props;
@@ -57,6 +58,14 @@ export default function EditUI(props) {
             Links:
           </td>
           <td>
+            <Editor
+              value={entity?.links}
+              onChange={(e) => {
+                let entityCopy = {...entity};
+                entityCopy.links = e.target.value;
+                setEntity(entityCopy);
+              }}
+            />
             {entity?.links?.map((link) => (
               <Chip
                 key={link.title}
@@ -65,7 +74,8 @@ export default function EditUI(props) {
                 clickable
                 component="a"
               />
-            ))}</td>
+            ))}
+            </td>
         </tr>
         <tr>
           <td className="attribute">
