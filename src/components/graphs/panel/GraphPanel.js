@@ -96,7 +96,7 @@ function GraphPanel(props) {
               </RadioGroup>
               <Divider variant="middle" sx={{marginBottom:1}}/>
               <FormLabel id="slider-group-label">Max. Nodes per Category</FormLabel>
-              <Slider defaultValue={100}
+              <Slider defaultValue={0}
                       onChangeCommitted={handleResultsPerNodeLimitChange}
                       step={1}
                       min={0}

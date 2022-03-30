@@ -17,8 +17,8 @@ function Graph() {
   const [viewGraphPanel, setViewGraphPanel] = useState(true);
   const [stat, setStat] = useState(null);
   const [graphData, setGraphData] = useState(null);
-  const [resultsPerNode, setResultsPerNode] = useState(100);
-  const [nodeStyle, setNodeStyle] = useState(NodeStyle.sphere);
+  const [resultsPerNode, setResultsPerNode] = useState(0);
+  const [nodeStyle, setNodeStyle] = useState(NodeStyle.name);
   const [backgroundTheme, setBackgroundTheme] = useState(GraphTheme.light);
   const [graphStyle, setGraphStyle] = useState(GraphStyle.threeDimensional);
   const app_props = {
