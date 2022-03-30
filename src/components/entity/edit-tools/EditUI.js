@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Typography from "@mui/material/Typography/Typography";
 import TextField from "@mui/material/TextField";
+import Chip from "@mui/material/Chip";
 import ValueEditor from "./ValueEditor";
 import ChipInput from 'material-ui-chip-input'
 
@@ -99,7 +100,8 @@ export default function EditUI(props) {
             Categories:
           </td>
           <td>
-            <ChipInput
+            <ChipInput chipRenderer={(item)=>{
+              return <Chip></Chip>}}
               value={entity?.categories}
               onAdd={(chip) => {
                 let entityCopy = {...entity};

@@ -33,8 +33,8 @@ function ViewEntity(props) {
 
   });
 
-  const Accordion = styled((props) => (
-    <MuiAccordion disableGutters elevation={0} square {...props} />
+  const Accordion = styled((childProps) => (
+    <MuiAccordion disableGutters elevation={0} square {...childProps} />
   ))(({theme}) => ({
     border: `1px solid ${theme.palette.divider}`,
     '&:not(:last-child)': {
@@ -45,10 +45,10 @@ function ViewEntity(props) {
     },
   }));
 
-  const AccordionSummary = styled((props) => (
+  const AccordionSummary = styled((childProps) => (
     <MuiAccordionSummary
       expandIcon={<ArrowForwardIosSharpIcon sx={{fontSize: '0.9rem'}}/>}
-      {...props}
+      {...childProps}
     />
   ))(({theme}) => ({
     backgroundColor:
