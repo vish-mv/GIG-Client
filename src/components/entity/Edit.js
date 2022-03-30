@@ -7,7 +7,7 @@ import {getEntity} from "@lsflk/gig-client-shared/functions";
 import {Styles} from "./Styles";
 import {Facebook} from 'react-content-loader';
 import Box from "@mui/material/Box/Box";
-import TabPanel from "./edit-tools/EditTabPanel"
+import TabPanel from "./edit-tools/TabPanel"
 import EditUI from "./edit-tools/EditUI"
 import {JsonEditor as Editor} from 'jsoneditor-react';
 import 'jsoneditor-react/es/editor.min.css';

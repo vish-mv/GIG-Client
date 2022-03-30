@@ -57,6 +57,22 @@ export default function EditUI(props) {
           </td>
           <td>
             <ChipInput
+              chipRenderer={(item, index) => {
+                return <Chip
+                  variant="outlined"
+                  clickable
+                  onDelete={() => {
+                    let entityCopy = {...entity};
+                    entityCopy.links.splice(index, 1);
+                    setEntity(entityCopy);
+                  }}
+                  label={item.value}
+                  key={item.value}
+                  style={{
+                    margin: 2
+                  }}
+                />
+              }}
               value={entity?.links?.map((link) => link?.title)}
               onAdd={(chip) => {
                 let entityCopy = {...entity};
@@ -64,9 +80,7 @@ export default function EditUI(props) {
                 setEntity(entityCopy);
               }}
               onDelete={(chip, index) => {
-                let entityCopy = {...entity};
-                entityCopy.links.splice(index, 1);
-                setEntity(entityCopy);
+
               }}
             />
             <table style={{width: '100%'}}>
@@ -75,18 +89,29 @@ export default function EditUI(props) {
                 return <tr key={linkIndex}>
                   <td>{link?.title}</td>
                   <td width='80%'>
-                    <ChipInput key={linkIndex}
-                               value={link.dates}
-                               onAdd={(chip) => {
-                                 let entityCopy = {...entity};
-                                 entityCopy.links[linkIndex].dates = [...entityCopy.links[linkIndex].dates, chip];
-                                 setEntity(entityCopy);
-                               }}
-                               onDelete={(chip, index) => {
-                                 let entityCopy = {...entity};
-                                 entityCopy.links[linkIndex].dates.splice(index, 1);
-                                 setEntity(entityCopy);
-                               }}
+                    <ChipInput
+                      chipRenderer={(item, index) => {
+                        return <Chip
+                          variant="outlined"
+                          clickable
+                          onDelete={() => {
+                            let entityCopy = {...entity};
+                            entityCopy.links[linkIndex].dates.splice(index, 1);
+                            setEntity(entityCopy);
+                          }}
+                          label={item.value}
+                          key={item.value}
+                          style={{
+                            margin: 2
+                          }}
+                        />
+                      }}
+                      value={link.dates}
+                      onAdd={(chip) => {
+                        let entityCopy = {...entity};
+                        entityCopy.links[linkIndex].dates = [...entityCopy.links[linkIndex].dates, chip];
+                        setEntity(entityCopy);
+                      }}
                     />
                   </td>
                 </tr>
@@ -100,17 +125,27 @@ export default function EditUI(props) {
             Categories:
           </td>
           <td>
-            <ChipInput chipRenderer={(item)=>{
-              return <Chip></Chip>}}
+            <ChipInput
+              chipRenderer={(item, index) => {
+                return <Chip
+                  variant="outlined"
+                  clickable
+                  onDelete={() => {
+                    let entityCopy = {...entity};
+                    entityCopy.categories.splice(index, 1);
+                    setEntity(entityCopy);
+                  }}
+                  label={item.value}
+                  key={item.value}
+                  style={{
+                    margin: 2
+                  }}
+                />
+              }}
               value={entity?.categories}
               onAdd={(chip) => {
                 let entityCopy = {...entity};
                 entityCopy.categories = [...entityCopy.categories, chip];
-                setEntity(entityCopy);
-              }}
-              onDelete={(chip, index) => {
-                let entityCopy = {...entity};
-                entityCopy.categories.splice(index, 1);
                 setEntity(entityCopy);
               }}
             />
