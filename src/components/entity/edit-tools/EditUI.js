@@ -4,6 +4,11 @@ import TextField from "@mui/material/TextField";
 import Chip from "@mui/material/Chip";
 import ValueEditor from "./ValueEditor";
 import ChipInput from 'material-ui-chip-input'
+import moment from 'moment/moment'
+import {ServerDateFormat} from "@lsflk/gig-client-shared/constants"
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DateTimePicker from '@mui/lab/DateTimePicker';
 
 export default function EditUI(props) {
   const {entity, setEntity} = props;
@@ -12,7 +17,7 @@ export default function EditUI(props) {
     <div>
       <table style={{width: '100%'}}>
         <tbody>
-        {["title", "image_url", "source", "source_signature", "snippet", "search_text", "created_at", "updated_at"].map((attribute) => (
+        {["title", "image_url", "source", "source_signature", "snippet", "search_text"].map((attribute) => (
           <tr key={"tr_edit" + attribute}>
             <td className="attribute">
               <Typography>{attribute !== "" ? attribute + ": " : ""}</Typography></td>
@@ -30,6 +35,27 @@ export default function EditUI(props) {
                   setEntity(entityCopy);
                 }}
                 fullWidth/>
+            </td>
+          </tr>
+        ))}
+        {["created_at", "updated_at"].map((attribute) => (
+          <tr key={"tr_edit" + attribute}>
+            <td className="attribute">
+              <Typography>{attribute !== "" ? attribute + ": " : ""}</Typography></td>
+            <td width="90%">
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DateTimePicker
+                  variant="outlined"
+                  renderInput={(props) => <TextField size="small" {...props} />}
+                  value={entity[attribute]}
+                  onChange={(newValue) => {
+                    console.log(newValue);
+                    let entityCopy = {...entity};
+                    entityCopy[attribute] = moment(newValue).format(ServerDateFormat);
+                    setEntity(entityCopy);
+                  }}
+                />
+              </LocalizationProvider>
             </td>
           </tr>
         ))}

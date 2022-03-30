@@ -3,8 +3,12 @@ import TextField from "@mui/material/TextField";
 import Divider from '@mui/material/Divider';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import {ValueTypes} from "@lsflk/gig-client-shared/constants";
+import {ServerDateFormat, ValueTypes} from "@lsflk/gig-client-shared/constants";
 import ValueStringEditor from "./ValueStringEditor";
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DateTimePicker from '@mui/lab/DateTimePicker';
+import moment from "moment";
 
 export default function ValueEditor(props) {
   const {value, setValue} = props;
@@ -52,29 +56,29 @@ export default function ValueEditor(props) {
         </td>
       </tr>
       <tr>
-        <td>Date:</td>
+        <td>Created Date:</td>
         <td>
-          <TextField
-            variant="outlined"
-            size="small"
-            multiline
-            maxRows={5}
-            value={value.date}
-            onChange={(e) => setEntityValue(e.target.value, "date")}
-            sx={{width: '250px'}}/>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DateTimePicker
+              variant="outlined"
+              renderInput={(props) => <TextField size="small" {...props} />}
+              value={value.date}
+              onChange={(value) => setEntityValue(moment(value).format(ServerDateFormat), "date")}
+            />
+          </LocalizationProvider>
         </td>
       </tr>
       <tr>
         <td>Updated at:</td>
         <td>
-          <TextField
-            variant="outlined"
-            size="small"
-            multiline
-            maxRows={5}
-            value={value.updated_at}
-            onChange={(e) => setEntityValue(e.target.value, "updated_at")}
-            sx={{width: '250px'}}/>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DateTimePicker
+              variant="outlined"
+              renderInput={(props) => <TextField size="small" {...props} />}
+              value={value.updated_at}
+              onChange={(value) => setEntityValue(moment(value).format(ServerDateFormat), "updated_at")}
+            />
+          </LocalizationProvider>
         </td>
       </tr>
       <tr>
