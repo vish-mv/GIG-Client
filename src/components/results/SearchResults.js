@@ -56,7 +56,7 @@ function SearchResults(props) {
       <Grid item sm={0} lg={3} className={classes.leftContentColumn}>
         <Box id="category-drawer" role="presentation">
           <List>
-            <ListItem style={{borderBottomRightRadius: '25px', borderTopRightRadius: '25px'}} button key="Categories">
+            <ListItem style={{borderRadius: '0 25px 25px 0'}} button key="Categories">
               <ListItemText disableTypography
                             primary={<Typography variant="h5">Categories</Typography>}/>
             </ListItem>
@@ -64,7 +64,7 @@ function SearchResults(props) {
           <Divider/>
           <List>
             {stat?.category_wise_count?.map((item) => (
-              <ListItem style={{borderBottomRightRadius: '25px', borderTopRightRadius: '25px'}} button key={item._id}
+              <ListItem style={{borderRadius: '0 25px 25px 0'}} button key={item._id}
                         component="a" href={AppRoutes.search + item._id + ":"}>
                 <ListItemText disableTypography
                               primary={<Typography style={{color: 'rgba(60,64,67,0.9)'}}>{item._id}</Typography>}/>

@@ -10,6 +10,9 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import Button from "@mui/material/Button/Button";
+import AddIcon from '@mui/icons-material/Add';
+import Divider from "@mui/material/Divider/Divider";
+import Tooltip from '@mui/material/Tooltip';
 
 export default function EditUI(props) {
   const {entity, setEntity} = props;
@@ -60,6 +63,7 @@ export default function EditUI(props) {
             </td>
           </tr>
         ))}
+        <tr><td/><td><Divider style={{margin:'16px 0'}}/></td></tr>
         {Object.entries(entity?.attributes).map((attribute, attributeIndex) => {
           let attributeName = attribute[1]?.name;
           return <tr key={"tr_edit" + attributeName + attributeIndex}>
@@ -67,26 +71,35 @@ export default function EditUI(props) {
               <Typography>{attributeName !== "" ? attributeName + ": " : ""}</Typography>
             </td>
             <td>
-              <Button variant="outlined" onClick={() => {
-                let entityCopy = {...entity};
-                entityCopy.attributes[attributeName].values.push({
-                  value_type: ValueTypes.String,
-                  value_string: "",
-                  source: "",
-                  date: "",
-                  updated_at: "",
-                });
-                setEntity(entityCopy);
-              }}>Add New Value</Button>
               {attribute[1]?.values.map((attributeValue, valueIndex) => (
                 <ValueEditor
-                  key={"edit" + attributeValue.updated_at + valueIndex} value={attributeValue} setValue={(value) => {
-                  let entityCopy = {...entity};
-                  entityCopy.attributes[attributeName].values[valueIndex] = value;
-                  setEntity(entityCopy);
-                }}
+                  key={"edit" + attributeValue.updated_at + valueIndex}
+                  onRemove={() => {
+                    let entityCopy = {...entity};
+                    entityCopy.attributes[attributeName].values.splice(valueIndex, 1);
+                    setEntity(entityCopy);
+                  }}
+                  value={attributeValue}
+                  setValue={(value) => {
+                    let entityCopy = {...entity};
+                    entityCopy.attributes[attributeName].values[valueIndex] = value;
+                    setEntity(entityCopy);
+                  }}
                 />
               ))}
+              <Tooltip title="Add New Value">
+                <Button fullWidth variant="outlined" onClick={() => {
+                  let entityCopy = {...entity};
+                  entityCopy.attributes[attributeName].values.push({
+                    value_type: ValueTypes.String,
+                    value_string: "",
+                    source: "",
+                    date: "",
+                    updated_at: "",
+                  });
+                  setEntity(entityCopy);
+                }}><AddIcon/></Button></Tooltip>
+              <Divider style={{margin:'16px 0'}}/>
             </td>
           </tr>
         })}
@@ -108,7 +121,7 @@ export default function EditUI(props) {
                   label={item.value}
                   key={item.value}
                   style={{
-                    margin: 2
+                    margin: '0 2px 8px 0'
                   }}
                 />
               }}
@@ -141,7 +154,7 @@ export default function EditUI(props) {
                           label={item.value}
                           key={item.value}
                           style={{
-                            margin: 2
+                            margin: '0 2px 8px 0'
                           }}
                         />
                       }}
@@ -159,6 +172,7 @@ export default function EditUI(props) {
             </table>
           </td>
         </tr>
+        <tr><td/><td><Divider style={{margin:'16px 0'}}/></td></tr>
         <tr>
           <td className="attribute">
             Categories:
@@ -177,7 +191,7 @@ export default function EditUI(props) {
                   label={item.value}
                   key={item.value}
                   style={{
-                    margin: 2
+                    margin: '0 2px 8px 0'
                   }}
                 />
               }}
