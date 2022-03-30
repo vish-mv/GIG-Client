@@ -5,10 +5,11 @@ import Chip from "@mui/material/Chip";
 import ValueEditor from "./ValueEditor";
 import ChipInput from 'material-ui-chip-input'
 import moment from 'moment/moment'
-import {ServerDateFormat} from "@lsflk/gig-client-shared/constants"
+import {ServerDateFormat, ValueTypes} from "@lsflk/gig-client-shared/constants"
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
+import Button from "@mui/material/Button/Button";
 
 export default function EditUI(props) {
   const {entity, setEntity} = props;
@@ -63,13 +64,25 @@ export default function EditUI(props) {
           let attributeName = attribute[1]?.name;
           return <tr key={"tr_edit" + attributeName + attributeIndex}>
             <td className="attribute">
-              <Typography>{attributeName !== "" ? attributeName + ": " : ""}</Typography></td>
+              <Typography>{attributeName !== "" ? attributeName + ": " : ""}</Typography>
+            </td>
             <td>
+              <Button variant="outlined" onClick={() => {
+                let entityCopy = {...entity};
+                entityCopy.attributes[attributeName].values.push({
+                  value_type: ValueTypes.String,
+                  value_string: "",
+                  source: "",
+                  date: "",
+                  updated_at: "",
+                });
+                setEntity(entityCopy);
+              }}>Add New Value</Button>
               {attribute[1]?.values.map((attributeValue, valueIndex) => (
                 <ValueEditor
                   key={"edit" + attributeValue.updated_at + valueIndex} value={attributeValue} setValue={(value) => {
                   let entityCopy = {...entity};
-                  entity.attributes[attributeName].values[valueIndex] = value;
+                  entityCopy.attributes[attributeName].values[valueIndex] = value;
                   setEntity(entityCopy);
                 }}
                 />
@@ -132,10 +145,10 @@ export default function EditUI(props) {
                           }}
                         />
                       }}
-                      value={link.dates}
+                      value={link.dates.map((date) => moment(date).format("MM/DD/yyyy hh:mm A"))}
                       onAdd={(chip) => {
                         let entityCopy = {...entity};
-                        entityCopy.links[linkIndex].dates = [...entityCopy.links[linkIndex].dates, chip];
+                        entityCopy.links[linkIndex].dates = [...entityCopy.links[linkIndex].dates, moment(chip).format(ServerDateFormat)];
                         setEntity(entityCopy);
                       }}
                     />
