@@ -24,26 +24,26 @@ function SearchResults(props) {
   const {classes, setIsLoading} = props;
   const [stat, setStat] = useState(null);
 
-  async function getStats() {
-    const categoryData = await getGraphStats();
-    if (categoryData) {
-      setStat(categoryData.payload)
-    }
+  function getStats() {
+    getGraphStats().then((categoryData) => {
+      if (categoryData) {
+        setStat(categoryData.payload)
+      }
+    });
   }
 
   useEffect(() => {
     if (!stat) {
-      getStats().then(() => console.log("category data loading success."));
+      getStats()
     }
   }, [stat]);
 
-  async function getSearchResults(initialSearch) {
+  function getSearchResults(initialSearch) {
     if (searchParam.length > 1) {
-      let result = await getResults(searchParam, initialSearch, searchResults, searchPage, setSearchResults, setSearchPage, 15);
-      setIsLoading(false);
-      return result
+      getResults(searchParam, initialSearch, searchResults, searchPage, setSearchResults, setSearchPage, 15).then((result) =>
+        setIsLoading(false)
+      )
     }
-    return false
   }
 
   if (searchParam !== searchState) {
