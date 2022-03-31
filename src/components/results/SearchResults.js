@@ -42,7 +42,11 @@ function SearchResults(props) {
   function getSearchResults(page = 1) {
     if (searchParam.length > 1) {
       getResults(searchParam, ApiRoutes.search, page).then((data) => {
-        if (page === 1 || !searchResults) {
+        if (data === null && page === 1) {
+          setSearchResults([]);
+          setSearchPage(1)
+        }
+        else if (page === 1 || !searchResults) {
           setSearchResults(data);
           setSearchPage(2)
         } else {
