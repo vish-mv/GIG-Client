@@ -68,9 +68,9 @@ export default function ValueEditor(props) {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
                 variant="outlined"
-                renderInput={(props) => <TextField size="small" {...props} />}
+                renderInput={(elementProps) => <TextField size="small" {...elementProps} />}
                 value={value.date}
-                onChange={(value) => setEntityValue(moment(value).format(ServerDateFormat), "date")}
+                onChange={(inputValue) => setEntityValue(moment(inputValue).format(ServerDateFormat), "date")}
               />
             </LocalizationProvider>
           </td>
@@ -81,9 +81,9 @@ export default function ValueEditor(props) {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
                 variant="outlined"
-                renderInput={(props) => <TextField size="small" {...props} />}
+                renderInput={(elementProps) => <TextField size="small" {...elementProps} />}
                 value={value.updated_at}
-                onChange={(value) => setEntityValue(moment(value).format(ServerDateFormat), "updated_at")}
+                onChange={(inputValue) => setEntityValue(moment(inputValue).format(ServerDateFormat), "updated_at")}
               />
             </LocalizationProvider>
           </td>

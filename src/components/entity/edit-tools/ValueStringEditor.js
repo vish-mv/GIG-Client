@@ -17,7 +17,7 @@ export default function ValueStringEditor(props) {
       return <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DateTimePicker
           variant="outlined"
-          renderInput={(props) => <TextField size="small" {...props} />}
+          renderInput={(elementProps) => <TextField size="small" {...elementProps} />}
           value={value.value_string}
           onChange={(e) => setEntityValue(moment(e).format(ServerDateFormat), "value_string")}
         />

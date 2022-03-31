@@ -50,7 +50,7 @@ export default function EditUI(props) {
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker
                   variant="outlined"
-                  renderInput={(props) => <TextField size="small" {...props} />}
+                  renderInput={(elementProps) => <TextField size="small" {...elementProps} />}
                   value={entity[attribute]}
                   onChange={(newValue) => {
                     console.log(newValue);
@@ -130,9 +130,6 @@ export default function EditUI(props) {
                 let entityCopy = {...entity};
                 entityCopy.links = [...entityCopy.links, {title: chip, dates: []}];
                 setEntity(entityCopy);
-              }}
-              onDelete={(chip, index) => {
-
               }}
             />
             <table style={{width: '100%'}}>
