@@ -1,7 +1,8 @@
 import React, {useCallback, useEffect, useState} from "react"
 import SpriteText from 'three-spritetext';
 import {getGraphStats, getResults} from "@lsflk/gig-client-shared/functions";
-import {addNewEntitiesToGraph, createDataGraphFromStats, createLinkNodesFromEntityNode, dummy} from "./Functions";
+import {ApiRoutes} from "@lsflk/gig-client-shared/routes";
+import {addNewEntitiesToGraph, createDataGraphFromStats, createLinkNodesFromEntityNode} from "./Functions";
 import GraphPanel from "../panel/GraphPanel";
 import "./Graph.css"
 import {GraphStyle, GraphTheme, NodeStyle} from "./Constants";
@@ -47,19 +48,19 @@ function Graph() {
     }
   }
 
-  const getSearchResults = useCallback(async (searchParam, initialSearch) => {
+  const getSearchResults = useCallback(async (searchParam) => {
     if (searchParam.length > 1) {
-      return getResults(searchParam, initialSearch, [], 0, dummy, dummy, resultsPerNode);
+      return getResults(searchParam, ApiRoutes.search);
     }
     return false
-  }, [resultsPerNode]);
+  },[searchKey]);
 
   const loadInitialGraph = useCallback(async () => {
     let statGraph = createDataGraphFromStats(stat);
     setGraphData(statGraph);
     if (resultsPerNode > 0) {
       if (searchKey && searchKey !== "") {
-        const result = await getSearchResults(searchKey, true);
+        const result = await getSearchResults(searchKey);
         if (result) {
           statGraph = addNewEntitiesToGraph(statGraph, result);
           setGraphData(statGraph);
@@ -67,7 +68,7 @@ function Graph() {
       } else {
         const categories = stat?.category_wise_count;
         for (let i = 0; i < categories?.length; i++) {
-          const result = await getSearchResults(categories[i]._id + ":", true);
+          const result = await getSearchResults(categories[i]._id + ":");
           if (result) {
             statGraph = addNewEntitiesToGraph(statGraph, result);
             setGraphData(statGraph);

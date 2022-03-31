@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import {logout} from "@lsflk/gig-client-shared/auth";
+import {clearTokens,getAuthUser} from "@lsflk/gig-client-shared/auth";
 import {AppRoutes} from "../../../routes";
 import {withStyles} from "@mui/styles";
 import Styles from "../Styles";
@@ -11,7 +11,10 @@ function UserInfo(props) {
   if (user) {
     return <div style={{color: color}}>
       <Link to={'#'} style={{color: color}}
-            onClick={() => logout(setUser)}
+            onClick={() => {
+              clearTokens();
+              setUser(getAuthUser())
+            }}
             className={classes.loginButton}>{user} - Logout
       </Link></div>
   }

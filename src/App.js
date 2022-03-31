@@ -7,7 +7,7 @@ import EditEntity from "./components/entity/Edit"
 import Login from "./components/login/Login"
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import './App.css';
-import {getAuthUser, logout, ProtectedRoute} from "@lsflk/gig-client-shared/auth";
+import {getAuthUser, clearTokens, ProtectedRoute} from "@lsflk/gig-client-shared/auth";
 import {validateToken} from "@lsflk/gig-client-shared/functions";
 import Home from "./components/home/Home";
 import Graph from "./components/graphs/graph/Graph";
@@ -34,11 +34,15 @@ function App() {
   const [searchKey, setSearchKey] = useState("");
   const [user, setUser] = useState(getAuthUser());
   const [isLoading, setIsLoading] = useState(false);
-  const app_props = {user, setUser, isLoading, setIsLoading, logout, searchKey, setSearchKey};
+  const app_props = {user, setUser, isLoading, setIsLoading, clearTokens, searchKey, setSearchKey};
 
   useEffect(() => {
     if (user) {
-      validateToken(setUser);
+      validateToken().then((response)=>{
+        if(!response?.result){
+          setUser(getAuthUser())
+        }
+      });
     }
   }, [user]);
 
