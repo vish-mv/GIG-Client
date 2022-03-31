@@ -48,12 +48,12 @@ function Graph() {
     }
   }
 
-  const getSearchResults = useCallback(async (searchParam) => {
+  async function getSearchResults(searchParam) {
     if (searchParam.length > 1) {
       return getResults(searchParam, ApiRoutes.search);
     }
     return false
-  },[searchKey]);
+  }
 
   const loadInitialGraph = useCallback(async () => {
     let statGraph = createDataGraphFromStats(stat);
@@ -77,7 +77,7 @@ function Graph() {
       }
 
     }
-  }, [setGraphData, stat, getSearchResults, resultsPerNode, searchKey]);
+  }, [setGraphData, stat, resultsPerNode, searchKey]);
 
   useEffect(() => {
     if (stat) {

@@ -11,15 +11,16 @@ import ListItem from "@mui/material/ListItem/ListItem";
 import ListItemText from "@mui/material/ListItemText/ListItemText";
 import Divider from "@mui/material/Divider/Divider";
 import Box from "@mui/material/Box/Box";
-import "./Search.css"
-import Typography from "@mui/material/Typography"
+import "./Search.css";
+import Typography from "@mui/material/Typography";
+import {ApiRoutes} from "@lsflk/gig-client-shared/routes";
 
 
 function SearchResults(props) {
 
   const {searchParam} = useParams();
   const [searchResults, setSearchResults] = useState(null);
-  const [searchPage, setSearchPage] = useState(0);
+  const [searchPage, setSearchPage] = useState(1);
   const [searchState, setSearchState] = useState("");
   const {classes, setIsLoading} = props;
   const [stat, setStat] = useState(null);
@@ -38,17 +39,25 @@ function SearchResults(props) {
     }
   }, [stat]);
 
-  function getSearchResults(initialSearch) {
+  function getSearchResults(page = 1) {
     if (searchParam.length > 1) {
-      getResults(searchParam, initialSearch, searchResults, searchPage, setSearchResults, setSearchPage, 15).then((result) =>
-        setIsLoading(false)
-      )
+      getResults(searchParam, ApiRoutes.search, page).then((data) => {
+        if (page === 1 || !searchResults) {
+          setSearchResults(data);
+          setSearchPage(2)
+        } else {
+          setSearchResults([...searchResults, ...data]);
+          setSearchPage(searchPage + 1);
+        }
+        setIsLoading(false);
+      })
     }
   }
 
   if (searchParam !== searchState) {
+    setSearchState(searchParam);
     console.log("loading search results:", searchParam);
-    getSearchResults(true).then(setSearchState(searchParam));
+    getSearchResults();
   }
 
   return (
@@ -75,7 +84,7 @@ function SearchResults(props) {
       </Grid>
       <Grid item lg={6} className={classes.mainContentColumn}>
         <InfiniteList listItems={searchResults}
-                      getResultItems={getSearchResults}
+                      getResultItems={() => getSearchResults(searchPage)}
                       list={<MainContentList
                         elevation={3}
                         listItems={searchResults}
