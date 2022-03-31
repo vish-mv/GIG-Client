@@ -44,7 +44,7 @@ function Header(props) {
 
   return (
     <div>
-      <AppBar position="static" style={{position: 'fixed', zIndex: 1000}}>
+      <AppBar className={classes.appBar} style={{backgroundColor: '#282c34'}} position="sticky">
         <Toolbar className={classes.appBar}>
           <Grid container>
             <Grid item sx={{marginTop: 1.2}}>
@@ -101,7 +101,7 @@ function Header(props) {
           </Grid>
         </Toolbar>
       </AppBar>
-      <div style={{paddingTop: 64}}>
+      <div>
         <Outlet/>
       </div>
     </div>
