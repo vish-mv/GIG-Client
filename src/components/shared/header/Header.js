@@ -20,7 +20,7 @@ import SearchIcon from '@mui/icons-material/Search';
 function Header(props) {
   const navigate = useNavigate();
   const location = useLocation();
-  const params = useParams();
+  const {searchParam} = useParams();
   const [initialLoad, setInitialLoad] = useState(true);
 
   const {classes, isLoading, setIsLoading, searchKey, setSearchKey} = props;
@@ -36,11 +36,11 @@ function Header(props) {
   }
 
   useEffect(() => {
-    if (initialLoad && params?.searchParam && searchKey === "") {
-      setSearchKey(params.searchParam);
+    if (initialLoad && searchParam && searchKey === "") {
+      setSearchKey(searchParam);
       setInitialLoad(false);
     }
-  }, [initialLoad, params?.searchParam, searchKey, setInitialLoad, setSearchKey]);
+  }, [initialLoad, searchParam, searchKey, setInitialLoad, setSearchKey]);
 
   return (
     <div>
