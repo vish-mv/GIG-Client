@@ -41,7 +41,7 @@ function GraphPanel(props) {
     setGraphStyle(GraphStyle[event.target.value]);
   };
 
-  const handleResultsPerNodeLimitChange = (event, value) => {
+  const handleResultsPerNodeLimitChange = (_event, value) => {
     setResultsPerNode(value);
   };
 

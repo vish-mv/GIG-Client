@@ -22,7 +22,7 @@ function EditEntity(props) {
   const [isModified, setIsModified] = useState(false);
   const [tabValue, setTabValue] = React.useState(0);
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (_event, newValue) => {
     setTabValue(newValue);
   };
 
