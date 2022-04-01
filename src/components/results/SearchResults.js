@@ -19,9 +19,6 @@ import {ApiRoutes} from "@lsflk/gig-client-shared/routes";
 function SearchResults(props) {
 
   const {searchParam} = useParams();
-  const [searchResults, setSearchResults] = useState(null);
-  const [searchPage, setSearchPage] = useState(1);
-  const [searchState, setSearchState] = useState("");
   const {classes, setIsLoading} = props;
   const [stat, setStat] = useState(null);
 
@@ -39,29 +36,10 @@ function SearchResults(props) {
     }
   }, [stat]);
 
-  function getSearchResults(page = 1) {
-    if (searchParam.length > 1) {
-      getResults(searchParam, ApiRoutes.search, page).then((data) => {
-        if (data === null && page === 1) {
-          setSearchResults([]);
-          setSearchPage(1)
-        }
-        else if (page === 1 || !searchResults) {
-          setSearchResults(data);
-          setSearchPage(2)
-        } else {
-          setSearchResults([...searchResults, ...data]);
-          setSearchPage(searchPage + 1);
-        }
-        setIsLoading(false);
-      })
-    }
-  }
-
-  if (searchParam !== searchState) {
-    setSearchState(searchParam);
-    console.log("loading search results:", searchParam);
-    getSearchResults();
+  async function getSearchResults(searchKey, page = 1) {
+    const response = await getResults(searchKey, ApiRoutes.search, page);
+    setIsLoading(false);
+    return response
   }
 
   return (
@@ -87,14 +65,14 @@ function SearchResults(props) {
         </Box>
       </Grid>
       <Grid item lg={6} className={classes.mainContentColumn}>
-        <InfiniteList listItems={searchResults}
-                      getResultItems={() => getSearchResults(searchPage)}
-                      list={<MainContentList
-                        elevation={3}
-                        listItems={searchResults}
-                        entityRoute={AppRoutes.entity}
-                        searchRoute={AppRoutes.search}
-                      />}
+        <InfiniteList
+          searchKey={searchParam}
+          getResults={(page = 1) => getSearchResults(searchParam, page)}
+          list={(results) => <MainContentList
+            elevation={3}
+            listItems={results}
+            entityRoute={AppRoutes.entity}
+            searchRoute={AppRoutes.search}/>}
         />
       </Grid>
     </Grid>
