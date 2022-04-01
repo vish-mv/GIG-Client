@@ -21,7 +21,6 @@ function Register(props) {
     event.preventDefault();
     if (password !== "" && password === confirmPassword) {
       const response = await readerRegister(username, password);
-      console.log(response);
       if (response.error) {
         setError(response.error)
       } else {

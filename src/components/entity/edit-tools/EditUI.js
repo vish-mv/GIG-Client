@@ -53,7 +53,6 @@ export default function EditUI(props) {
                   renderInput={(elementProps) => <TextField size="small" {...elementProps} />}
                   value={entity[attribute]}
                   onChange={(newValue) => {
-                    console.log(newValue);
                     let entityCopy = {...entity};
                     entityCopy[attribute] = moment(newValue).format(ServerDateFormat);
                     setEntity(entityCopy);
