@@ -94,8 +94,8 @@ function ViewEntity(props) {
                     <td className="attribute">
                       <Typography>{attribute[1]?.name !== "" ? attribute[1]?.name + ": " : ""}</Typography></td>
                     <td>
-                      {attribute[1]?.values.map((attributeValue) => (
-                        <Accordion key={attribute[1]?.name + attributeValue?.date} defaultExpanded={true}>
+                      {attribute[1]?.values.map((attributeValue, index) => (
+                        <Accordion key={attribute[1]?.name + index} defaultExpanded={true}>
                           <AccordionSummary
                             expandIcon={<ExpandMoreIcon/>}
                             aria-controls="panel1a-content"

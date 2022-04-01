@@ -21,8 +21,8 @@ export default function EditUI(props) {
     <div>
       <table style={{width: '100%'}}>
         <tbody>
-        {["title", "image_url", "source", "source_signature", "snippet", "search_text"].map((attribute) => (
-          <tr key={"tr_edit" + attribute}>
+        {["title", "image_url", "source", "source_signature", "snippet", "search_text"].map((attribute, index) => (
+          <tr key={"tr_edit" + index}>
             <td className="attribute">
               <Typography>{attribute !== "" ? attribute + ": " : ""}</Typography></td>
             <td width="90%">
@@ -42,8 +42,8 @@ export default function EditUI(props) {
             </td>
           </tr>
         ))}
-        {["created_at", "updated_at"].map((attribute) => (
-          <tr key={"tr_edit" + attribute}>
+        {["created_at", "updated_at"].map((attribute, index) => (
+          <tr key={"tr_edit" + index}>
             <td className="attribute">
               <Typography>{attribute !== "" ? attribute + ": " : ""}</Typography></td>
             <td width="90%">
