@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {withStyles} from '@mui/styles';
-import {useParams} from 'react-router-dom'
+import {Link, useParams} from 'react-router-dom'
 import Grid from "@mui/material/Grid/Grid";
 import {Styles} from "./Styles";
 import {getGraphStats, getResults} from "@lsflk/gig-client-shared/functions";
@@ -56,7 +56,7 @@ function SearchResults(props) {
           <List>
             {stat?.category_wise_count?.map((item) => (
               <ListItem style={{borderRadius: '0 25px 25px 0'}} button key={item._id}
-                        component="a" href={AppRoutes.search + item._id + ":"}>
+                        component={Link} to={AppRoutes.search + item._id + ":"}>
                 <ListItemText disableTypography
                               primary={<Typography style={{color: 'rgba(60,64,67,0.9)'}}>{item._id}</Typography>}/>
               </ListItem>

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import Typography from '@mui/material/Typography';
 import {withStyles} from '@mui/styles';
 import Paper from '@mui/material/Paper';
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {FormattedContentViewer} from "@lsflk/gig-client-shared/components";
 import {Styles} from "./Styles";
 import {getEntity} from "@lsflk/gig-client-shared/functions";
@@ -81,9 +81,9 @@ function ViewEntity(props) {
                     {loadedEntity.title}
                   </Typography>
                 </Grid>
-                <Grid item lg={1} style={{textAlign:'right'}}>
+                <Grid item lg={1} style={{textAlign: 'right'}}>
                   {isAuthorized &&
-                  <Button component="a" href={AppRoutes.edit + loadedEntity.title} variant="outlined">Edit</Button>
+                  <Button component={Link} to={AppRoutes.edit + loadedEntity.title} variant="outlined">Edit</Button>
                   }
                 </Grid>
               </Grid>
@@ -124,9 +124,9 @@ function ViewEntity(props) {
                       <Chip
                         key={link.title}
                         label={link.title}
-                        href={AppRoutes.entity + link.title + "?date=" + link.dates[0]}
+                        to={AppRoutes.entity + link.title + "?date=" + link.dates[0]}
                         clickable
-                        component="a"
+                        component={Link}
                       />
                     ))}</td>
                 </tr>
@@ -140,9 +140,9 @@ function ViewEntity(props) {
                         key={title}
                         label={title}
                         variant="outlined"
-                        href={AppRoutes.search + title + ':'}
+                        to={AppRoutes.search + title + ':'}
                         clickable
-                        component="a"
+                        component={Link}
                       />
                     ))}
                   </td>

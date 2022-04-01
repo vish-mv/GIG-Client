@@ -89,43 +89,43 @@ function Home(props) {
           </Grid>
           <Grid item sx={{flexGrow: 1}}/>
         </Grid>
-        {stat ?
-          <div style={{paddingTop: 20}}>
-            <Chip color="primary" clickable
-                  label={<CountUp {...counterProps} prefix={"Total Entities: "}
-                                  end={stat.entity_count}/>}/>
-            <Chip color="primary" clickable
-                  label={<CountUp {...counterProps} prefix={"Total Relations: "}
-                                  end={stat.relation_count}/>}/>
-            <Chip color="primary" clickable
-                  label={<CountUp {...counterProps} prefix={"Total Categories: "}
-                                  end={stat.category_wise_count.length}/>}/>
+        {stat &&
+        <div style={{paddingTop: 20}}>
+          <Chip color="primary" clickable
+                label={<CountUp {...counterProps} prefix={"Total Entities: "}
+                                end={stat.entity_count}/>}/>
+          <Chip color="primary" clickable
+                label={<CountUp {...counterProps} prefix={"Total Relations: "}
+                                end={stat.relation_count}/>}/>
+          <Chip color="primary" clickable
+                label={<CountUp {...counterProps} prefix={"Total Categories: "}
+                                end={stat.category_wise_count.length}/>}/>
 
 
-            {/*<div>*/}
-            {/*<Typography>Categories:</Typography>*/}
-            {/*{stat?.category_wise_count?.map((category) => (*/}
-            {/*<Chip key={"chip_" + category._id} color="primary" variant="outlined"*/}
-            {/*component="a" href={AppRoutes.search + category._id + ":"} clickable*/}
-            {/*label={<CountUp {...counterProps} prefix={category._id + ": "}*/}
-            {/*end={category.category_count}/>}/>*/}
-            {/*))}*/}
-            {/*</div>*/}
+          {/*<div>*/}
+          {/*<Typography>Categories:</Typography>*/}
+          {/*{stat?.category_wise_count?.map((category) => (*/}
+          {/*<Chip component={Link} to={AppRoutes.search + category._id + ":"} key={"chip_" + category._id}*/}
+          {/*color="primary" variant="outlined"*/}
+          {/*clickable*/}
+          {/*label={<CountUp {...counterProps} prefix={category._id + ": "}*/}
+          {/*end={category.category_count}/>}/>*/}
+          {/*))}*/}
+          {/*</div>*/}
 
-            {/*<div>*/}
-            {/*<Typography>Exclusive Category Groupings:</Typography>*/}
-            {/*{stat?.category_group_wise_count?.map((category_group) => (*/}
-            {/*<Chip key={"chip_" + category_group._id} color="secondary"*/}
-            {/*variant="outlined"*/}
-            {/*component="a" href={AppRoutes.search + category_group._id.join() + ":"} clickable*/}
-            {/*label={<CountUp {...counterProps} prefix={category_group._id.join() + ": "}*/}
-            {/*end={category_group.category_count}/>}/>*/}
-            {/*))}*/}
-            {/*</div>*/}
+          {/*<div>*/}
+          {/*<Typography>Exclusive Category Groupings:</Typography>*/}
+          {/*{stat?.category_group_wise_count?.map((category_group) => (*/}
+          {/*<Chip component={Link} to={AppRoutes.search + category_group._id.join() + ":"}*/}
+          {/*key={"chip_" + category_group._id} color="secondary"*/}
+          {/*variant="outlined" clickable*/}
+          {/*label={<CountUp {...counterProps} prefix={category_group._id.join() + ": "}*/}
+          {/*end={category_group.category_count}/>}/>*/}
+          {/*))}*/}
+          {/*</div>*/}
 
-          </div>
-          : null}
-        <Link to={AppRoutes.graph} style={{textDecoration: "none"}}>
+        </div>}
+        <Link to={AppRoutes.graph}>
           <Button variant="contained" color="secondary" type="button" style={{borderRadius: 25, marginTop: 10}}>
             View Graph
           </Button>

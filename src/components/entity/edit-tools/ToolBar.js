@@ -9,7 +9,7 @@ import Tab from "@mui/material/Tab/Tab";
 import Box from "@mui/material/Box/Box";
 import Typography from '@mui/material/Typography';
 import Fade from '@mui/material/Fade';
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 export default function ToolBar(props) {
   const navigate = useNavigate();
@@ -57,7 +57,7 @@ export default function ToolBar(props) {
             </Fade>
           </Grid>
           <Grid item>
-            <Button component="a" href={AppRoutes.entity + loadedEntity?.title} variant="outlined">View</Button>
+            <Button component={Link} to={AppRoutes.entity + loadedEntity?.title} variant="outlined">View</Button>
           </Grid>
           <Grid item>
             <Button disabled={!isModified} variant="outlined" color="primary" type="button"

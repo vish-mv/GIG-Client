@@ -12,7 +12,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
   monospace;
 }
-h1{
+
+h1 {
   font-size: 4rem;
   margin: 0;
+}
+
+a:-webkit-any-link {
+  text-decoration: none;
 }
