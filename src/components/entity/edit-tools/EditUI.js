@@ -5,7 +5,7 @@ import Chip from "@mui/material/Chip";
 import ValueEditor from "./ValueEditor";
 import ChipInput from 'material-ui-chip-input'
 import moment from 'moment/moment'
-import {ServerDateFormat, ValueTypes} from "@lsflk/gig-client-shared/constants"
+import {ServerDateFormat, ValueTypes} from "gig-client-shared/constants"
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';

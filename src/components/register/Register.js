@@ -4,7 +4,7 @@ import Button from "@mui/material/Button/Button";
 import {Link, useNavigate} from "react-router-dom";
 import {withStyles} from "@mui/styles";
 import Styles from "../shared/Styles";
-import {readerRegister} from "@lsflk/gig-client-shared/auth";
+import {readerRegister} from "gig-client-shared/auth";
 import {AppRoutes} from "../../routes";
 import Typography from "@mui/material/Typography/Typography";
 import FormControl from "@mui/material/FormControl/FormControl";

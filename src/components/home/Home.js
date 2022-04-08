@@ -7,7 +7,7 @@ import Chip from '@mui/material/Chip';
 import Styles, {counterProps} from "./Styles";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import './Home.css'
-import {getGraphStats} from "@lsflk/gig-client-shared/functions";
+import {getGraphStats} from "gig-client-shared/functions";
 import {AppRoutes} from "../../routes";
 import {AppPreferences} from "../../preferences";
 import UserInfo from "../shared/user-info/UserInfo";

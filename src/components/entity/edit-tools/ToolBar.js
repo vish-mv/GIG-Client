@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import Grid from "@mui/material/Grid/Grid";
 import Button from "@mui/material/Button/Button";
-import {deleteEntity, updateEntity} from "@lsflk/gig-client-shared/functions";
+import {deleteEntity, updateEntity} from "gig-client-shared/functions";
 import Paper from "@mui/material/Paper/Paper";
 import {AppRoutes} from "../../../routes";
 import Tabs from "@mui/material/Tabs/Tabs";

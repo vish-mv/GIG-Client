@@ -2,7 +2,7 @@ import * as React from 'react';
 import TextField from "@mui/material/TextField";
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import {ServerDateFormat, ValueTypes} from "@lsflk/gig-client-shared/constants";
+import {ServerDateFormat, ValueTypes} from "gig-client-shared/constants";
 import ValueStringEditor from "./ValueStringEditor";
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';

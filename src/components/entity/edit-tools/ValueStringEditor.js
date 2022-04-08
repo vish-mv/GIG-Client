@@ -1,6 +1,6 @@
 import React from 'react';
 import TextField from "@mui/material/TextField/TextField";
-import {ServerDateFormat, ValueTypes} from "@lsflk/gig-client-shared/constants";
+import {ServerDateFormat, ValueTypes} from "gig-client-shared/constants";
 import {JsonEditor} from "jsoneditor-react/es";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';

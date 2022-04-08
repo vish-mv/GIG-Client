@@ -3,8 +3,8 @@ import {withStyles} from '@mui/styles';
 import {Link, useParams} from 'react-router-dom'
 import Grid from "@mui/material/Grid/Grid";
 import {Styles} from "./Styles";
-import {getGraphStats, getResults} from "@lsflk/gig-client-shared/functions";
-import {InfiniteList, MainContentList} from "@lsflk/gig-client-shared/components";
+import {getGraphStats, getResults} from "gig-client-shared/functions";
+import {InfiniteList, MainContentList} from "gig-client-shared/components";
 import {AppRoutes} from "../../routes";
 import List from "@mui/material/List/List";
 import ListItem from "@mui/material/ListItem/ListItem";
@@ -13,7 +13,7 @@ import Divider from "@mui/material/Divider/Divider";
 import Box from "@mui/material/Box/Box";
 import "./Search.css";
 import Typography from "@mui/material/Typography";
-import {ApiRoutes} from "@lsflk/gig-client-shared/routes";
+import {ApiRoutes} from "gig-client-shared/routes";
 
 
 function SearchResults(props) {

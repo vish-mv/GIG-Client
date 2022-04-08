@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import {withStyles} from '@mui/styles';
 import Paper from '@mui/material/Paper';
 import {useParams} from 'react-router-dom';
-import {getEntity} from "@lsflk/gig-client-shared/functions";
+import {getEntity} from "gig-client-shared/functions";
 import {Styles} from "./Styles";
 import {Facebook} from 'react-content-loader';
 import Box from "@mui/material/Box/Box";
