@@ -25,3 +25,5 @@ yarn-error.log*
 
 package-lock.json
 .env
+
+build_n_deploy.sh
