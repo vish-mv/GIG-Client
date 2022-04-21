@@ -26,3 +26,4 @@ yarn-error.log*
 .env
 
 deploy_dev.sh
+package-lock.json
