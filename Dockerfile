@@ -1,10 +1,10 @@
 # build environment
-FROM node:14.19.0-alpine as build
+FROM node:14.17.5-alpine as build
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json /app/package.json
+RUN apk add --no-cache git
 RUN npm install --silent
-RUN npm install react-scripts@3.0.1 -g --silent
 COPY . /app
 
 # set baseurl to get connected with backend API
