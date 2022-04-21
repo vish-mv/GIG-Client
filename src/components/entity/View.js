@@ -64,6 +64,8 @@ function ViewEntity(props) {
     },
   }));
 
+  console.log(loadedEntity);
+
   const AccordionDetails = styled(MuiAccordionDetails)(({theme}) => ({
     padding: theme.spacing(2),
     borderTop: '1px solid rgba(0, 0, 0, .125)',
@@ -105,7 +107,7 @@ function ViewEntity(props) {
                           </AccordionSummary>
                           <AccordionDetails>
                             <FormattedContentViewer
-                              key={attribute[1]?.name} content={attributeValue}
+                              key={attribute[1]?.name} childKey={attribute[1]?.name} content={attributeValue}
                               highlightTags={loadedEntity?.links?.map((link) => link.title)}
                               entityRoute={AppRoutes.entity}
                             />

@@ -25,4 +25,4 @@ yarn-error.log*
 
 .env
 
-build_n_deploy.sh
+deploy_dev.sh
