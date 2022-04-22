@@ -73,7 +73,6 @@ const Styles = theme => ({
     justifyContent: 'center',
   },
   inputRoot: {
-    marginTop: '3px',
     color: '#0000008F',
     width: '100%',
     paddingRight: theme.spacing(2),
