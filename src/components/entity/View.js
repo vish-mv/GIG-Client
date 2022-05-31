@@ -103,7 +103,7 @@ function ViewEntity(props) {
                             aria-controls="panel1a-content"
                             id="panel1a-header"
                           >
-                            {new Date(attributeValue?.updated_at).toLocaleString()}
+                            Value assigned on: {new Date(attributeValue?.date).toLocaleString()}
                           </AccordionSummary>
                           <AccordionDetails>
                             <FormattedContentViewer
