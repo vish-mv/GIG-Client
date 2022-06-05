@@ -3,9 +3,8 @@ FROM node:14.17.5-alpine as build
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json /app/package.json
-COPY package-lock.json /app/package-lock.json
 RUN apk add --no-cache git
-RUN npm install --production
+RUN npm install
 COPY . /app
 
 # set baseurl to get connected with backend API
