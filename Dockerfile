@@ -4,7 +4,7 @@ WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json /app/package.json
 RUN apk add --no-cache git
-RUN npm install
+RUN npm install --production
 COPY . /app
 
 # set baseurl to get connected with backend API
