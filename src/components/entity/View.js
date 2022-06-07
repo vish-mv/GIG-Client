@@ -34,7 +34,10 @@ function ViewEntity(props) {
   });
 
   const Accordion = styled((childProps) => (
-    <MuiAccordion disableGutters elevation={0} square {...childProps} />
+    <MuiAccordion disableGutters elevation={0} square {...childProps}
+                  TransitionProps={{
+                    timeout: 500
+                  }}/>
   ))(({theme}) => ({
     border: `1px solid ${theme.palette.divider}`,
     '&:not(:last-child)': {
