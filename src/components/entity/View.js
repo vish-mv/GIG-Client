@@ -109,7 +109,7 @@ function ViewEntity(props) {
                           </AccordionSummary>
                           <AccordionDetails>
                             <FormattedContentViewer
-                              key={attribute[1]?.name} childKey={attribute[1]?.name} content={attributeValue}
+                              key={"formatted-view-"+attribute[1]?.name} childKey={"formatted-child-view-"+attribute[1]?.name} content={attributeValue}
                               highlightTags={loadedEntity?.links?.map((link) => link.title)}
                               entityRoute={AppRoutes.entity}
                             />
