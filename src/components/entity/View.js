@@ -126,9 +126,9 @@ function ViewEntity(props) {
                   <td>
                     {loadedEntity?.links?.map((link) => (
                       <Chip
-                        key={link.title}
-                        label={link.title}
-                        to={AppRoutes.entity + link.title + "?date=" + link.dates[0]}
+                        key={link?.title}
+                        label={link?.title}
+                        to={AppRoutes.entity + link?.title + "?date=" + link?.dates?.[0]}
                         clickable
                         component={Link}
                       />
