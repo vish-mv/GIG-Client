@@ -154,7 +154,7 @@ export default function EditUI(props) {
                           }}
                         />
                       }}
-                      value={link.dates.map((date) => moment(date).format("MM/DD/yyyy hh:mm A"))}
+                      value={link?.dates?.map((date) => moment(date).format("MM/DD/yyyy hh:mm A"))}
                       onAdd={(chip) => {
                         let entityCopy = {...entity};
                         entityCopy.links[linkIndex].dates = [...entityCopy.links[linkIndex].dates, moment(chip).format(ServerDateFormat)];
