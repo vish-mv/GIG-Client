@@ -11,10 +11,12 @@ export function addNewEntitiesToGraph(currentGraph, newEntities) {
 
     });
     entity.categories.forEach((category) => {
-      links.push({
-        source: category,
-        target: entity.title
-      });
+      if (category !== "arbitrary-entities") {
+        links.push({
+          source: category,
+          target: entity.title
+        });
+      }
     });
 
   });
