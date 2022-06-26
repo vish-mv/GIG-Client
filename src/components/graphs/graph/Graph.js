@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from "react"
 import SpriteText from 'three-spritetext';
-import {getGraphStats, getResults} from "gig-client-shared/functions";
+import {getGraph, getGraphStats, getResults} from "gig-client-shared/functions";
 import {ApiRoutes} from "gig-client-shared/routes";
 import {addNewEntitiesToGraph, createDataGraphFromStats, createLinkNodesFromEntityNode} from "./Functions";
 import GraphPanel from "../panel/GraphPanel";
@@ -18,6 +18,7 @@ function Graph() {
   const [viewGraphPanel, setViewGraphPanel] = useState(true);
   const [stat, setStat] = useState(null);
   const [graphData, setGraphData] = useState(null);
+  const [graphLinks, setGraphLinks] = useState(null);
   const [resultsPerNode, setResultsPerNode] = useState(0);
   const [nodeStyle, setNodeStyle] = useState(NodeStyle.name);
   const [backgroundTheme, setBackgroundTheme] = useState(GraphTheme.light);
@@ -48,6 +49,11 @@ function Graph() {
     }
   }
 
+  async function getGraphLinks() {
+    const categoryNetwork = await getGraph();
+    setGraphLinks(categoryNetwork.payload);
+  }
+
   async function getSearchResults(searchParam) {
     if (searchParam.length > 1) {
       return getResults(searchParam, ApiRoutes.search);
@@ -56,7 +62,7 @@ function Graph() {
   }
 
   const loadInitialGraph = useCallback(async () => {
-    let statGraph = createDataGraphFromStats(stat);
+    let statGraph = createDataGraphFromStats(stat, graphLinks);
     setGraphData(statGraph);
     if (resultsPerNode > 0) {
       if (searchKey && searchKey !== "") {
@@ -77,15 +83,17 @@ function Graph() {
       }
 
     }
-  }, [setGraphData, stat, resultsPerNode, searchKey]);
+  }, [setGraphData, stat, graphLinks, resultsPerNode, searchKey]);
 
   useEffect(() => {
-    if (stat) {
+    if (stat && graphLinks) {
       loadInitialGraph().then(() => console.log("initial graph loaded!"))
-    } else {
-      getStats().then(() => console.log("graph stats loaded."))
     }
-  }, [stat, loadInitialGraph]);
+    if (!stat) {
+      getStats().then(() => console.log("graph stats loaded."))
+      getGraphLinks().then(() => console.log("graph links loaded"))
+    }
+  }, [stat, graphLinks, loadInitialGraph]);
 
   async function handleNodeClick(node) {
     switch (node.type) {

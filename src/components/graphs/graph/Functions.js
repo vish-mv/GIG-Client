@@ -1,11 +1,11 @@
 export function addNewEntitiesToGraph(currentGraph, newEntities) {
   const {nodes, links} = currentGraph;
   newEntities.forEach((entity) => {
-    const linksArray = entity.links.map(linkObj => linkObj.title);
+    const linksArray = entity.links?.map(linkObj => linkObj.title);
     nodes.push({
       id: entity.title,
       name: entity.title,
-      value: entity.links.length,
+      value: entity.links?.length,
       type: "entity",
       links: linksArray
 
@@ -23,12 +23,16 @@ export function addNewEntitiesToGraph(currentGraph, newEntities) {
 
 export function createCategoryNodesFromStats(stat) {
   //format category data to graph data structure
-  return stat?.category_wise_count?.map((i) => ({
-    id: i._id,
-    name: i._id,
-    value: i.category_count,
-    type: "category"
-  }));
+  return stat?.category_wise_count?.filter((i) => {
+    return i?._id !== "arbitrary-entities"
+  }).map((i) => (
+    {
+      id: i._id,
+      name: i._id,
+      value: i.category_count,
+      type: "category"
+    }
+  ));
 }
 
 export function createLinkNodesFromEntityNode(currentGraph, node) {
@@ -67,9 +71,24 @@ export function createNodeLinksFromStats(stat) {
   return links
 }
 
-export function createDataGraphFromStats(stat) {
+export function createNodeLinksFromCategories(graphLinks) {
+  let links = [];
+  Object.keys(graphLinks).forEach((node) => {
+    if (node !== "arbitrary-entities") {
+      Object.keys(graphLinks[node]).forEach((child) => {
+        if (child !== "arbitrary-entities") {
+          links.push({source: node, target: child})
+        }
+      })
+    }
+  });
+  return links
+}
+
+export function createDataGraphFromStats(stat, graphLinks) {
   const nodes = createCategoryNodesFromStats(stat);
-  const links = createNodeLinksFromStats(stat);
+  // const links = createNodeLinksFromStats(stat);
+  const links = createNodeLinksFromCategories(graphLinks);
   return {nodes: nodes, links: links};
 }
 
