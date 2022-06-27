@@ -10,7 +10,7 @@ export function addNewEntitiesToGraph(currentGraph, newEntities) {
       links: linksArray
 
     });
-    entity.categories.forEach((category) => {
+    entity.categories?.forEach((category) => {
       if (category !== "arbitrary-entities") {
         links.push({
           source: category,
