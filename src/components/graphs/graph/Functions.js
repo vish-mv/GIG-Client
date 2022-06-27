@@ -59,9 +59,10 @@ export function createNodeLinksFromStats(stat) {
   let links = [];
 
   function createLinkPairs(item) {
-    if (item._id.length > 1) {
-      let result = item._id.flatMap(
-        (v, i) => item._id.slice(i + 1).map(w => [v, w])
+    let categories= item._id.filter(category=> category!=="arbitrary-entities");
+    if (categories.length > 1) {
+      let result = categories.flatMap(
+        (v, i) => categories.slice(i + 1).map(w => [v, w])
       );
       result.forEach((i) => {
         links.push({source: i[0], target: i[1]})
@@ -89,9 +90,9 @@ export function createNodeLinksFromCategories(graphLinks) {
 
 export function createDataGraphFromStats(stat, graphLinks) {
   const nodes = createCategoryNodesFromStats(stat);
-  // const links = createNodeLinksFromStats(stat);
+  const statLinks = createNodeLinksFromStats(stat);
   const links = createNodeLinksFromCategories(graphLinks);
-  return {nodes: nodes, links: links};
+  return {nodes: nodes, links: links.concat(statLinks)};
 }
 
 
