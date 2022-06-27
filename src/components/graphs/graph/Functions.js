@@ -90,9 +90,9 @@ export function createNodeLinksFromCategories(graphLinks) {
 
 export function createDataGraphFromStats(stat, graphLinks) {
   const nodes = createCategoryNodesFromStats(stat);
-  const statLinks = createNodeLinksFromStats(stat);
+  // const statLinks = createNodeLinksFromStats(stat);
   const links = createNodeLinksFromCategories(graphLinks);
-  return {nodes: nodes, links: links.concat(statLinks)};
+  return {nodes: nodes, links: links};
 }
 
 
