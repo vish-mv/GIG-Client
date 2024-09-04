@@ -6,7 +6,7 @@ COPY package.json /app/package.json
 RUN apk update && apk upgrade && \
     apk add --no-cache bash git openssh
 RUN npm cache clean --force
-RUN npm install --silent
+RUN npm install --silent --legacy-peer-deps
 COPY . /app
 
 # set baseurl to get connected with backend API

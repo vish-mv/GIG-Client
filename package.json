@@ -35,12 +35,16 @@
     "react-force-graph": "^1.41.12",
     "react-quill": "^2.0.0-beta.4",
     "react-router-dom": "^6.2.2",
-    "react-scripts": "4.0.3",
+    "react-scripts": "^5.0.0",
     "react-spinners": "^0.11.0",
     "three-spritetext": "^1.6.5",
     "web-vitals": "^2.1.4",
     "ajv": "^6.12.6",
-    "ajv-keywords": "^3.5.2"
+    "ajv-keywords": "^3.5.2",
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "@babel/preset-react": "^7.16.0",
+    "babel-loader": "^8.2.3"
   },
   "scripts": {
     "start": "react-scripts start",
