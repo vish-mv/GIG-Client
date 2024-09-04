@@ -5,8 +5,8 @@ ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json /app/package.json
 RUN apk update && apk upgrade && \
     apk add --no-cache bash git openssh
-RUN npm install --production
-RUN npm install react-scripts@3.0.1 -g --silent
+RUN npm cache clean --force
+RUN npm install --silent
 COPY . /app
 
 # set baseurl to get connected with backend API
