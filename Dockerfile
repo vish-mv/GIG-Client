@@ -5,8 +5,10 @@ ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json /app/package.json
 RUN apk update && apk upgrade && \
     apk add --no-cache bash git openssh
-RUN npm cache clean --force
+
+# Install dependencies with legacy peer deps
 RUN npm install --silent --legacy-peer-deps
+
 COPY . /app
 
 # set baseurl to get connected with backend API

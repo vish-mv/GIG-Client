@@ -46,6 +46,9 @@
     "@babel/preset-react": "^7.16.0",
     "babel-loader": "^8.2.3"
   },
+  "devDependencies": {
+    "react-scripts": "^5.0.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
