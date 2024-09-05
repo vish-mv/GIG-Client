@@ -12,9 +12,9 @@ RUN npm install --silent --legacy-peer-deps
 COPY . /app
 
 # set baseurl to get connected with backend API
+ARG SERVER_URL=https://f2c7f522-ef47-48ce-a429-3fc2f15d2011-copilote1.e1-us-east-azure.choreoapis.dev/ldf/gig-backend/v1.0
 
 RUN npm run build --if-present
-ARG SERVER_URL=https://f2c7f522-ef47-48ce-a429-3fc2f15d2011-copilote1.e1-us-east-azure.choreoapis.dev/ldf/gig-backend/v1.0
 
 ENV REACT_APP_SERVER_URL=$SERVER_URL
 
