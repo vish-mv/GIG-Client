@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react";
-import {withStyles} from '@mui/styles';
-import {Link, useParams} from 'react-router-dom'
+import React, { useEffect, useState } from "react";
+import { withStyles } from '@mui/styles';
+import { Link, useParams } from 'react-router-dom'
 import Grid from "@mui/material/Grid/Grid";
-import {Styles} from "./Styles";
-import {getGraphStats, getResults} from "gig-client-shared/functions";
-import {InfiniteList, MainContentList} from "gig-client-shared/components";
-import {AppRoutes} from "../../routes";
+import { Styles } from "./Styles";
+import { getGraphStats, getResults } from "gig-client-shared/functions";
+import { InfiniteList, MainContentList } from "gig-client-shared/components";
+import { AppRoutes } from "../../routes";
 import List from "@mui/material/List/List";
 import ListItem from "@mui/material/ListItem/ListItem";
 import ListItemText from "@mui/material/ListItemText/ListItemText";
@@ -13,13 +13,18 @@ import Divider from "@mui/material/Divider/Divider";
 import Box from "@mui/material/Box/Box";
 import "./Search.css";
 import Typography from "@mui/material/Typography";
-import {ApiRoutes} from "gig-client-shared/routes";
+import { ApiRoutes } from "gig-client-shared/routes";
 
+// Set the REACT_APP_SERVER_URL environment variable
+if (typeof window !== 'undefined' && window.configs && window.configs.serviceURL) {
+  process.env.REACT_APP_SERVER_URL = window.configs.serviceURL;
+} else {
+  process.env.REACT_APP_SERVER_URL = "/";
+}
 
 function SearchResults(props) {
-
-  const {searchParam} = useParams();
-  const {classes, setIsLoading} = props;
+  const { searchParam } = useParams();
+  const { classes, setIsLoading } = props;
   const [stat, setStat] = useState(null);
 
   function getStats() {
@@ -76,8 +81,7 @@ function SearchResults(props) {
         />
       </Grid>
     </Grid>
-  )
-    ;
+  );
 }
 
 export default withStyles(Styles)(SearchResults);
