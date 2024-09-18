@@ -18,13 +18,11 @@ import Tooltip from '@mui/material/Tooltip';
 import Grid from "@mui/material/Grid/Grid";
 import Typography from "@mui/material/Typography/Typography";
 
-if (typeof window !== 'undefined' && window.configs && window.configs.serviceURL) {
-  process.env.REACT_APP_SERVER_URL = window.configs.serviceURL;
-  console.log(process.env.REACT_APP_SERVER_URL)
-} else {
-  process.env.REACT_APP_SERVER_URL = "/";
-  console.log(process.env.REACT_APP_SERVER_URL)
-}
+console.log("before set:"+process.env.REACT_APP_SERVER_URL)
+const API_URL = window?.configs?.serviceURL ? window.configs.serviceURL : "/";
+console.log("API url:"+API_URL)
+process.env.REACT_APP_SERVER_URL = API_URL
+console.log("after home:"+process.env.REACT_APP_SERVER_URL)
 
 function Home(props) {
   const navigate = useNavigate();
