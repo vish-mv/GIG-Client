@@ -18,8 +18,10 @@ import { ApiRoutes } from "gig-client-shared/routes";
 // Set the REACT_APP_SERVER_URL environment variable
 if (typeof window !== 'undefined' && window.configs && window.configs.serviceURL) {
   process.env.REACT_APP_SERVER_URL = window.configs.serviceURL;
+  console.log(process.env.REACT_APP_SERVER_URL)
 } else {
   process.env.REACT_APP_SERVER_URL = "/";
+  console.log(process.env.REACT_APP_SERVER_URL)
 }
 
 function SearchResults(props) {

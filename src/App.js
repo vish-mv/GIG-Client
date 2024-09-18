@@ -14,6 +14,14 @@ import Graph from "./components/graphs/graph/Graph";
 import {AppRoutes} from "./routes";
 import Register from "./components/register/Register";
 
+if (typeof window !== 'undefined' && window.configs && window.configs.serviceURL) {
+  process.env.REACT_APP_SERVER_URL = window.configs.serviceURL;
+  console.log(process.env.REACT_APP_SERVER_URL)
+} else {
+  process.env.REACT_APP_SERVER_URL = "/";
+  console.log(process.env.REACT_APP_SERVER_URL)
+}
+
 const appTheme = createTheme({
   palette: {
     mode: 'light',
